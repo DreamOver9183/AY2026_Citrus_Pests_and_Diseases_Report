@@ -168,19 +168,19 @@ YOLO26 系列模型在不同訓練階段的關鍵數據如下表所示：
 ：
 - 綜合訓練結果：
 
-![Results](%E6%A8%A1%E5%9E%8B%E8%A8%93%E7%B7%B4%E6%95%B8%E6%93%9A%E5%A0%B1%E5%91%8A/results.png)
+![Results](all_models_training_metrics/yolo26l_results.png)
 
 - PR 曲線：
 
-![PR Curve](%E6%A8%A1%E5%9E%8B%E8%A8%93%E7%B7%B4%E6%95%B8%E6%93%9A%E5%A0%B1%E5%91%8A/BoxPR_curve.png)
+![PR Curve](all_models_training_metrics/yolo26l_pr_curve.png)
 
 - F1 曲線：
 
-![F1 Curve](%E6%A8%A1%E5%9E%8B%E8%A8%93%E7%B7%B4%E6%95%B8%E6%93%9A%E5%A0%B1%E5%91%8A/BoxF1_curve.png)
+![F1 Curve](all_models_training_metrics/yolo26l_f1_curve.png)
 
 - 混淆矩陣：
 
-![Confusion Matrix](%E6%A8%A1%E5%9E%8B%E8%A8%93%E7%B7%B4%E6%95%B8%E6%93%9A%E5%A0%B1%E5%91%8A/confusion_matrix_normalized.png)
+![Confusion Matrix](all_models_training_metrics/yolo26l_confusion_matrix_norm.png)
 
 ### 2. YOLO26-nano 詳細訓練軌跡
 
@@ -202,15 +202,15 @@ YOLO26 系列模型在不同訓練階段的關鍵數據如下表所示：
 ：
 - 綜合訓練結果：
 
-![Results](%E6%A8%A1%E5%9E%8B%E8%A8%93%E7%B7%B4%E6%95%B8%E6%93%9A%E5%A0%B1%E5%91%8A/results%201.png)
+![Results](all_models_training_metrics/yolo26n_results.png)
 
 - PR 曲線：
 
-![PR Curve](%E6%A8%A1%E5%9E%8B%E8%A8%93%E7%B7%B4%E6%95%B8%E6%93%9A%E5%A0%B1%E5%91%8A/BoxPR_curve%201.png)
+![PR Curve](all_models_training_metrics/yolo26n_pr_curve.png)
 
 - 混淆矩陣：
 
-![Confusion Matrix](%E6%A8%A1%E5%9E%8B%E8%A8%93%E7%B7%B4%E6%95%B8%E6%93%9A%E5%A0%B1%E5%91%8A/confusion_matrix_normalized%201.png)
+![Confusion Matrix](all_models_training_metrics/yolo26n_confusion_matrix_norm.png)
 
 ### 3. YOLO26-nano+P2 詳細訓練軌跡
 
@@ -231,15 +231,15 @@ YOLO26 系列模型在不同訓練階段的關鍵數據如下表所示：
 ：
 - 綜合訓練結果：
 
-![Results](%E6%A8%A1%E5%9E%8B%E8%A8%93%E7%B7%B4%E6%95%B8%E6%93%9A%E5%A0%B1%E5%91%8A/results%202.png)
+![Results](all_models_training_metrics/yolo26n_p2_results.png)
 
 - PR 曲線：
 
-![PR Curve](%E6%A8%A1%E5%9E%8B%E8%A8%93%E7%B7%B4%E6%95%B8%E6%93%9A%E5%A0%B1%E5%91%8A/BoxPR_curve%202.png)
+![PR Curve](all_models_training_metrics/yolo26n_p2_pr_curve.png)
 
 - 混淆矩陣：
     
-    ![confusion_matrix_normalized.png](%E6%A8%A1%E5%9E%8B%E8%A8%93%E7%B7%B4%E6%95%B8%E6%93%9A%E5%A0%B1%E5%91%8A/confusion_matrix_normalized%202.png)
+    ![confusion_matrix_normalized.png](all_models_training_metrics/yolo26n_p2_confusion_matrix_norm.png)
     
 
 ### 4. YOLO26-nano-p2-w8a32 詳細訓練軌跡
@@ -257,15 +257,15 @@ YOLO26 系列模型在不同訓練階段的關鍵數據如下表所示：
 ：
 - 綜合訓練結果：
 
-![Results](%E6%A8%A1%E5%9E%8B%E8%A8%93%E7%B7%B4%E6%95%B8%E6%93%9A%E5%A0%B1%E5%91%8A/results%203.png)
+![Results](all_models_training_metrics/yolo26n_p2_w8a32_results.png)
 
 - PR 曲線：
 
-![PR Curve](%E6%A8%A1%E5%9E%8B%E8%A8%93%E7%B7%B4%E6%95%B8%E6%93%9A%E5%A0%B1%E5%91%8A/BoxPR_curve%203.png)
+![PR Curve](all_models_training_metrics/yolo26n_p2_w8a32_pr_curve.png)
 
 - 混淆矩陣：
 
-![Confusion Matrix](%E6%A8%A1%E5%9E%8B%E8%A8%93%E7%B7%B4%E6%95%B8%E6%93%9A%E5%A0%B1%E5%91%8A/confusion_matrix_normalized%203.png)
+![Confusion Matrix](all_models_training_metrics/yolo26n_p2_w8a32_confusion_matrix_norm.png)
 
 ---
 
@@ -307,15 +307,15 @@ SSD-MobileNetV3 系列模型在兩階段訓練（Phase 1 與 Phase 2）過程中
 ：
 - Loss 訓練對比曲線圖：
 
-![SSD Loss Curves](%E6%A8%A1%E5%9E%8B%E8%A8%93%E7%B7%B4%E6%95%B8%E6%93%9A%E5%A0%B1%E5%91%8A/ssd_loss_comparison.png)
+![SSD Loss Curves](all_models_training_metrics/ssd_mnv3_loss_comparison.png)
 
 - 混淆矩陣 (Threshold = 0.20)：
 
-![SSD Large Confusion Matrix](%E6%A8%A1%E5%9E%8B%E8%A8%93%E7%B7%B4%E6%95%B8%E6%93%9A%E5%A0%B1%E5%91%8A/ssd_large_confusion_matrix.png)
+![SSD Large Confusion Matrix](all_models_training_metrics/ssd_mnv3_large_confusion_matrix.png)
 
 - PR 曲線對比圖：
 
-![SSD PR Comparison](%E6%A8%A1%E5%9E%8B%E8%A8%93%E7%B7%B4%E6%95%B8%E6%93%9A%E5%A0%B1%E5%91%8A/ssd_pr_comparison.png)
+![SSD PR Comparison](all_models_training_metrics/ssd_mnv3_pr_comparison.png)
 
 ### 2. SSD-MobileNetV3-small 詳細訓練軌跡
 
@@ -351,15 +351,15 @@ SSD-MobileNetV3 系列模型在兩階段訓練（Phase 1 與 Phase 2）過程中
 ：
 - mAP 訓練對比曲線圖：
 
-![SSD mAP Curves](%E6%A8%A1%E5%9E%8B%E8%A8%93%E7%B7%B4%E6%95%B8%E6%93%9A%E5%A0%B1%E5%91%8A/ssd_map_comparison.png)
+![SSD mAP Curves](all_models_training_metrics/ssd_mnv3_map_comparison.png)
 
 - 混淆矩陣 (Threshold = 0.20)：
 
-![SSD Small Confusion Matrix](%E6%A8%A1%E5%9E%8B%E8%A8%93%E7%B7%B4%E6%95%B8%E6%93%9A%E5%A0%B1%E5%91%8A/ssd_small_confusion_matrix.png)
+![SSD Small Confusion Matrix](all_models_training_metrics/ssd_mnv3_small_confusion_matrix.png)
 
 - PR 曲線對比圖：
 
-![SSD PR Comparison](%E6%A8%A1%E5%9E%8B%E8%A8%93%E7%B7%B4%E6%95%B8%E6%93%9A%E5%A0%B1%E5%91%8A/ssd_pr_comparison.png)
+![SSD PR Comparison](all_models_training_metrics/ssd_mnv3_pr_comparison.png)
 
 ### 3. 混淆矩陣極端數據查證與分析
 
@@ -396,7 +396,7 @@ YOLO26 系列的整體指標高於 SSD-MobileNetV3 系列。
 - **SSD-MobileNetV3** 在 Phase 1（1~5 Epochs）僅微調偵測頭時，Loss 從 12.16 降至 5.58。解凍骨幹（Epoch 6）後，mAP 穩步提升至最優。
 - **YOLO26** 從首個 Epoch 即開始進行全網更新，收斂速度較快。例如 YOLO26-large 在 Epoch 10 即可達到 [mAP@50](mailto:mAP@50) = 0.8254。
 
-![ssd_small_confusion_matrix.png](%E6%A8%A1%E5%9E%8B%E8%A8%93%E7%B7%B4%E6%95%B8%E6%93%9A%E5%A0%B1%E5%91%8A/ssd_small_confusion_matrix.png)
+![ssd_small_confusion_matrix.png](all_models_training_metrics/ssd_mnv3_small_confusion_matrix.png)
 
 ### 3. 混淆矩陣極端數據查證與分析
 

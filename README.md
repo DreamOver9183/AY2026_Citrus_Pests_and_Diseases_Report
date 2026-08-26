@@ -195,36 +195,29 @@ powershell -ExecutionPolicy Bypass -File .agent/scripts/audit-structure.ps1 -Ver
 
 ### 6.2 章的職責重疊
 
-| 現況位置 | 問題 | 依 §2 應歸屬 |
-| --- | --- | --- |
-| `RAG向量資料庫/效能測試 - 手機.md` | 是行動端實機實測數據，卻放在建置章 | 系統測試與評估 |
-| `效能指標評估.md` 的「RAGAs 評估實驗記錄」 | 定義章混入實測記錄 | 系統測試與評估 |
-| `病蟲害辨識模型/0729_training_report.md` §3「資料集概況」 | 資料集統計寫在訓練報告內 | 改為引用〈資料集分析〉 |
-| `效能指標評估.md`、`參考文獻與參考資料.md` | 無子頁，正文直接寫在 L1 章索引 | 拆為章索引 + L2 報告 |
+| 現況位置 | 問題 | 依 §2 應歸屬 | 狀態 |
+| --- | --- | --- | --- |
+| `RAG向量資料庫/效能測試 - 手機.md` | 是行動端實機實測數據，卻放在建置章 | 系統測試與評估 | **已搬移**為 `系統測試與評估/20260729_mobile_rag_benchmark.md` |
+| `效能指標評估.md` 的「RAGAs 評估實驗記錄」 | 定義章混入實測記錄 | 系統測試與評估 | 待處理（需拆分正文） |
+| `病蟲害辨識模型/20260729_yolo26n_p2_training_report.md` §3「資料集概況」 | 資料集統計寫在訓練報告內 | 改為引用〈資料集分析〉 | 待處理（需拆分正文） |
+| `效能指標評估.md`、`參考文獻與參考資料.md` | 無子頁，正文直接寫在 L1 章索引 | 拆為章索引 + L2 報告 | 待處理（需拆分正文） |
 
-### 6.3 檔名的四種風格
+「待處理」三項都涉及搬動報告正文，依紅線 R1 需使用者逐篇指名後才能執行。
 
-| 樣態 | 例 | 問題 |
-| --- | --- | --- |
-| 純中文 | `架構設計.md` | 符合 N-2 |
-| 中英混用 | `YOLO26_Nano_P2_v2_v3比較.md` | 違反 N-2／N-3 |
-| 純英數但樣式不一 | `All_TFLite_Benchmark_Report` 是 Title_Case，`yolo26l_fp16_benchmark_report` 是全小寫 | 違反 N-3 |
-| 含空格或括號 | `效能測試 - 手機.md`、`提示詞(Prompt).md` | 違反 N-1 |
+### 6.3 檔名（已完成）
 
-另有 `0729_training_report.md` 的日期缺年份，違反 N-5。
+13 篇報告與 4 個資產資料夾已依 §5.2 更名，48 張圖已依 §5.3 更名。`filename_with_space`、`filename_with_paren`、`image_serial_suffix`、`image_placeholder_name`、`image_uuid_name` 五項指標皆為 0。
 
-### 6.4 圖檔命名
+圖檔語意逐張由引用點的章節標題或圖說推得。最典型的一組 —— `all_models_training_metrics/` 裡這四張圖原本分屬四個不同模型卻檔名相同，只靠尾碼區分：
 
-除語意命名者外，其餘分三類：**空格＋流水號**、**匯出工具亂碼**（`imported-image-XX`）、**UUID＋座標**（`images383e2442-...-2_941_1341_1345_391.jpg`）。
-
-其中流水號那類影響最大。`模型訓練數據報告/` 裡這四張圖分屬四個不同模型，但檔名毫無區別：
-
-| 現況檔名 | 實際內容 | 依 5.3 應命名為 |
+| 原檔名 | 實際內容 | 現檔名 |
 | --- | --- | --- |
 | `results.png` | YOLO26-large | `yolo26l_results.png` |
 | `results 1.png` | YOLO26-nano | `yolo26n_results.png` |
 | `results 2.png` | YOLO26-nano+P2 | `yolo26n_p2_results.png` |
 | `results 3.png` | YOLO26-nano-p2-w8a32 | `yolo26n_p2_w8a32_results.png` |
+
+這也是 N-4 禁止流水號的理由：機械地改成 `results_1.png` 會讓規則通過而缺陷留存，`apply-renames.ps1` 會直接擋下這種目標檔名。
 
 ## 7. 新增報告檢查清單
 

@@ -137,7 +137,7 @@ Epoch 86 出現 mAP@50 峰值 (0.8124)，此後模型進入平台期並波動，
 
 ### 數據工程管線架構
 
-![圖 3.1 YOLO26 柑橘病蟲害資料集數據工程管線架構](0729_training_report/imported-image-PeO.png)
+![圖 3.1 YOLO26 柑橘病蟲害資料集數據工程管線架構](20260729_yolo26n_p2_training_report/dataset_architecture.png)
 
 ### 表 3.1：資料集規模摘要
 
@@ -169,19 +169,19 @@ Epoch 86 出現 mAP@50 峰值 (0.8124)，此後模型進入平台期並波動，
 
 ### 圖 3.2：各類別圖片數 Train / Valid / Test 分佈
 
-![圖 3.2 全資料集 Train/Valid/Test 配比（含背景負樣本）](0729_training_report/imported-image-shZ.png)
+![圖 3.2 全資料集 Train/Valid/Test 配比（含背景負樣本）](20260729_yolo26n_p2_training_report/dataset_split_distribution.png)
 
 ### 圖 3.3：全體 25,566 Bboxes 類別占比分佈
 
-![圖 3.3 全體 25,566 Bboxes 類別占比分佈](0729_training_report/imported-image-Ms.png)
+![圖 3.3 全體 25,566 Bboxes 類別占比分佈](20260729_yolo26n_p2_training_report/dataset_class_distribution_all.png)
 
 ### 圖 3.4：Train 集 21,014 Bboxes 類別占比分佈（降採樣後）
 
-![圖 3.4 Train 集 21,014 Bboxes 類別占比分佈（降採樣後）](0729_training_report/imported-image-aLzI.png)
+![圖 3.4 Train 集 21,014 Bboxes 類別占比分佈（降採樣後）](20260729_yolo26n_p2_training_report/dataset_class_distribution_train.png)
 
 ### 圖 3.5：Train 集 Bbox 實際計數條形圖
 
-![圖 3.5 Train 集各類別 Bbox 計數分布與位置熱圖](0729_training_report/imported-image-vWW.jpg)
+![圖 3.5 Train 集各類別 Bbox 計數分布與位置熱圖](20260729_yolo26n_p2_training_report/dataset_bbox_count_train.jpg)
 
 > [NOTE]
 **labels.jpg 數據核驗**：條形圖顯示 Train 集各類別實際 Bbox 計數（Oily_Spot: 756、Canker: 5,267、Sooty_Mold: 1,036、Black_Spot: 800、Scale_Insect: 5,388、Citrus_Leaf_Miner: 904、Thrips: 2,841、Aphid: 4,022），與 `results.csv` 來源的表 5.1 一致。**寬高散布圖**顯示多數 Bbox 尺寸偏小（width/height 集中於 0~0.1 歸一化範圍），為使用 P2 特徵頭（160×160 感受野）的依據之一。
@@ -267,7 +267,7 @@ Epoch 86 出現 mAP@50 峰值 (0.8124)，此後模型進入平台期並波動，
 
 ### 圖 4.1：訓練全程損失與指標曲線（150 Epoch）
 
-![圖 4.1 訓練全程損失與指標曲線（150 Epoch）](0729_training_report/imported-image-mD.png)
+![圖 4.1 訓練全程損失與指標曲線（150 Epoch）](20260729_yolo26n_p2_training_report/yolo26n_p2_results.png)
 
 ### 損失收斂觀察
 
@@ -303,7 +303,7 @@ Epoch 86 出現 mAP@50 峰值 (0.8124)，此後模型進入平台期並波動，
 
 ### 圖 6.1：各類別 Precision-Recall 曲線
 
-![圖 6.1 各類別 Precision-Recall 曲線（mAP@0.5）](0729_training_report/imported-image-NTNs.png)
+![圖 6.1 各類別 Precision-Recall 曲線（mAP@0.5）](20260729_yolo26n_p2_training_report/yolo26n_p2_pr_curve.png)
 
 ### 表 6.1：各類別 AP@50（PR 曲線 AUC，最終 Valid 集評估）
 
@@ -325,7 +325,7 @@ Epoch 86 出現 mAP@50 峰值 (0.8124)，此後模型進入平台期並波動，
 
 ### 圖 6.2：各類別 F1-Confidence 曲線
 
-![圖 6.2 各類別 F1-Confidence 曲線](0729_training_report/imported-image-GK.png)
+![圖 6.2 各類別 F1-Confidence 曲線](20260729_yolo26n_p2_training_report/yolo26n_p2_f1_curve.png)
 
 ### F1 曲線分析
 
@@ -336,7 +336,7 @@ Epoch 86 出現 mAP@50 峰值 (0.8124)，此後模型進入平台期並波動，
 
 ### 圖 6.3：各類別 Precision-Confidence 曲線
 
-![圖 6.3 各類別 Precision-Confidence 曲線](0729_training_report/imported-image-oU.png)
+![圖 6.3 各類別 Precision-Confidence 曲線](20260729_yolo26n_p2_training_report/yolo26n_p2_p_curve.png)
 
 ### Precision-Confidence 曲線分析
 
@@ -346,7 +346,7 @@ Epoch 86 出現 mAP@50 峰值 (0.8124)，此後模型進入平台期並波動，
 
 ### 圖 6.4：各類別 Recall-Confidence 曲線
 
-![圖 6.4 各類別 Recall-Confidence 曲線](0729_training_report/imported-image-FC.png)
+![圖 6.4 各類別 Recall-Confidence 曲線](20260729_yolo26n_p2_training_report/yolo26n_p2_r_curve.png)
 
 ### Recall-Confidence 曲線分析
 
@@ -361,11 +361,11 @@ Epoch 86 出現 mAP@50 峰值 (0.8124)，此後模型進入平台期並波動，
 
 ### 圖 7.1：正規化混淆矩陣（Normalized Confusion Matrix）
 
-![圖 7.1 正規化混淆矩陣（Valid 集）](0729_training_report/imported-image-gA.png)
+![圖 7.1 正規化混淆矩陣（Valid 集）](20260729_yolo26n_p2_training_report/yolo26n_p2_confusion_matrix_norm.png)
 
 ### 圖 7.2：原始計數混淆矩陣（Absolute Count）
 
-![圖 7.2 原始計數混淆矩陣（Valid 集）](0729_training_report/imported-image-ami.png)
+![圖 7.2 原始計數混淆矩陣（Valid 集）](20260729_yolo26n_p2_training_report/yolo26n_p2_confusion_matrix.png)
 
 ### 表 7.1：各類別 TP Rate 與主要誤判去向
 

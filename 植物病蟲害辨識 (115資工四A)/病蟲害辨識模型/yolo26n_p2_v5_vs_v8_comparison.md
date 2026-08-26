@@ -59,7 +59,7 @@ v8於峰值後30 epoch（等於patience設定）停止；v5於峰值後持續運
 
 v5 vs v8 驗證指標收斂曲線疊圖
 
-![](v8_v5_%E6%95%B8%E6%93%9A%E6%AF%94%E8%BC%83%E5%A0%B1%E5%91%8A/images383e2442-2f8f-4fd8-a7d0-3d8c156bf3ce-2_941_1341_1345_391.jpg)
+![](yolo26n_p2_v5_vs_v8_comparison/yolo26n_p2_v5_vs_v8_metrics_curve.jpg)
 
 圖 1：v5 vs v8 驗證指標收斂曲線疊圖（資料來源：results．csv）
 
@@ -77,7 +77,7 @@ v5 vs v8 驗證指標收斂曲線疊圖
 | Aphid | 0.702 | 0.701 | －0．1pp |
 | 全類別 mAP＠0．5 | 0.809 | 0.820 | ＋1．1pp |
 
-![](v8_v5_%E6%95%B8%E6%93%9A%E6%AF%94%E8%BC%83%E5%A0%B1%E5%91%8A/images383e2442-2f8f-4fd8-a7d0-3d8c156bf3ce-3_726_1344_889_389.jpg)
+![](yolo26n_p2_v5_vs_v8_comparison/yolo26n_p2_v5_vs_v8_ap_by_class.jpg)
 
 圖 2：各類別 AP＠0．5 對比（資料來源：v5 報告表 6.1 、v8 報告表 4．3）
 

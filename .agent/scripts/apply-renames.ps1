@@ -65,7 +65,8 @@ foreach ($c in 'old', 'new') {
 }
 
 $errors = @()
-$map = @{}   # oldAbs -> newAbs
+$map = @{}   # oldAbs -> newAbs（檔案與資料夾皆可）
+$dirMap = @{} # 其中屬於「資料夾」的項目，連結改寫時需做前綴比對
 foreach ($r in $rows) {
     if ([string]::IsNullOrWhiteSpace($r.old) -or [string]::IsNullOrWhiteSpace($r.new)) { continue }
     $oldAbs = Get-Abs (Join-Path $Root $r.old)
@@ -85,6 +86,12 @@ foreach ($r in $rows) {
         $errors += "目標檔名違反 N-4（流水號結尾）：$($r.new)"
     }
     $map[$oldAbs] = $newAbs
+
+    # 資料夾改名：底下所有檔案的連結都要跟著改，因此另存一份供前綴比對。
+    # §1 規定資產資料夾必須與報告同名，所以報告改名時這裡一定會用到。
+    if ((Get-Item -LiteralPath $oldAbs) -is [System.IO.DirectoryInfo]) {
+        $dirMap[$oldAbs] = $newAbs
+    }
 }
 
 if ($errors.Count) {
@@ -122,8 +129,22 @@ foreach ($file in Get-ChildItem -LiteralPath $Root -Recurse -File -Filter *.md) 
         $decoded = [System.Uri]::UnescapeDataString($pathPart)
         try { $abs = Get-Abs (Join-Path $file.DirectoryName $decoded) } catch { continue }
 
+        # 先比對完整路徑；沒中再看是否落在某個被改名的資料夾底下
+        $newAbsTarget = $null
         if ($map.ContainsKey($abs)) {
-            $newRel = Get-RelFrom -FromDir $file.DirectoryName -TargetAbs $map[$abs]
+            $newAbsTarget = $map[$abs]
+        } else {
+            foreach ($d in $dirMap.Keys) {
+                $prefix = $d.TrimEnd('\', '/') + [System.IO.Path]::DirectorySeparatorChar
+                if ($abs.StartsWith($prefix, [System.StringComparison]::OrdinalIgnoreCase)) {
+                    $newAbsTarget = Join-Path $dirMap[$d] $abs.Substring($prefix.Length)
+                    break
+                }
+            }
+        }
+
+        if ($newAbsTarget) {
+            $newRel = Get-RelFrom -FromDir $file.DirectoryName -TargetAbs $newAbsTarget
             $encoded = (ConvertTo-EncodedPath $newRel) + $fragment
             $edits += [PSCustomObject]@{ Index = $g.Index; Length = $g.Length; Value = $encoded }
         }

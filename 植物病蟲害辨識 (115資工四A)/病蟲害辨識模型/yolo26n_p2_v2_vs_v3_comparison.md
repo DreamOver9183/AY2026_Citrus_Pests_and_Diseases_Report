@@ -41,11 +41,11 @@
 
 - **YOLO26-nano-p2-v2 數據集標籤分佈**
     
-    ![labels.jpg](YOLO26_Nano_P2_v2_v3%E6%AF%94%E8%BC%83/labels.jpg)
+    ![labels.jpg](yolo26n_p2_v2_vs_v3_comparison/yolo26n_p2_v2_labels.jpg)
     
 - **yolo26-nano-p2-v3 數據集標籤分佈**
     
-    ![labels.jpg](YOLO26_Nano_P2_v2_v3%E6%AF%94%E8%BC%83/labels%201.jpg)
+    ![labels.jpg](yolo26n_p2_v2_vs_v3_comparison/yolo26n_p2_v3_labels.jpg)
     
 
 1. **類別實例分佈 (Classes)**：展示訓練集中各類別目標框的絕對數量分佈。
@@ -103,11 +103,11 @@
 
 - **YOLO26-nano-p2-v2 Results**
     
-    ![results.png](YOLO26_Nano_P2_v2_v3%E6%AF%94%E8%BC%83/results.png)
+    ![results.png](yolo26n_p2_v2_vs_v3_comparison/yolo26n_p2_v2_results.png)
     
 - **YOLO26-nano-p2-v3 Results**
     
-    ![results.png](YOLO26_Nano_P2_v2_v3%E6%AF%94%E8%BC%83/results%201.png)
+    ![results.png](yolo26n_p2_v2_vs_v3_comparison/yolo26n_p2_v3_results.png)
     
 
 ## 4. 評估指標與性能曲線比較 (Performance Metrics & Curves)
@@ -116,11 +116,11 @@
 
 - **YOLO26-nano-p2-v2 PR**
     
-    ![BoxPR_curve.png](YOLO26_Nano_P2_v2_v3%E6%AF%94%E8%BC%83/BoxPR_curve.png)
+    ![BoxPR_curve.png](yolo26n_p2_v2_vs_v3_comparison/yolo26n_p2_v2_pr_curve.png)
     
 - **YOLO26-nano-p2-v3 PR**
     
-    ![BoxPR_curve.png](YOLO26_Nano_P2_v2_v3%E6%AF%94%E8%BC%83/BoxPR_curve%201.png)
+    ![BoxPR_curve.png](yolo26n_p2_v2_vs_v3_comparison/yolo26n_p2_v3_pr_curve.png)
     
 - **v2 模型**：峰值 mAP50 出現在 Epoch 76 (**0.89128**)，全歷程均值維持在高位。
 - **v3 模型**：峰值 mAP50 出現在 Epoch 65 (**0.88499**)，但在後期（Epoch 140-150）穩定度更佳，最終 Epoch mAP50 以 **0.87976** 反超 v2 的 **0.87754**。
@@ -131,22 +131,22 @@ F1 Score 綜合反映 Precision 與 Recall 之調和平均值。
 
 - **YOLO26-nano-p2-v2 F1**
     
-    ![BoxF1_curve.png](YOLO26_Nano_P2_v2_v3%E6%AF%94%E8%BC%83/BoxF1_curve.png)
+    ![BoxF1_curve.png](yolo26n_p2_v2_vs_v3_comparison/yolo26n_p2_v2_f1_curve.png)
     
 - **YOLO26-nano-p2-v3 F1**
     
-    ![BoxF1_curve.png](YOLO26_Nano_P2_v2_v3%E6%AF%94%E8%BC%83/BoxF1_curve%201.png)
+    ![BoxF1_curve.png](yolo26n_p2_v2_vs_v3_comparison/yolo26n_p2_v3_f1_curve.png)
     
 
 ### 4.3 Precision-Confidence 曲線比較 (BoxP Curve)
 
 - **YOLO26-nano-p2-v2 Precision**
     
-    ![BoxP_curve.png](YOLO26_Nano_P2_v2_v3%E6%AF%94%E8%BC%83/BoxP_curve.png)
+    ![BoxP_curve.png](yolo26n_p2_v2_vs_v3_comparison/yolo26n_p2_v2_p_curve.png)
     
 - **YOLO26-nano-p2-v3 Precision**
     
-    ![BoxP_curve.png](YOLO26_Nano_P2_v2_v3%E6%AF%94%E8%BC%83/BoxP_curve%201.png)
+    ![BoxP_curve.png](yolo26n_p2_v2_vs_v3_comparison/yolo26n_p2_v3_p_curve.png)
     
 - **v3 Precision 優勢**：高 Confidence 區間下，v3 在最終階段達到 **0.91327**（峰值 **0.91537** @ Ep 148），代表 v3 產生 False Positive（誤判）的機率顯著低於 v2。
 
@@ -154,11 +154,11 @@ F1 Score 綜合反映 Precision 與 Recall 之調和平均值。
 
 - **YOLO26-nano-p2-v2 Recall**
     
-    ![BoxR_curve.png](YOLO26_Nano_P2_v2_v3%E6%AF%94%E8%BC%83/BoxR_curve.png)
+    ![BoxR_curve.png](yolo26n_p2_v2_vs_v3_comparison/yolo26n_p2_v2_r_curve.png)
     
 - **YOLO26-nano-p2-v3 Recall**
     
-    ![BoxR_curve.png](YOLO26_Nano_P2_v2_v3%E6%AF%94%E8%BC%83/BoxR_curve%201.png)
+    ![BoxR_curve.png](yolo26n_p2_v2_vs_v3_comparison/yolo26n_p2_v3_r_curve.png)
     
 - **v2 Recall 優勢**：v2 在低 Confidence 門檻下捕捉更多真實目標，峰值 Recall 達 **0.88028** (Ep 103)，最終 Recall 為 **0.86390**，相較 v3 高出 **2.43%**。
 
@@ -172,22 +172,22 @@ F1 Score 綜合反映 Precision 與 Recall 之調和平均值。
 
 - **YOLO26-nano-p2-v2 混淆矩陣 (Raw)**
     
-    ![confusion_matrix.png](YOLO26_Nano_P2_v2_v3%E6%AF%94%E8%BC%83/confusion_matrix.png)
+    ![confusion_matrix.png](yolo26n_p2_v2_vs_v3_comparison/yolo26n_p2_v2_confusion_matrix.png)
     
 - **YOLO26-nano-p2-v3 混淆矩陣 (Raw)**
     
-    ![confusion_matrix.png](YOLO26_Nano_P2_v2_v3%E6%AF%94%E8%BC%83/confusion_matrix%201.png)
+    ![confusion_matrix.png](yolo26n_p2_v2_vs_v3_comparison/yolo26n_p2_v3_confusion_matrix.png)
     
 
 ### 5.2 正規化混淆矩陣 (Normalized Confusion Matrix)
 
 - **YOLO26-nano-p2-v2 混淆矩陣 (Normalized)**
     
-    ![confusion_matrix_normalized.png](YOLO26_Nano_P2_v2_v3%E6%AF%94%E8%BC%83/confusion_matrix_normalized.png)
+    ![confusion_matrix_normalized.png](yolo26n_p2_v2_vs_v3_comparison/yolo26n_p2_v2_confusion_matrix_norm.png)
     
 - **YOLO26-nano-p2-v3 混淆矩陣 (Normalized)**
     
-    ![confusion_matrix_normalized.png](YOLO26_Nano_P2_v2_v3%E6%AF%94%E8%BC%83/confusion_matrix_normalized%201.png)
+    ![confusion_matrix_normalized.png](yolo26n_p2_v2_vs_v3_comparison/yolo26n_p2_v3_confusion_matrix_norm.png)
     
 
 > **混淆矩陣對比結論**：
