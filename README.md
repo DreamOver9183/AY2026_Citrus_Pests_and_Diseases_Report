@@ -124,15 +124,36 @@
 
 圖表類型只能用下表字典中的詞：
 
+**單一模型的訓練輸出**
+
 | 字典值 | 圖表 | 字典值 | 圖表 |
 | --- | --- | --- | --- |
 | `results` | 訓練總覽曲線 | `confusion_matrix` | 混淆矩陣 |
 | `pr_curve` | Precision–Recall 曲線 | `confusion_matrix_norm` | 正規化混淆矩陣 |
 | `f1_curve` | F1 曲線 | `labels` | 標籤分佈 |
-| `p_curve` | Precision 曲線 | `loss_comparison` | 損失對比 |
-| `r_curve` | Recall 曲線 | `map_comparison` | mAP 對比 |
+| `p_curve` | Precision 曲線 | | |
+| `r_curve` | Recall 曲線 | | |
 
-範例：`yolo26n_p2_pr_curve.png`、`ssd_mnv3_large_confusion_matrix.png`、`yolo26n_p2_results_epoch150.png`
+**跨模型／跨版本對比**
+
+| 字典值 | 圖表 |
+| --- | --- |
+| `loss_comparison` | 損失對比 |
+| `map_comparison` | mAP 對比 |
+| `pr_comparison` | PR 曲線對比 |
+| `metrics_curve` | 多版本驗證指標疊圖 |
+| `ap_by_class` | 逐類別 AP 對比 |
+
+**資料集圖表**
+
+| 字典值 | 圖表 |
+| --- | --- |
+| `architecture` | 架構／流程圖 |
+| `split_distribution` | train / valid / test 劃分分佈 |
+| `class_distribution` | 類別占比分佈 |
+| `bbox_count` | 標註框實際計數 |
+
+範例：`yolo26n_p2_pr_curve.png`、`ssd_mnv3_large_confusion_matrix.png`、`dataset_class_distribution_train.png`、`yolo26n_p2_v5_vs_v8_metrics_curve.jpg`
 
 ### 5.4 名詞統一表
 
