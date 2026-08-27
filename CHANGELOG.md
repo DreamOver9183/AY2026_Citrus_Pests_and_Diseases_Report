@@ -66,6 +66,15 @@
 
 ---
 
+## 2026-08-27 17:00 — Claude Code
+
+- **範圍**：結構
+- **摘要**：修正 行動端應用程式開發 章節（最後一章）標題與骨架規範，並補齊 UML.md、需求分析.md 摘要段落。至此 `.agent/baseline.json` 全部 13 項結構指標歸零，README §6 全庫落差盤點清空
+- **影響檔案**：行動端應用程式開發.md、UML.md、需求分析.md；audit：heading_level_jumps 2→0、bold_headings 5→0、emoji_headings 1→0、files_without_summary 3→0，13 項指標全數收緊至 0
+- **commit**：`b7f91d8`
+
+---
+
 ## 2026-08-27 — Claude Code
 
 - **範圍**：規則文件
