@@ -30,6 +30,15 @@
 
 ---
 
+## 2026-08-27 15:50 — Claude Code
+
+- **範圍**：結構
+- **摘要**：依 README §6.2 處理三項章節職責重疊：(1) 將效能指標評估.md 內的「RAGAs 評估實驗記錄」搬到系統測試與評估／新增 citrus_rag_ragas_evaluation.md；(2) 訓練報告 §3「資料集概況」發現實為不同版本資料集（v5 非既有 v2），故新增 資料集分析/yolo26_v5_dataset_stats.md 收納並改為引用，同時搬移對應 5 張資料集圖檔、修掉 yolo26_v2_dataset_stats.md 與訓練報告本身的重複 H1；(3) 效能指標評估.md、參考文獻與參考資料.md 拆分為 L1 章索引 + L2 報告（參考文獻拆為學術文獻回顧、開源專案參考兩篇）
+- **影響檔案**：新增 3 個 L2 報告 + 移動 5 張圖檔；修改 效能指標評估.md、系統測試與評估.md、資料集分析.md、參考文獻與參考資料.md、20260729_yolo26n_p2_training_report.md、yolo26_v2_dataset_stats.md；audit：dup_h1_files 11→9、heading_level_jumps 6→5、bold_headings 21→5、emoji_headings 31→25、duplicate_headings 4→3、files_without_summary 16→13，基準線已收緊
+- **commit**：`dc86163`
+
+---
+
 ## 2026-08-27 — Claude Code
 
 - **範圍**：規則文件

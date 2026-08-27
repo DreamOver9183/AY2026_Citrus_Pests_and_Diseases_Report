@@ -1,5 +1,3 @@
-# Datasets_YOLO26_v2_Statistics_Report
-
 # Datasets_YOLO26_v2 數據集全方位統計與分析報告
 
 > **報告說明**：本報告針對 `Datasets_YOLO26_v2` 數據集進行完整解析。統計依據 `data.yaml` 所定義之 10 大特徵類別，明確區分**圖片數量（Image Count）**與**特徵/目標框數量（Feature / Bounding Box Count）**，並對檔名包含 `aug` 字樣之影像處理（Data Augmentation）版本與原始影像進行詳細交叉統計。
