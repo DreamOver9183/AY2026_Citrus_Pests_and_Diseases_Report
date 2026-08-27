@@ -31,9 +31,9 @@
 
 # 報告撰寫規範
 
-> **本節只定義規範，不代表現況。**
+> **本節只定義規範。**
 > 制定日：2026-08-27，依據當日全庫盤點（25 篇報告、314 個標題、48 張圖）。
-> 現有報告**尚未套用**本規範；§6 說明如何取得即時的落差清單。
+> 2026-08-27 完成全庫套用：檔名、章節職責重疊、標題與骨架規範三批工作皆已收尾，`.agent/baseline.json` 13 項結構指標全數為 0；§6 說明如何取得即時的落差清單以確認現況。
 > 新增或改寫任何報告時，以本節為準。
 
 **AI agent 請先讀 [`AGENTS.md`](AGENTS.md)**，那裡有紅線、驗證關卡與任務路由；本節是它引用的規範本體。規範是否被遵守由 [`.agent/scripts/`](.agent/scripts) 下的腳本自動檢查，不靠人工複查。
@@ -197,18 +197,20 @@ powershell -ExecutionPolicy Bypass -File .agent/scripts/audit-structure.ps1 -Ver
 | `image_serial_suffix` | N-4 圖檔以流水號結尾 |
 | `image_placeholder_name` / `image_uuid_name` | §5.3 匯出工具產生的無語意檔名 |
 
-### 6.2 章的職責重疊
+### 6.2 章的職責重疊（已完成）
 
-| 現況位置 | 問題 | 依 §2 應歸屬 | 狀態 |
+| 原位置 | 問題 | 依 §2 應歸屬 | 現況 |
 | --- | --- | --- | --- |
 | `RAG向量資料庫/效能測試 - 手機.md` | 是行動端實機實測數據，卻放在建置章 | 系統測試與評估 | **已搬移**為 `系統測試與評估/20260729_mobile_rag_benchmark.md` |
-| `效能指標評估.md` 的「RAGAs 評估實驗記錄」 | 定義章混入實測記錄 | 系統測試與評估 | 待處理（需拆分正文） |
-| `病蟲害辨識模型/20260729_yolo26n_p2_training_report.md` §3「資料集概況」 | 資料集統計寫在訓練報告內 | 改為引用〈資料集分析〉 | 待處理（需拆分正文） |
-| `效能指標評估.md`、`參考文獻與參考資料.md` | 無子頁，正文直接寫在 L1 章索引 | 拆為章索引 + L2 報告 | 待處理（需拆分正文） |
+| `效能指標評估.md` 的「RAGAs 評估實驗記錄」 | 定義章混入實測記錄 | 系統測試與評估 | **已搬移**為 `系統測試與評估/citrus_rag_ragas_evaluation.md` |
+| `病蟲害辨識模型/20260729_yolo26n_p2_training_report.md` §3「資料集概況」 | 資料集統計寫在訓練報告內，經查實為 `Datasets_YOLO26_v5`（非既有 v2）版本 | 改為引用〈資料集分析〉 | **已拆分**為 `資料集分析/yolo26_v5_dataset_stats.md`，訓練報告 §3 改為引用連結 |
+| `效能指標評估.md`、`參考文獻與參考資料.md` | 無子頁，正文直接寫在 L1 章索引 | 拆為章索引 + L2 報告 | **已拆分**：效能指標評估 → `效能指標評估/指標定義與評測方法.md`；參考文獻與參考資料 → `學術文獻回顧.md` + `開源專案參考.md` |
 
-「待處理」三項都涉及搬動報告正文，依紅線 R1 需使用者逐篇指名後才能執行。
+### 6.3 標題與骨架規範（已完成）
 
-### 6.3 檔名（已完成）
+`dup_h1_files`、`heading_level_jumps`、`headings_deeper_than_h4`、`bold_headings`、`emoji_headings`、`cn_numbered_headings`、`duplicate_headings`、`files_without_summary` 八項指標皆已收斂為 0：移除重複 H1 與標題跳級、去除標題加粗與 emoji、中文數字編號改阿拉伯數字、消除同層重複標題、為所有缺摘要的檔案補上「摘要」段落。
+
+### 6.4 檔名（已完成）
 
 13 篇報告與 4 個資產資料夾已依 §5.2 更名，48 張圖已依 §5.3 更名。`filename_with_space`、`filename_with_paren`、`image_serial_suffix`、`image_placeholder_name`、`image_uuid_name` 五項指標皆為 0。
 
