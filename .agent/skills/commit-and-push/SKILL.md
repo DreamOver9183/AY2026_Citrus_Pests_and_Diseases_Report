@@ -55,6 +55,22 @@ git diff --cached --name-only | Select-String '\.pdf$'
 - 涉及 audit 指標變化時，把數字寫進 message，之後回溯很有用
 - 不要把 `.agent/baseline.json` 的更新拆成獨立 commit，跟造成變化的那次變更放一起
 
+## 異動 Log（CHANGELOG.md）
+
+**每個 commit 都必須在 [`CHANGELOG.md`](../../../CHANGELOG.md) 最上方新增一筆紀錄**，欄位格式見該檔案本身。這是強制步驟，不是事後補記——commit message 寫完就接著寫這筆。
+
+流程（因為 log 要記錄 commit hash，但 commit 前還沒有 hash，所以分兩步）：
+
+1. 連同本次變更一起，把 `CHANGELOG.md` 的新條目也 `git add`，**commit 欄位先留空或寫 `(待回填)`**
+2. `git commit` 完成後，取得 hash 並回填：
+
+```powershell
+git rev-parse --short HEAD
+```
+
+3. 把 hash 填入剛剛新增的那筆條目，然後 `git commit --amend`——此時該 commit **尚未推送**，修改自己剛建立、還沒 push 的 commit 不算改寫歷史，不違反紅線 R2
+4. 確認 `git log -1` 內容正確後才進入下一步「推送」
+
 ## 推送
 
 ```powershell

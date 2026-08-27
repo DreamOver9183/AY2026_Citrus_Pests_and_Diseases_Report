@@ -52,6 +52,10 @@ powershell -ExecutionPolicy Bypass -File .agent/scripts/audit-structure.ps1
 
 兩支腳本 exit code 非 0 就是不得 commit。**不要以「我檢查過了」代替實際執行。**
 
+## 異動紀錄
+
+這是團隊共用 repo，**任何人或 agent 的每一次 commit，都必須在 [`CHANGELOG.md`](CHANGELOG.md) 新增一筆固定格式的紀錄**，寫在檔案最上方，不覆寫舊條目。欄位定義、範本、與寫入時機見 [`CHANGELOG.md`](CHANGELOG.md) 本身與 [`.agent/skills/commit-and-push/SKILL.md`](.agent/skills/commit-and-push/SKILL.md)。
+
 ## 任務路由
 
 | 你要做的事 | 載入 |

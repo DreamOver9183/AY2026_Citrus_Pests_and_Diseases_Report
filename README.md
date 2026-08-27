@@ -23,6 +23,10 @@
 - 本報告內容自 Notion 匯出後整理，原始匯出檔名中的 Notion ID 已移除，檔案間相對連結已一併改寫。
 - 參考文獻中的**第三方論文 PDF 未納入版本控制**，改以官方 / arXiv 連結呈現。
 
+### 異動紀錄
+
+本 repo 由團隊成員與 AI agent 共同維護。**任何人或 agent 的每一次 commit，都必須在 [`CHANGELOG.md`](CHANGELOG.md) 用固定格式新增一筆紀錄**（日期時間、異動人/Agent、範圍、摘要、影響檔案、對應 commit），寫在檔案最上方，不覆寫舊條目。格式細節與範本見 [`CHANGELOG.md`](CHANGELOG.md) 本身；AI agent 的執行流程見 [`AGENTS.md`](AGENTS.md) 的「異動紀錄」一節與 [`.agent/skills/commit-and-push/SKILL.md`](.agent/skills/commit-and-push/SKILL.md)。
+
 ---
 
 # 報告撰寫規範
