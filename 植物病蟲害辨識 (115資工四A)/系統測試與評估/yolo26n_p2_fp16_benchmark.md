@@ -1,8 +1,11 @@
-# yolo26n_p2_fp16_benchmark_report
-
 # YOLO26-nano+P2 FP16 TFLite 行動端實機基準測試報告
 
 本報告詳細記錄 **YOLO26-nano+P2 (FP16 TFLite)** 模型在特定行動裝置上的 CPU 實機測試數據。
+
+## 摘要
+
+- OPPO A3x（CPU only, XNNPACK）平均推論延遲 295.78 ms（約 3.38 FPS），記憶體增量 115.21 MB
+- 較標準 nano 慢 21.1%、記憶體多 25.8 MB，換取對微小病斑/害蟲更強的捕捉精確度；較 Large 版快 9.2 倍
 
 ---
 

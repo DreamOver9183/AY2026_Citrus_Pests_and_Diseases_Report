@@ -57,6 +57,15 @@
 
 ---
 
+## 2026-08-27 16:45 — Claude Code
+
+- **範圍**：結構
+- **摘要**：修正 系統測試與評估 章節標題與骨架規範：移除 5 篇報告的重複 H1、去除 20260729_mobile_rag_benchmark.md 全部 12 處 emoji 標題、為三篇 fp16 benchmark 報告補上摘要段落
+- **影響檔案**：20260729_mobile_rag_benchmark.md、all_models_tflite_benchmark.md、yolo26l_fp16_benchmark.md、yolo26n_fp16_benchmark.md、yolo26n_p2_fp16_benchmark.md；audit：dup_h1_files 5→0、emoji_headings 13→1、files_without_summary 6→3，基準線已收緊
+- **commit**：`5b4b292`
+
+---
+
 ## 2026-08-27 — Claude Code
 
 - **範圍**：規則文件

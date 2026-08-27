@@ -1,8 +1,11 @@
-# yolo26l_fp16_benchmark_report
-
 # YOLO26-large FP16 TFLite 行動端實機基準測試報告
 
 本報告詳細記錄 **YOLO26-large (FP16 TFLite)** 模型在特定行動裝置上的 CPU 實機測試數據。
+
+## 摘要
+
+- OPPO A3x（CPU only, XNNPACK）平均推論延遲 2719.85 ms（約 0.37 FPS），記憶體增量 337.00 MB
+- 精準度最佳（mAP50 = 87.1%），但延遲遠高於即時偵測門檻，較適合非即時的後台批次分析或雲端推論
 
 ---
 

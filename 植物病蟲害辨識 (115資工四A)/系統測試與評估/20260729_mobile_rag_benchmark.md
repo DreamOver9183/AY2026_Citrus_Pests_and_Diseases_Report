@@ -1,13 +1,11 @@
-# 效能測試 - 手機
-
-# 📱 行動端離線 RAG 與 LLM 效能測試報告 (含 4-Threads 與 6-Threads 完整數據)
+# 行動端離線 RAG 與 LLM 效能測試報告 (含 4-Threads 與 6-Threads 完整數據)
 
 > **測試聲明**：本次測試使用專為端側離線評測開發之 **「植物病蟲害 RAG 基準測試 APP (plant_rag_benchmark_mobile)」** 進行實體裝置測試。系統採用 OS Monotonic Clock 高精度單調時鐘（微秒級）進行兩階段（Prefill 與 Decode）解耦計時與學術標準 $N-1$ 解碼速率計算。
 > 
 
 ---
 
-## ⚔️ CPU 線程數效能擴展性總覽 (4-Threads vs 6-Threads)
+## CPU 線程數效能擴展性總覽 (4-Threads vs 6-Threads)
 
 在三星 Exynos 1280 處理器 (2 大核 + 6 小核) 上，我們針對 **4-Threads** 與 **6-Threads** 進行了實體對比測試：
 
@@ -21,7 +19,7 @@
 
 ---
 
-## 🛠️ 1. Plant Diagnostic Skills 防幻覺技能架構說明
+## 1. Plant Diagnostic Skills 防幻覺技能架構說明
 
 ### A. 架構設計與防衛機制 (Architecture & Mechanics)
 
@@ -46,7 +44,7 @@
 
 ---
 
-## 📋 2. 測試紀錄資料項目與欄位解釋 (Data Dictionary)
+## 2. 測試紀錄資料項目與欄位解釋 (Data Dictionary)
 
 ### 表 2-A：裝置與軟硬體環境 Profile 欄位說明表 (Environment Profiling)
 
@@ -77,17 +75,17 @@
 
 ---
 
-## 📊 3. 實測數據 1 號裝置：Samsung Galaxy A33 5G
+## 3. 實測數據 1 號裝置：Samsung Galaxy A33 5G
 
 ### 3-A. 4-Threads 模式完整實測結果 (2026-07-29 14:56)
 
-#### 📱 4-Threads 規格摘要
+#### 4-Threads 規格摘要
 
 - **測試時間**：2026-07-29 14:56:01
 - **設定執行線程**：**4 Threads**
 - **記憶體 (RAM)**：當前可用 ~329.1 MB
 
-#### ⚡ 純 LLM 推論基準 (4 Threads)
+#### 純 LLM 推論基準 (4 Threads)
 
 | Run | 提示詞類別 | 首字耗時 (TTFT) | 解碼耗時 (Decode) | 生成 Token 數 | 解碼速率 (TPS) |
 | --- | --- | --- | --- | --- | --- |
@@ -104,7 +102,7 @@
 > 📈 **4-Threads 純 LLM 總結**：平均 TTFT = **2,613.1 ms**，平均 Decode 速率 = **10.40 tok/s**
 > 
 
-#### 🔍 RAG Pipeline 基準：標準 RAG vs Skills 模式 (4 Threads)
+#### RAG Pipeline 基準：標準 RAG vs Skills 模式 (4 Threads)
 
 **4-A1. 標準 RAG 模式 (Standard RAG - 4 Threads)**
 
@@ -129,13 +127,13 @@
 
 ### 3-B. 6-Threads 模式完整實測結果 (2026-07-29 15:05)
 
-#### 📱 6-Threads 規格摘要
+#### 6-Threads 規格摘要
 
 - **測試時間**：2026-07-29 15:05:53
 - **設定執行線程**：**6 Threads**
 - **記憶體 (RAM)**：當前可用 ~234.7 MB
 
-#### ⚡ 純 LLM 推論基準 (6 Threads)
+#### 純 LLM 推論基準 (6 Threads)
 
 | Run | 提示詞類別 | 首字耗時 (TTFT) | 解碼耗時 (Decode) | 生成 Token 數 | 解碼速率 (TPS) |
 | --- | --- | --- | --- | --- | --- |
@@ -152,7 +150,7 @@
 > 📈 **6-Threads 純 LLM 總結**：平均 TTFT = **2,110.3 ms**，平均 Decode 速率爆發至 **13.70 tok/s**！
 > 
 
-#### 🔍 RAG Pipeline 基準：標準 RAG vs Skills 模式 (6 Threads)
+#### RAG Pipeline 基準：標準 RAG vs Skills 模式 (6 Threads)
 
 **6-B1. 標準 RAG 模式 (Standard RAG - 6 Threads)**
 
@@ -175,7 +173,7 @@
 
 ---
 
-## ⚔️ 4. 跨裝置與不同設定效能對比矩陣 (Cross-Device & Thread Matrix)
+## 4. 跨裝置與不同設定效能對比矩陣 (Cross-Device & Thread Matrix)
 
 | 測試設定 / 裝置型號 | 處理器 (SoC) | 執行線程 (Threads) | 純 LLM TTFT | **Decode 速率 (TPS)** | **標準 RAG 平均總延遲** |
 | --- | --- | --- | --- | --- | --- |
