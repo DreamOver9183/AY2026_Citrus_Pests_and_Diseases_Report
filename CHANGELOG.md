@@ -39,6 +39,15 @@
 
 ---
 
+## 2026-08-27 16:15 — Claude Code
+
+- **範圍**：結構
+- **摘要**：修正 RAG向量資料庫 章節下所有檔案的標題與骨架規範：移除重複 H1、標題跳級、emoji／中文數字編號標題，並為缺摘要的檔案（RAG向量資料庫.md、架構設計.md、提示詞.md、SLM微調操作手冊.md、SLM生成結果指標.md、病蟲害知識訓練資料集.md）補上「摘要」與「結論與限制」段落
+- **影響檔案**：RAG向量資料庫.md 及其下 5 個 L2 報告，共 6 個檔案；audit：dup_h1_files 9→8、heading_level_jumps 5→2、emoji_headings 25→13、cn_numbered_headings 16→11、files_without_summary 13→7，基準線已收緊
+- **commit**：`0708c83`
+
+---
+
 ## 2026-08-27 — Claude Code
 
 - **範圍**：規則文件

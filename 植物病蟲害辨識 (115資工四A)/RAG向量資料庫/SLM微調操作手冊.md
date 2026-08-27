@@ -1,11 +1,14 @@
 # 使用 LLaMA-Factory 微調 Qwen2.5-0.5B 柑橘病蟲害專用模型
 
 > **目標：** 利用低秩適應（LoRA）技術微調 Qwen2.5-0.5B-Instruct，並注入領域防護 Guardrails，最後導出為可供 `llama.cpp` 離線運行的 Q4_K_M GGUF 檔案。
-> 
 
-## 操作說明
+## 1. 摘要
 
-## 🛠️ 一、 環境準備與安裝
+- 使用 LoRA 微調 Qwen2.5-0.5B-Instruct 並導出 Q4_K_M GGUF，供 llama.cpp 端側推論
+- 操作分五步：環境準備、資料集準備、WebUI 訓練、權重合併與導出、Android 部署檢核
+- 2026-08-11 測試記錄了三階段超參數調優過程，最終版 Learning Rate 3e-5、LoRA Rank 8、Epochs 2.5~3.0
+
+## 2. 環境準備與安裝
 
 可在具備 NVIDIA 顯卡（建議 VRAM ≥ 8GB）的本地電腦，或免費的 **Google Colab T4 GPU** 上執行。
 
@@ -21,9 +24,9 @@ pip install -e ".[torch,metrics]"
 pip install bitsandbytes hf_transfer  # 補充加速與量化套件
 ```
 
-## 📝 二、 訓練資料集準備 (Dataset Preparation)
+## 3. 訓練資料集準備 (Dataset Preparation)
 
-### 1. 建立格式化問答檔案 `data/citrus_disease.jsonl`
+### 3.1 建立格式化問答檔案 `data/citrus_disease.jsonl`
 
 確保包含**柑橘專業知識（正向）與非相關問題拒絕回答（防護）**：
 
@@ -34,7 +37,7 @@ JSON
 {"instruction": "請幫我寫一段 Python 快速排序法。", "input": "", "output": "抱歉，我是柑橘病蟲害防治專家，僅能回答與柑橘類樹葉病蟲害辨識與防治相關的問題。"}
 ```
 
-### 2. 於 `data/dataset_info.json` 註冊資料集
+### 3.2 於 `data/dataset_info.json` 註冊資料集
 
 打開 `LLaMA-Factory/data/dataset_info.json`，在末端新增以下區塊：
 
@@ -53,7 +56,7 @@ JSON
 }
 ```
 
-## 🚀 三、 啟動 WebUI 視覺化訓練 (LlamaBoard)
+## 4. 啟動 WebUI 視覺化訓練 (LlamaBoard)
 
 在終端機輸入以下命令啟動網頁介面：
 
@@ -65,7 +68,7 @@ llamafactory-cli webui
 
 開啟瀏覽器進入 `http://localhost:7860`，依序設定以下參數：
 
-### ⚙️ 關鍵訓練參數配置表
+### 4.1 關鍵訓練參數配置表
 
 | **參數類別** | **設定項目** | **Recommended Value / 選項** | **說明** |
 | --- | --- | --- | --- |
@@ -83,7 +86,7 @@ llamafactory-cli webui
 
 點擊頁面下方的 **「Start」** 開始微調，右側圖表會即時顯示 Loss（損失函數）收斂曲線。
 
-## 🔄 四、 權重合併與 GGUF 導出 (Merge & Quantization)
+## 5. 權重合併與 GGUF 導出 (Merge & Quantization)
 
 訓練完成後，直接在 LLaMA-Factory WebUI 的 **「Export」** 頁籤執行導出：
 
@@ -92,16 +95,16 @@ llamafactory-cli webui
 3. **Export Quantization**：選擇 `Q4_K_M`（4-bit 量化）。
 4. 點擊 **「Export」**，系統自動將 模型導出為單一的 `.gguf` 檔案（檔案大小約 300MB）。
 
-## 📱 五、 部署至 Android 手機 APP 檢核清單
+## 6. 部署至 Android 手機 APP 檢核清單
 
 - [ ]  取得產出的 `qwen2.5-0.5b-citrus-q4_k_m.gguf` 檔案。
 - [ ]  放置於 Android 專案的 `assets/models/` 目錄。
 - [ ]  確認 `llama.cpp` 初始化代碼已將 `n_ctx` 設定為 `512`。
 - [ ]  執行手持實機測試，驗證 2GB RAM 設備運作流暢且不觸發 OOM 閃退。
 
-## 測試 ( 2026/8/11)
+## 7. 2026-08-11 測試記錄
 
-### 1. 前期準備項目 (Preparation)
+### 7.1 前期準備項目 (Preparation)
 
 - **基底模型 (Base Model)：** `Qwen2.5-0.5B-Instruct`
     - 選擇考量：小參數量（5 億參數），經 4-bit 量化後體積僅約 350MB，極度適合未來整合至 Flutter 進行手機端側（On-device）離線推論。
@@ -112,7 +115,7 @@ llamafactory-cli webui
     - 初期版本：89 筆柑橘病蟲害問答與角色邊界樣本（`citrus_sft.json`）。
     - 樣本結構：包含專業診斷正例（如油斑病、脂點黃斑病）、鑑別比較題，以及非相關領域的「邊界拒絕」負例（如請求寫 Python 爬蟲程式）。
 
-### 2. 微調參數演進與調整記錄 (Parameter Tuning Log)
+### 7.2 微調參數演進與調整記錄 (Parameter Tuning Log)
 
 在微調過程中，我們觀察到小模型（0.5B）對超參數極度敏感，並經歷了以下三個主要階段的調優：
 
@@ -127,7 +130,7 @@ llamafactory-cli webui
 | **Cutoff Length** | `2048` | `1024` | **`1024`** | 貼合真實問答長度，節省 GPU 記憶體並提升訓練速度。 |
 | **Enable Thinking** | `True` (誤開) | `False` | **`False`** |  |
 
-### 3. 核心實務經驗與洞察 (Key Insights)
+### 7.3 核心實務經驗與洞察 (Key Insights)
 
 - **過度拒絕與邊界洩漏 (Boundary Trade-off)：**
 小模型在資料量較少時，容易在「嚴格拒絕非相關問題」與「流暢回答專業知識」之間產生拉鋸。LoRA 權重太強會導致過度拒絕（連柑橘問題都拒絕），太弱則會產生口頭拒絕卻依然寫出程式碼的邊界洩漏。
@@ -137,3 +140,9 @@ llamafactory-cli webui
 完美的端側應用應由 **「LoRA 權重提供專業知識」**，搭配 **「System Prompt 負責邊界約束」**，並使用 **`Temperature = 0.1`** 的低隨機度進行推論。
 - **數據集擴充方向：**
 擴充資料量至 300~500 筆，並加入多元的「正例（柑橘知識）」與「負例（寫程式/聊天/其他作物）」，是徹底解決小模型泛化能力不足的最根本方法。
+
+## 8. 結論與限制
+
+本手冊記錄從環境建置到 Android 部署的完整 LoRA 微調流程，以及 2026-08-11 一次實測的超參數調優過程與最終黃金參數組合。
+
+本報告未涵蓋：微調後模型的正式評測結果（請見〈[SLM 生成結果指標](SLM%E7%94%9F%E6%88%90%E7%B5%90%E6%9E%9C%E6%8C%87%E6%A8%99.md)〉與〈[效能指標評估](../%E6%95%88%E8%83%BD%E6%8C%87%E6%A8%99%E8%A9%95%E4%BC%B0.md)〉）、300~500 筆擴充資料集後的重新訓練結果。
