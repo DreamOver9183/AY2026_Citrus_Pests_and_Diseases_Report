@@ -48,6 +48,15 @@
 
 ---
 
+## 2026-08-27 16:30 — Claude Code
+
+- **範圍**：結構
+- **摘要**：修正 病蟲害辨識模型 章節標題與骨架規範：移除重複 H1（3 篇）、中文數字編號改阿拉伯數字（11 處）、移除 all_models_training_metrics.md 中真正重複貼上的段落並消除同層重複標題、補上 病蟲害辨識模型.md 摘要段落
+- **影響檔案**：病蟲害辨識模型.md、all_models_training_metrics.md、yolo26n_p2_v2_vs_v3_comparison.md、yolo26n_p2_v5_vs_v8_comparison.md、20260825_weekly_report.md；audit：dup_h1_files 8→5、cn_numbered_headings 11→0、duplicate_headings 3→0、files_without_summary 7→6，基準線已收緊
+- **commit**：`7b51bf1`
+
+---
+
 ## 2026-08-27 — Claude Code
 
 - **範圍**：規則文件

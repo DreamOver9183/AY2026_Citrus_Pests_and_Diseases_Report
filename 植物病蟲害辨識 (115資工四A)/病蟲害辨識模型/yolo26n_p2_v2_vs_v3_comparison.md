@@ -1,5 +1,3 @@
-# YOLO26_Nano_P2_v2_v3比較
-
 # YOLO26 Nano P2 模型效能評測與對比報告 (v2 vs v3)
 
 > **重要說明**：本報告完全基於工作區中 `YOLO26-nano-p2-v2` 與 `yolo26-nano-p2-v3` 之實驗數據日誌（`results2.txt`、`results.txt`）以及 `各項數據計算.md` 的目標偵測 Accuracy 計算公式與全套 16 張圖表進行客觀分析。無任何估計值或假設性數據，全書數字精確至小數點後五位。
