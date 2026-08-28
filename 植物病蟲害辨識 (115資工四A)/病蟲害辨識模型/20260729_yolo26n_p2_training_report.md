@@ -155,7 +155,7 @@ Epoch 86 出現 mAP@50 峰值 (0.8124)，此後模型進入平台期並波動，
 
 ### 圖 4.1：訓練全程損失與指標曲線（150 Epoch）
 
-![圖 4.1 訓練全程損失與指標曲線（150 Epoch）](20260729_yolo26n_p2_training_report/yolo26n_p2_results.png)
+![圖 4.1 訓練全程損失與指標曲線（150 Epoch）](Image/20260729_yolo26n_p2_training_report/yolo26n_p2_results.png)
 
 ### 損失收斂觀察
 
@@ -191,7 +191,7 @@ Epoch 86 出現 mAP@50 峰值 (0.8124)，此後模型進入平台期並波動，
 
 ### 圖 6.1：各類別 Precision-Recall 曲線
 
-![圖 6.1 各類別 Precision-Recall 曲線（mAP@0.5）](20260729_yolo26n_p2_training_report/yolo26n_p2_pr_curve.png)
+![圖 6.1 各類別 Precision-Recall 曲線（mAP@0.5）](Image/20260729_yolo26n_p2_training_report/yolo26n_p2_pr_curve.png)
 
 ### 表 6.1：各類別 AP@50（PR 曲線 AUC，最終 Valid 集評估）
 
@@ -213,7 +213,7 @@ Epoch 86 出現 mAP@50 峰值 (0.8124)，此後模型進入平台期並波動，
 
 ### 圖 6.2：各類別 F1-Confidence 曲線
 
-![圖 6.2 各類別 F1-Confidence 曲線](20260729_yolo26n_p2_training_report/yolo26n_p2_f1_curve.png)
+![圖 6.2 各類別 F1-Confidence 曲線](Image/20260729_yolo26n_p2_training_report/yolo26n_p2_f1_curve.png)
 
 ### F1 曲線分析
 
@@ -224,7 +224,7 @@ Epoch 86 出現 mAP@50 峰值 (0.8124)，此後模型進入平台期並波動，
 
 ### 圖 6.3：各類別 Precision-Confidence 曲線
 
-![圖 6.3 各類別 Precision-Confidence 曲線](20260729_yolo26n_p2_training_report/yolo26n_p2_p_curve.png)
+![圖 6.3 各類別 Precision-Confidence 曲線](Image/20260729_yolo26n_p2_training_report/yolo26n_p2_p_curve.png)
 
 ### Precision-Confidence 曲線分析
 
@@ -234,7 +234,7 @@ Epoch 86 出現 mAP@50 峰值 (0.8124)，此後模型進入平台期並波動，
 
 ### 圖 6.4：各類別 Recall-Confidence 曲線
 
-![圖 6.4 各類別 Recall-Confidence 曲線](20260729_yolo26n_p2_training_report/yolo26n_p2_r_curve.png)
+![圖 6.4 各類別 Recall-Confidence 曲線](Image/20260729_yolo26n_p2_training_report/yolo26n_p2_r_curve.png)
 
 ### Recall-Confidence 曲線分析
 
@@ -249,11 +249,11 @@ Epoch 86 出現 mAP@50 峰值 (0.8124)，此後模型進入平台期並波動，
 
 ### 圖 7.1：正規化混淆矩陣（Normalized Confusion Matrix）
 
-![圖 7.1 正規化混淆矩陣（Valid 集）](20260729_yolo26n_p2_training_report/yolo26n_p2_confusion_matrix_norm.png)
+![圖 7.1 正規化混淆矩陣（Valid 集）](Image/20260729_yolo26n_p2_training_report/yolo26n_p2_confusion_matrix_norm.png)
 
 ### 圖 7.2：原始計數混淆矩陣（Absolute Count）
 
-![圖 7.2 原始計數混淆矩陣（Valid 集）](20260729_yolo26n_p2_training_report/yolo26n_p2_confusion_matrix.png)
+![圖 7.2 原始計數混淆矩陣（Valid 集）](Image/20260729_yolo26n_p2_training_report/yolo26n_p2_confusion_matrix.png)
 
 ### 表 7.1：各類別 TP Rate 與主要誤判去向
 

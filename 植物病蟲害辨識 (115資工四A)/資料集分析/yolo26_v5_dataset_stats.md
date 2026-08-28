@@ -25,7 +25,7 @@
 
 ### 圖 2.1：數據工程管線架構
 
-![圖 2.1 YOLO26 柑橘病蟲害資料集數據工程管線架構](yolo26_v5_dataset_stats/dataset_architecture.png)
+![圖 2.1 YOLO26 柑橘病蟲害資料集數據工程管線架構](Image/yolo26_v5_dataset_stats/dataset_architecture.png)
 
 ### 表 2.1：資料集規模摘要
 
@@ -55,19 +55,19 @@
 
 ### 圖 2.2：各類別圖片數 Train / Valid / Test 分佈
 
-![圖 2.2 全資料集 Train/Valid/Test 配比（含背景負樣本）](yolo26_v5_dataset_stats/dataset_split_distribution.png)
+![圖 2.2 全資料集 Train/Valid/Test 配比（含背景負樣本）](Image/yolo26_v5_dataset_stats/dataset_split_distribution.png)
 
 ### 圖 2.3：全體 25,566 Bboxes 類別占比分佈
 
-![圖 2.3 全體 25,566 Bboxes 類別占比分佈](yolo26_v5_dataset_stats/dataset_class_distribution_all.png)
+![圖 2.3 全體 25,566 Bboxes 類別占比分佈](Image/yolo26_v5_dataset_stats/dataset_class_distribution_all.png)
 
 ### 圖 2.4：Train 集 21,014 Bboxes 類別占比分佈（降採樣後）
 
-![圖 2.4 Train 集 21,014 Bboxes 類別占比分佈（降採樣後）](yolo26_v5_dataset_stats/dataset_class_distribution_train.png)
+![圖 2.4 Train 集 21,014 Bboxes 類別占比分佈（降採樣後）](Image/yolo26_v5_dataset_stats/dataset_class_distribution_train.png)
 
 ### 圖 2.5：Train 集 Bbox 實際計數條形圖
 
-![圖 2.5 Train 集各類別 Bbox 計數分布與位置熱圖](yolo26_v5_dataset_stats/dataset_bbox_count_train.jpg)
+![圖 2.5 Train 集各類別 Bbox 計數分布與位置熱圖](Image/yolo26_v5_dataset_stats/dataset_bbox_count_train.jpg)
 
 > **labels 數據核驗**：條形圖顯示 Train 集各類別實際 Bbox 計數（Oily_Spot: 756、Canker: 5,267、Sooty_Mold: 1,036、Black_Spot: 800、Scale_Insect: 5,388、Citrus_Leaf_Miner: 904、Thrips: 2,841、Aphid: 4,022），與 YOLO26n-P2 訓練報告表 5.1 一致。寬高散布圖顯示多數 Bbox 尺寸偏小（width/height 集中於 0~0.1 歸一化範圍），為使用 P2 特徵頭（160×160 感受野）的依據之一。
 
