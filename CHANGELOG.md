@@ -30,6 +30,15 @@
 
 ---
 
+## 2026-08-28 16:40 — Claude Code
+
+- **範圍**：規則文件
+- **摘要**：README §1 資產資料夾規則表與 `.agent/skills/add-report/SKILL.md` 仍寫舊路徑 `<章名>/<篇名>/`，跟 Antigravity 已實際套用的 `<章名>/Image/<篇名>/` 現況不符；修正規則文字使其與現況一致
+- **影響檔案**：README.md、`.agent/skills/add-report/SKILL.md`
+- **commit**：`e8a66ec`
+
+---
+
 ## 2026-08-28 16:20 — Antigravity
 
 - **範圍**：結構
