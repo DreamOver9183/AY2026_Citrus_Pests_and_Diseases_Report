@@ -30,6 +30,15 @@
 
 ---
 
+## 2026-08-28 15:59 — Antigravity
+
+- **範圍**：檔名
+- **摘要**：統一 病蟲害辨識模型 章節報告檔名：將 all_models_training_metrics.md 及其資產資料夾依報告日期加上前綴更名為 20260714_all_models_training_metrics，並同步改寫章索引與 20 處圖片引用連結；未修改報告內文
+- **影響檔案**：`植物病蟲害辨識 (115資工四A)/病蟲害辨識模型.md`、`植物病蟲害辨識 (115資工四A)/病蟲害辨識模型/20260714_all_models_training_metrics.md`、`20260714_all_models_training_metrics/`（18 張圖檔）、`README.md`
+- **commit**：`90ffeb6`
+
+---
+
 ## 2026-08-27 15:50 — Claude Code
 
 - **範圍**：結構

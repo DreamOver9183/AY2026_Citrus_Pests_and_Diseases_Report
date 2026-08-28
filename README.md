@@ -214,7 +214,7 @@ powershell -ExecutionPolicy Bypass -File .agent/scripts/audit-structure.ps1 -Ver
 
 13 篇報告與 4 個資產資料夾已依 §5.2 更名，48 張圖已依 §5.3 更名。`filename_with_space`、`filename_with_paren`、`image_serial_suffix`、`image_placeholder_name`、`image_uuid_name` 五項指標皆為 0。
 
-圖檔語意逐張由引用點的章節標題或圖說推得。最典型的一組 —— `all_models_training_metrics/` 裡這四張圖原本分屬四個不同模型卻檔名相同，只靠尾碼區分：
+圖檔語意逐張由引用點的章節標題或圖說推得。最典型的一組 —— `20260714_all_models_training_metrics/` 裡這四張圖原本分屬四個不同模型卻檔名相同，只靠尾碼區分：
 
 | 原檔名 | 實際內容 | 現檔名 |
 | --- | --- | --- |
