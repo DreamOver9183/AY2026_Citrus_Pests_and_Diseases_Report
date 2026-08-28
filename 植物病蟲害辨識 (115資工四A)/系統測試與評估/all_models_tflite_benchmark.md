@@ -1,6 +1,25 @@
 # 全模型 TFLite Mobile Benchmark 效能測試報告
 
-## 1. 測試環境 (Environment)
+> **報告日期**：2026-07-14
+> **評測對象**：8 個模型/精度組合（YOLO26 系列 fp16/int8、SSD-MobileNetV3 系列 fp16/fp32）
+> **資料來源**：`adb logcat -s tflite` 實機測試 log（見 §6 完整輸出日誌）
+> **撰寫人**：原始記錄未標註
+
+## 1. 摘要
+
+- 8 個模型/精度組合中，`yolo26n_p2_w8a32`（int8 量化）最快，平均推論僅 16.53 ms（60.50 FPS）；`yolo26l_fp16` 最慢，平均 2449.49 ms（0.41 FPS）
+- SSD-MobileNetV3 系列（large/small，fp16/fp32）平均推論在 24~75 ms 之間，速度優於 YOLO26 fp16 系列，但精準度遠低於 YOLO26（見〈[模型訓練數據報告](../%E7%97%85%E8%9F%B2%E5%AE%B3%E8%BE%A8%E8%AD%98%E6%A8%A1%E5%9E%8B/20260714_all_models_training_metrics.md)〉）
+- YOLO26 fp16 系列中，nano（257.13 ms）與 nano+P2（284.02 ms）皆在可接受的近即時範圍內，large（2449.49 ms）明顯不適合即時場景
+- XNNPACK 節點替代率介於 88.11%~95.00%，顯示絕大多數運算節點皆可由 XNNPACK 加速
+
+| 模型 | 平均推論 (ms) | 預估 FPS |
+| --- | --- | --- |
+| `yolo26n_p2_w8a32`（int8） | 16.53 | 60.50 |
+| `yolo26n_fp16` | 257.13 | 3.89 |
+| `yolo26n_p2_fp16` | 284.02 | 3.52 |
+| `yolo26l_fp16` | 2449.49 | 0.41 |
+
+## 2. 測試環境 (Environment)
 
 - **測試設備代號 (Device ID)**: ebe3968d
 - **產品型號 (Product/Model)**: CPH2641
@@ -8,7 +27,7 @@
 - **作業系統**: Android
 - **測試工具**: TFLite Android AArch64 Benchmark Model (`android_aarch64_benchmark_model.apk`)
 
-## 2. 測試主題 (Test Topic)
+## 3. 測試主題 (Test Topic)
 
 - **主題**: 多模型 TFLite 推論效能比較評測
 - **測試模型清單**:
@@ -21,16 +40,14 @@
     - `yolo26n_fp16.tflite`
     - `yolo26n_p2_fp16.tflite`
 
-## 3. 測試參數 (Test Parameters)
+## 4. 測試參數 (Test Parameters)
 
 - **硬體加速**: CPU 運算 (未使用 GPU 與 NNAPI)
 - **核心數量 (num_threads)**: 4
 - **推論次數 (num_runs)**: 25 輪
 - **指令配置**: `-num_threads=4 --num_runs=25 --use_gpu=false --use_nnapi=false`
 
----
-
-## 4. 輸出概要 (Output Summary)
+## 5. 輸出概要 (Output Summary)
 
 | 模型名稱 | 首輪推論 (ms) | 最快 (ms) | 最慢 (ms) | 平均推論 (ms) | 預估 FPS | 標準差 (ms) | 節點替代率 (%) | Init 記憶體 (MB) | Overall 記憶體 (MB) | 運算開銷差值 (MB) |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
@@ -50,16 +67,13 @@
 * **標準差 (Std Dev)**：反映推論速度的波動程度；數值越低代表運行越穩定。
 * **節點替代率 (Delegate Ratio)**：被 XNNPACK 接管的運算節點比例。比例過低代表存在許多設備不支援的自定義算子。
 * **運算開銷差值**：`Overall 記憶體增量` 減去 `Init 記憶體增量`，顯示推論過程中因暫存特徵圖所額外佔用的記憶體峰值。
-> 
 
----
-
-## 5. 完整輸出日誌 (Full Output Log)
+## 6. 完整輸出日誌 (Full Output Log)
 
 *(在此收錄每個模型透過 `adb logcat -d -s tflite` 產生的原始 Log 資訊，確保數據具備可追溯性。)*
 
 - **模型：yolo26n_p2_w8a32.tflite**
-    
+
     ```
     07-14 13:14:52.097 22838 22838 I tflite  : Log parameter values verbosely: [0]
     07-14 13:14:52.097 22838 22838 I tflite  : Min num runs: [25]
@@ -83,9 +97,9 @@
     07-14 13:14:56.521 22838 22838 I tflite  : Note: as the benchmark tool itself affects memory footprint, the following is only APPROXIMATE to the actual memory footprint of the model at runtime. Take the information at your discretion.
     07-14 13:14:56.521 22838 22838 I tflite  : Memory footprint delta from the start of the tool (MB): init=54.2852 overall=73.4102
     ```
-    
+
 - **模型：ssd_mobilenetv3_large_fp16.tflite**
-    
+
     ```
     07-14 13:16:26.182 23002 23002 I tflite  : Log parameter values verbosely: [0]
     07-14 13:16:26.182 23002 23002 I tflite  : Min num runs: [25]
@@ -109,9 +123,9 @@
     07-14 13:16:28.097 23002 23002 I tflite  : Note: as the benchmark tool itself affects memory footprint, the following is only APPROXIMATE to the actual memory footprint of the model at runtime. Take the information at your discretion.
     07-14 13:16:28.097 23002 23002 I tflite  : Memory footprint delta from the start of the tool (MB): init=34.8633 overall=48.7305
     ```
-    
+
 - **模型：ssd_mobilenetv3_large_fp32.tflite**
-    
+
     ```
     07-14 13:18:38.406 23449 23449 I tflite  : Log parameter values verbosely: [0]
     07-14 13:18:38.406 23449 23449 I tflite  : Min num runs: [25]
@@ -135,9 +149,9 @@
     07-14 13:18:40.851 23449 23449 I tflite  : Note: as the benchmark tool itself affects memory footprint, the following is only APPROXIMATE to the actual memory footprint of the model at runtime. Take the information at your discretion.
     07-14 13:18:40.851 23449 23449 I tflite  : Memory footprint delta from the start of the tool (MB): init=35.7969 overall=47.1055
     ```
-    
+
 - **模型：ssd_mobilenetv3_small_fp16.tflite**
-    
+
     ```
     07-14 13:19:38.427 24138 24138 I tflite  : Log parameter values verbosely: [0]
     07-14 13:19:38.428 24138 24138 I tflite  : Min num runs: [25]
@@ -161,9 +175,9 @@
     07-14 13:19:40.245 24138 24138 I tflite  : Note: as the benchmark tool itself affects memory footprint, the following is only APPROXIMATE to the actual memory footprint of the model at runtime. Take the information at your discretion.
     07-14 13:19:40.245 24138 24138 I tflite  : Memory footprint delta from the start of the tool (MB): init=25.1797 overall=37.4805
     ```
-    
+
 - **模型：ssd_mobilenetv3_small_fp32.tflite**
-    
+
     ```
     07-14 13:20:56.221 24964 24964 I tflite  : Log parameter values verbosely: [0]
     07-14 13:20:56.221 24964 24964 I tflite  : Min num runs: [25]
@@ -187,18 +201,18 @@
     07-14 13:20:57.779 24964 24964 I tflite  : Note: as the benchmark tool itself affects memory footprint, the following is only APPROXIMATE to the actual memory footprint of the model at runtime. Take the information at your discretion.
     07-14 13:20:57.779 24964 24964 I tflite  : Memory footprint delta from the start of the tool (MB): init=23.5469 overall=34.0781
     ```
-    
+
 - **模型：yolo26l_fp16.tflite**
-    
+
     ```
     07-14 13:23:01.971 25113 25113 I tflite  : count=25 first=2440784 curr=2510677 min=2422486 max=2510677 avg=2.44949e+06 std=19367 p5=2423455 median=2447822 p95=2491568
     07-14 13:23:01.971 25113 25113 I tflite  : Inference timings in us: Init: 450850, First inference: 2562790, Warmup (avg): 2.56279e+06, Inference (avg): 2.44949e+06
     07-14 13:23:01.971 25113 25113 I tflite  : Note: as the benchmark tool itself affects memory footprint, the following is only APPROXIMATE to the actual memory footprint of the model at runtime. Take the information at your discretion.
     07-14 13:23:01.971 25113 25113 I tflite  : Memory footprint delta from the start of the tool (MB): init=286.961 overall=358.59
     ```
-    
+
 - **模型：yolo26n_fp16.tflite**
-    
+
     ```
     07-14 13:23:08.133 25289 25289 I tflite  : Log parameter values verbosely: [0]
     07-14 13:23:08.133 25289 25289 I tflite  : Min num runs: [25]
@@ -222,9 +236,9 @@
     07-14 13:23:15.443 25289 25289 I tflite  : Note: as the benchmark tool itself affects memory footprint, the following is only APPROXIMATE to the actual memory footprint of the model at runtime. Take the information at your discretion.
     07-14 13:23:15.443 25289 25289 I tflite  : Memory footprint delta from the start of the tool (MB): init=65.4141 overall=90.25
     ```
-    
+
 - **模型：yolo26n_p2_fp16.tflite**
-    
+
     ```
     07-14 14:01:32.208 30655 30655 I tflite  : Log parameter values verbosely: [0]
     07-14 14:01:32.208 30655 30655 I tflite  : Min num runs: [25]
@@ -248,3 +262,9 @@
     07-14 14:01:40.124 30655 30655 I tflite  : Note: as the benchmark tool itself affects memory footprint, the following is only APPROXIMATE to the actual memory footprint of the model at runtime. Take the information at your discretion.
     07-14 14:01:40.124 30655 30655 I tflite  : Memory footprint delta from the start of the tool (MB): init=81.2305 overall=115.047
     ```
+
+## 7. 結論與限制
+
+8 個模型/精度組合中，int8 量化的 `yolo26n_p2_w8a32` 速度最快、`yolo26l_fp16` 最慢；SSD 系列雖速度尚可但精準度明顯低於 YOLO26 系列（詳細精準度數據見〈模型訓練數據報告〉）。單一裝置（CPH2641）、單一執行緒設定（4 threads、CPU only）下的結果，僅反映相對排序，不代表所有裝置的絕對表現。
+
+本報告未涵蓋：GPU/NNAPI 加速下的效能表現、其他手機型號的橫向對比、量化模型（int8）的精準度數據。

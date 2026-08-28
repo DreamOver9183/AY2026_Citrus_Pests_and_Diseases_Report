@@ -48,6 +48,15 @@
 
 ---
 
+## 2026-08-28 17:35 — Claude Code
+
+- **範圍**：內容
+- **摘要**：重寫 系統測試與評估 章 5 篇報告（`citrus_rag_ragas_evaluation.md` 已合規未動）使符合骨架規範：三篇 fp16 benchmark 補規範引用區塊、摘要改編號、部署建議段落移至新增的「結論與限制」；`all_models_tflite_benchmark.md` 補引用區塊與摘要（含核心數據表）；`20260729_mobile_rag_benchmark.md` 補引用區塊、新增摘要、`3-A`/`3-B` 改為 `5.1`/`5.2` 符合 H-5、補結論與限制，並同步修正 L1 索引連結文字使符合該檔實際標題。所有表格與原始 log 數據逐項 diff 比對確認與舊版完全一致
+- **影響檔案**：`系統測試與評估/yolo26l_fp16_benchmark.md`、`yolo26n_fp16_benchmark.md`、`yolo26n_p2_fp16_benchmark.md`、`all_models_tflite_benchmark.md`、`20260729_mobile_rag_benchmark.md`、`系統測試與評估.md`
+- **commit**：`ed35fd3`
+
+---
+
 ## 2026-08-28 16:20 — Antigravity
 
 - **範圍**：結構

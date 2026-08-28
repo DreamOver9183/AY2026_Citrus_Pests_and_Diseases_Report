@@ -1,11 +1,26 @@
 # 行動端離線 RAG 與 LLM 效能測試報告 (含 4-Threads 與 6-Threads 完整數據)
 
-> **測試聲明**：本次測試使用專為端側離線評測開發之 **「植物病蟲害 RAG 基準測試 APP (plant_rag_benchmark_mobile)」** 進行實體裝置測試。系統採用 OS Monotonic Clock 高精度單調時鐘（微秒級）進行兩階段（Prefill 與 Decode）解耦計時與學術標準 $N-1$ 解碼速率計算。
-> 
+> **報告日期**：2026-07-29
+> **評測對象**：端側 RAG + LLM 推論 pipeline（Samsung Galaxy A33 5G，4-Threads 與 6-Threads 對比）
+> **資料來源**：`plant_rag_benchmark_mobile` APP 實機測試（見 §5 實測數據）
+> **撰寫人**：原始記錄未標註
 
----
+**測試聲明**：本次測試使用專為端側離線評測開發之「植物病蟲害 RAG 基準測試 APP (plant_rag_benchmark_mobile)」進行實體裝置測試。系統採用 OS Monotonic Clock 高精度單調時鐘（微秒級）進行兩階段（Prefill 與 Decode）解耦計時與學術標準 $N-1$ 解碼速率計算。
 
-## CPU 線程數效能擴展性總覽 (4-Threads vs 6-Threads)
+## 1. 摘要
+
+- 6-Threads 相對 4-Threads：純 LLM 平均 TTFT 快 19.2%（2,613.1 ms → 2,110.3 ms）、Decode 速率提升 31.7%（10.40 → 13.70 tok/s）
+- 標準 RAG 模式在 6-Threads 下端到端總延遲縮短 2.8 秒（14,659.7 ms → 11,826.0 ms）
+- Plant Diagnostic Skills 防幻覺模式的 Prompt Token 數較標準 RAG 多約 250 Tokens，6-Threads TTFT 從 8.5~9.7 秒拉長到 18.5~27.7 秒，以延遲換取更嚴格的事實防衛
+- 目前僅完成 1 號裝置（Samsung Galaxy A33 5G）測試，跨裝置對比矩陣仍待補齊第 2 台裝置
+
+| 評測指標 | 4-Threads | 6-Threads | 效能提升 |
+| --- | --- | --- | --- |
+| 純 LLM 平均 TTFT | 2,613.1 ms | 2,110.3 ms | 19.2% 更快 |
+| 純 LLM 平均 Decode 速率 | 10.40 tok/s | 13.70 tok/s | 31.7% 提升 |
+| 標準 RAG 平均端到端總延遲 | 14,659.7 ms | 11,826.0 ms | 縮短 2.8 秒 |
+
+## 2. CPU 線程數效能擴展性總覽 (4-Threads vs 6-Threads)
 
 在三星 Exynos 1280 處理器 (2 大核 + 6 小核) 上，我們針對 **4-Threads** 與 **6-Threads** 進行了實體對比測試：
 
@@ -17,23 +32,20 @@
 | **標準 RAG 平均端到端總延遲** | 14,659.7 ms | **11,826.0 ms** | 🚀 **顯著縮短 2.8 秒** |
 | **標準 RAG 解碼速率 (TPS)** | ~9.29 tok/s | **~11.72 tok/s** | 🚀 **26.2% 提升** |
 
----
+## 3. Plant Diagnostic Skills 防幻覺技能架構說明
 
-## 1. Plant Diagnostic Skills 防幻覺技能架構說明
-
-### A. 架構設計與防衛機制 (Architecture & Mechanics)
+### 3.1 架構設計與防衛機制 (Architecture & Mechanics)
 
 - **基底規範檔案**：plant_diagnostic_skill.txt
 - **事實防衛牆 (Fact-Guardrail)**：
-    
-    強制模型僅能依據檢索到的本機知識庫內文進行回答。凡是知識庫內未記載之病徵、藥劑或處置方法，模型**必須顯示 `【未經本機知識庫驗證】` 遮蔽標籤**，嚴禁憑空編造。
-    
-- **結構化技能輸出 (Structured Output)**：
-    
-    規範模型輸出結構為：`🎯 診斷技能標籤` ➔ `🔍 事實依據` ➔ `💡 建議處置` ➔ `🛡️ 事實邊界聲明`。
-    
 
-### B. 標準 RAG vs Skills 技能模式對比
+    強制模型僅能依據檢索到的本機知識庫內文進行回答。凡是知識庫內未記載之病徵、藥劑或處置方法，模型**必須顯示 `【未經本機知識庫驗證】` 遮蔽標籤**，嚴禁憑空編造。
+
+- **結構化技能輸出 (Structured Output)**：
+
+    規範模型輸出結構為：`🎯 診斷技能標籤` ➔ `🔍 事實依據` ➔ `💡 建議處置` ➔ `🛡️ 事實邊界聲明`。
+
+### 3.2 標準 RAG vs Skills 技能模式對比
 
 | 對比維度 | 標準 RAG 模式 (Standard RAG) | Plant Diagnostic Skills 防幻覺模式 |
 | --- | --- | --- |
@@ -42,11 +54,9 @@
 | **輸出格式** | 自由文字敘述 | 標籤化結構輸出 (標籤 ➔ 依據 ➔ 處置 ➔ 邊界) |
 | **6-Threads TTFT (Prefill)** | 提示詞較短，Prefill 約 **8.5 ~ 9.7 秒** | 提示詞增加約 250 Tokens，Prefill 約 **18.5 ~ 27.7 秒** |
 
----
+## 4. 測試紀錄資料項目與欄位解釋 (Data Dictionary)
 
-## 2. 測試紀錄資料項目與欄位解釋 (Data Dictionary)
-
-### 表 2-A：裝置與軟硬體環境 Profile 欄位說明表 (Environment Profiling)
+### 表 4-1：裝置與軟硬體環境 Profile 欄位說明表 (Environment Profiling)
 
 | 欄位名稱 (Field Name) | 英文/Json Key | 技術含意與數值範例 | 學術紀錄用途 |
 | --- | --- | --- | --- |
@@ -58,9 +68,7 @@
 | **模型規格** | `modelName` / `quantization` | 所載入之 SLM 模型與量化格式 (如 `Qwen 2.5 0.5B Q4_K_M`) | 基準測試之核心語言能力標竿 |
 | **Context 視窗 / 向量** | `contextWindow` / `vectorDim` | 允許最大 Tokens 與向量維度 (如 `1024 Tokens / 384-dim`) | 定義空間與記憶體上限 |
 
----
-
-### 表 2-B：RAG 與 LLM 效能數據欄位與算式說明表 (Performance Metrics)
+### 表 4-2：RAG 與 LLM 效能數據欄位與算式說明表 (Performance Metrics)
 
 | 欄位名稱 (Metric Name) | 單位 | 階段分類 | 數學公式 / 採集演算法 | 技術含意與說明 |
 | --- | --- | --- | --- | --- |
@@ -73,11 +81,9 @@
 | **解碼速率 (TPS)** | tok/s | LLM 吞吐量 | $\text{TPS} = \frac{N_{\text{tokens}} - 1}{T_{\text{decode}} / 1000.0}$ | **純 Decode 階段生成速度** (學術 N-1 算式) |
 | **端到端總延遲** | ms | 系統總耗時 | $T_{\text{total}} = T_{\text{Pipeline\_End}} - T_{\text{Pipeline\_Start}}$ | 包含事件循環 Overhead 之實體時間戳直減 |
 
----
+## 5. 實測數據 1 號裝置：Samsung Galaxy A33 5G
 
-## 3. 實測數據 1 號裝置：Samsung Galaxy A33 5G
-
-### 3-A. 4-Threads 模式完整實測結果 (2026-07-29 14:56)
+### 5.1 4-Threads 模式完整實測結果 (2026-07-29 14:56)
 
 #### 4-Threads 規格摘要
 
@@ -100,7 +106,6 @@
 | **Run 9** | 長 Prompt (~250字) | 3,541 ms | 4,898 ms | 48 tok | **9.60 tok/s** |
 
 > 📈 **4-Threads 純 LLM 總結**：平均 TTFT = **2,613.1 ms**，平均 Decode 速率 = **10.40 tok/s**
-> 
 
 #### RAG Pipeline 基準：標準 RAG vs Skills 模式 (4 Threads)
 
@@ -121,11 +126,8 @@
 | **Query 3 (水稻稻熱病)** | 1 ms | 17 ms (連發重置) | 0 ms | **21 ms** | 連發微秒重置 |
 
 > 📈 **4-Threads 標準 RAG 總結**：平均端到端總延遲 = **14,659.7 ms (14.7秒)**
-> 
 
----
-
-### 3-B. 6-Threads 模式完整實測結果 (2026-07-29 15:05)
+### 5.2 6-Threads 模式完整實測結果 (2026-07-29 15:05)
 
 #### 6-Threads 規格摘要
 
@@ -148,7 +150,6 @@
 | **Run 9** | 長 Prompt (~250字) | 2,885 ms | 5,062 ms | 68 tok | **13.24 tok/s** |
 
 > 📈 **6-Threads 純 LLM 總結**：平均 TTFT = **2,110.3 ms**，平均 Decode 速率爆發至 **13.70 tok/s**！
-> 
 
 #### RAG Pipeline 基準：標準 RAG vs Skills 模式 (6 Threads)
 
@@ -169,14 +170,17 @@
 | **Query 3 (水稻稻熱病)** | 3 ms | 33 ms (連發重置) | 0 ms | **43 ms** | 連發微秒重置 |
 
 > 📈 **6-Threads 標準 RAG 總結**：平均端到端總延遲縮短至 **11,826.0 ms (11.8秒)**！
-> 
 
----
-
-## 4. 跨裝置與不同設定效能對比矩陣 (Cross-Device & Thread Matrix)
+## 6. 跨裝置與不同設定效能對比矩陣 (Cross-Device & Thread Matrix)
 
 | 測試設定 / 裝置型號 | 處理器 (SoC) | 執行線程 (Threads) | 純 LLM TTFT | **Decode 速率 (TPS)** | **標準 RAG 平均總延遲** |
 | --- | --- | --- | --- | --- | --- |
 | **Samsung A33 (4 Threads)** | Exynos 1280 | 4 Threads | 2,613.1 ms | 10.40 tok/s | 14,659.7 ms (14.7秒) |
 | **Samsung A33 (6 Threads)** | Exynos 1280 | **6 Threads** | **2,110.3 ms** | **13.70 tok/s** (最高 14.88) | **11,826.0 ms (11.8秒)** 🚀 |
 | *(待追加裝置 2)* | - | - | - | - | - |
+
+## 7. 結論與限制
+
+6-Threads 設定在純 LLM 與標準 RAG 兩種情境下均優於 4-Threads，TTFT 與 Decode 速率均有雙位數百分比提升；Plant Diagnostic Skills 防幻覺模式以近 2~3 倍的延遲換取更嚴格的事實防衛，適合對正確性要求高於速度的場景。
+
+本報告未涵蓋：第 2 號測試裝置的數據（表格中列為待追加）、GPU/NNAPI 加速下的表現、長時間連續使用下的溫控降頻影響。
