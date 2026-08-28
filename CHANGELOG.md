@@ -30,6 +30,15 @@
 
 ---
 
+## 2026-08-28 18:16 — Antigravity
+
+- **範圍**：內容
+- **摘要**：以訓練程式碼庫 `docs/archive/v8_報告_模型訓練評估.md` 為底稿新增 `yolo26n_p2_v8_training_report.md`，補齊 v8 獨立訓練評估報告（包含超參數配置、損失收斂分析、混淆矩陣詳細指標計算與瓶頸診斷），並同步掛載至章索引與更新 `yolo26n_p2_v5_vs_v8_comparison.md` 之來源引用
+- **影響檔案**：`植物病蟲害辨識 (115資工四A)/病蟲害辨識模型/yolo26n_p2_v8_training_report.md`、`植物病蟲害辨識 (115資工四A)/病蟲害辨識模型.md`、`植物病蟲害辨識 (115資工四A)/病蟲害辨識模型/yolo26n_p2_v5_vs_v8_comparison.md`
+- **commit**：`a2beda5`
+
+---
+
 ## 2026-08-28 18:10 — Antigravity
 
 - **範圍**：內容

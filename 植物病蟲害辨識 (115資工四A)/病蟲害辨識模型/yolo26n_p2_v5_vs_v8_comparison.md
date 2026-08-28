@@ -2,7 +2,7 @@
 
 > **報告日期**：原始記錄未標註
 > **評測對象**：`YOLO26n_P2_Citrus_MuSGD_v5-2`（v5）與 `YOLO26n_P2_Citrus_MuSGD_v8`（v8）
-> **資料來源**：v5、v8 各自的 `results.csv` 訓練日誌
+> **資料來源**：v5、v8 各自的 `results.csv` 訓練日誌（詳見〈[v5 訓練技術報告](20260729_yolo26n_p2_training_report.md)〉與〈[v8 訓練評估報告](yolo26n_p2_v8_training_report.md)〉）
 > **撰寫人**：原始記錄未標註
 
 ## 1. 比較前提與結論摘要
@@ -82,7 +82,7 @@ v5 vs v8 驗證指標收斂曲線疊圖
 
 ![](Image/yolo26n_p2_v5_vs_v8_comparison/yolo26n_p2_v5_vs_v8_ap_by_class.jpg)
 
-圖 5-1：各類別 AP@0.5 對比（資料來源：v5 報告表 6-1、v8 報告表 4-3）
+圖 5-1：各類別 AP@0.5 對比（資料來源：v5 報告表 6-1、v8 報告表 5-1）
 
 ## 6. 補充發現
 
