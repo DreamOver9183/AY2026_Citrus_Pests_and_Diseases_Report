@@ -1,10 +1,9 @@
 # 柑橘病蟲害 YOLO26n-P2 模型訓練成效技術報告
 
-**報告版本**：v1.1（圖片路徑修正版）
-
-**報告撰寫日期**：2026-07-28
-
-**訓練實驗名稱**：`YOLO26n_P2_Citrus_MuSGD_v5-2`
+> **報告日期**：2026-07-28（v1.1，圖片路徑修正版）
+> **評測對象**：`YOLO26n_P2_Citrus_MuSGD_v5-2`（資料集 `Datasets_YOLO26_v5`）
+> **資料來源**：`results.csv`、`args.yaml` 訓練日誌
+> **撰寫人**：原始記錄未標註
 
 **報告風格**：客觀中立、數據至上、嚴謹稽核（Data-Driven Technical Report）
 
@@ -102,7 +101,7 @@ Epoch 86 出現 mAP@50 峰值 (0.8124)，此後模型進入平台期並波動，
 
 ## 2. 實驗環境與訓練配置
 
-### 表 2.1：訓練超參數完整清單（來源：args.yaml）
+### 表 2-1：訓練超參數完整清單（來源：args.yaml）
 
 | 參數 | 值 | 設計說明 |
 | --- | --- | --- |
@@ -139,7 +138,7 @@ Epoch 86 出現 mAP@50 峰值 (0.8124)，此後模型進入平台期並波動，
 
 ## 4. 訓練損失收斂分析
 
-### 表 4.1：關鍵 Epoch 訓練損失里程碑
+### 表 4-1：關鍵 Epoch 訓練損失里程碑
 
 | Epoch | train/box_loss | train/cls_loss | val/box_loss | val/cls_loss | mAP@50 | mAP@50-95 |
 | --- | --- | --- | --- | --- | --- | --- |
@@ -153,9 +152,9 @@ Epoch 86 出現 mAP@50 峰值 (0.8124)，此後模型進入平台期並波動，
 | **125** | 0.9524 | 0.5105 | 1.2113 | 0.8377 | 0.8004 | 0.6472 |
 | **150** | 0.7692 | 0.3314 | 1.2082 | 0.8472 | **0.8032** | **0.6458** |
 
-### 圖 4.1：訓練全程損失與指標曲線（150 Epoch）
+### 圖 4-1：訓練全程損失與指標曲線（150 Epoch）
 
-![圖 4.1 訓練全程損失與指標曲線（150 Epoch）](Image/20260729_yolo26n_p2_training_report/yolo26n_p2_results.png)
+![圖 4-1 訓練全程損失與指標曲線（150 Epoch）](Image/20260729_yolo26n_p2_training_report/yolo26n_p2_results.png)
 
 ### 損失收斂觀察
 
@@ -168,7 +167,7 @@ Epoch 86 出現 mAP@50 峰值 (0.8124)，此後模型進入平台期並波動，
 
 ## 5. 驗證指標進程分析
 
-### 表 5.1：指標達標時間點（mAP@50 里程碑）
+### 表 5-1：指標達標時間點（mAP@50 里程碑）
 
 | 里程碑閾值 | 首次達標 Epoch | 說明 |
 | --- | --- | --- |
@@ -179,7 +178,7 @@ Epoch 86 出現 mAP@50 峰值 (0.8124)，此後模型進入平台期並波動，
 | mAP@50 ≥ 0.803 | Epoch **68** | 進入平台階段 |
 | **mAP@50 峰值** | **Epoch 86** | **0.8124（最高點）** |
 
-### 表 5.2：最後 10 Epoch mAP@50 數據
+### 表 5-2：最後 10 Epoch mAP@50 數據
 
 | 指標 | Epoch 141–150 mAP@50 值 | 均值 | 波動範圍 |
 | --- | --- | --- | --- |
@@ -189,11 +188,11 @@ Epoch 86 出現 mAP@50 峰值 (0.8124)，此後模型進入平台期並波動，
 
 ## 6. 最終效能評估（PR 曲線 & F1 曲線）
 
-### 圖 6.1：各類別 Precision-Recall 曲線
+### 圖 6-1：各類別 Precision-Recall 曲線
 
-![圖 6.1 各類別 Precision-Recall 曲線（mAP@0.5）](Image/20260729_yolo26n_p2_training_report/yolo26n_p2_pr_curve.png)
+![圖 6-1 各類別 Precision-Recall 曲線（mAP@0.5）](Image/20260729_yolo26n_p2_training_report/yolo26n_p2_pr_curve.png)
 
-### 表 6.1：各類別 AP@50（PR 曲線 AUC，最終 Valid 集評估）
+### 表 6-1：各類別 AP@50（PR 曲線 AUC，最終 Valid 集評估）
 
 | 類別 ID | 類別名稱 | AP@50 | 效能評級 |
 | --- | --- | --- | --- |
@@ -211,9 +210,9 @@ Epoch 86 出現 mAP@50 峰值 (0.8124)，此後模型進入平台期並波動，
 薊馬與潛葉蛾的 AP@50 分別為 0.553 和 0.594，低於其他類別，為主要的低分項目。
 > 
 
-### 圖 6.2：各類別 F1-Confidence 曲線
+### 圖 6-2：各類別 F1-Confidence 曲線
 
-![圖 6.2 各類別 F1-Confidence 曲線](Image/20260729_yolo26n_p2_training_report/yolo26n_p2_f1_curve.png)
+![圖 6-2 各類別 F1-Confidence 曲線](Image/20260729_yolo26n_p2_training_report/yolo26n_p2_f1_curve.png)
 
 ### F1 曲線分析
 
@@ -222,9 +221,9 @@ Epoch 86 出現 mAP@50 峰值 (0.8124)，此後模型進入平台期並波動，
 - **薊馬（Thrips）**：F1 峰值約 **0.57**，曲線在 confidence > 0.5 後下降。
 - **蚜蟲（Aphid）**：F1 峰值約 0.70。
 
-### 圖 6.3：各類別 Precision-Confidence 曲線
+### 圖 6-3：各類別 Precision-Confidence 曲線
 
-![圖 6.3 各類別 Precision-Confidence 曲線](Image/20260729_yolo26n_p2_training_report/yolo26n_p2_p_curve.png)
+![圖 6-3 各類別 Precision-Confidence 曲線](Image/20260729_yolo26n_p2_training_report/yolo26n_p2_p_curve.png)
 
 ### Precision-Confidence 曲線分析
 
@@ -232,9 +231,9 @@ Epoch 86 出現 mAP@50 峰值 (0.8124)，此後模型進入平台期並波動，
 - **油斑病與煤煙病**：在 confidence = 0.1 時已維持 Precision > 0.95。
 - **薊馬（Thrips）**：低置信度區間（confidence < 0.3）的 Precision 在 0.4~0.6 之間。
 
-### 圖 6.4：各類別 Recall-Confidence 曲線
+### 圖 6-4：各類別 Recall-Confidence 曲線
 
-![圖 6.4 各類別 Recall-Confidence 曲線](Image/20260729_yolo26n_p2_training_report/yolo26n_p2_r_curve.png)
+![圖 6-4 各類別 Recall-Confidence 曲線](Image/20260729_yolo26n_p2_training_report/yolo26n_p2_r_curve.png)
 
 ### Recall-Confidence 曲線分析
 
@@ -247,15 +246,15 @@ Epoch 86 出現 mAP@50 峰值 (0.8124)，此後模型進入平台期並波動，
 
 ## 7. 混淆矩陣逐類別精細分析
 
-### 圖 7.1：正規化混淆矩陣（Normalized Confusion Matrix）
+### 圖 7-1：正規化混淆矩陣（Normalized Confusion Matrix）
 
-![圖 7.1 正規化混淆矩陣（Valid 集）](Image/20260729_yolo26n_p2_training_report/yolo26n_p2_confusion_matrix_norm.png)
+![圖 7-1 正規化混淆矩陣（Valid 集）](Image/20260729_yolo26n_p2_training_report/yolo26n_p2_confusion_matrix_norm.png)
 
-### 圖 7.2：原始計數混淆矩陣（Absolute Count）
+### 圖 7-2：原始計數混淆矩陣（Absolute Count）
 
-![圖 7.2 原始計數混淆矩陣（Valid 集）](Image/20260729_yolo26n_p2_training_report/yolo26n_p2_confusion_matrix.png)
+![圖 7-2 原始計數混淆矩陣（Valid 集）](Image/20260729_yolo26n_p2_training_report/yolo26n_p2_confusion_matrix.png)
 
-### 表 7.1：各類別 TP Rate 與主要誤判去向
+### 表 7-1：各類別 TP Rate 與主要誤判去向
 
 | 類別 | TP Rate（對角線） | 主要誤判去向 | 誤判率 | 分析 |
 | --- | --- | --- | --- | --- |
@@ -272,7 +271,7 @@ Epoch 86 出現 mAP@50 峰值 (0.8124)，此後模型進入平台期並波動，
 
 ## 8. 逐類別 AP50 效能排名
 
-### 表 8.1：逐類別效能排名（由高至低）
+### 表 8-1：逐類別效能排名（由高至低）
 
 | 排名 | 類別名稱 | AP@50 | AP 相對均值偏差 | 說明 |
 | --- | --- | --- | --- | --- |
@@ -290,7 +289,7 @@ Epoch 86 出現 mAP@50 峰值 (0.8124)，此後模型進入平台期並波動，
 
 ## 9. 過擬合風險評估
 
-### 表 9.1：Train vs Val 損失差值（Epoch 150）
+### 表 9-1：Train vs Val 損失差值（Epoch 150）
 
 | 損失項目 | Train 值 | Val 值 | 差值（Val − Train） | 差值比（Val / Train） |
 | --- | --- | --- | --- | --- |
@@ -298,7 +297,7 @@ Epoch 86 出現 mAP@50 峰值 (0.8124)，此後模型進入平台期並波動，
 | Cls Loss | 0.3314 | 0.8472 | +0.5158 | **2.56×** |
 | L1 Loss | 0.0056 | 0.0085 | +0.0029 | **1.52×** |
 
-### 表 9.2：Val Box Loss 後期趨勢（Epoch 100–150）
+### 表 9-2：Val Box Loss 後期趨勢（Epoch 100–150）
 
 | Epoch 區間 | val/box_loss 範圍 | 趨勢 |
 | --- | --- | --- |
@@ -310,7 +309,7 @@ Epoch 86 出現 mAP@50 峰值 (0.8124)，此後模型進入平台期並波動，
 
 ## 10. 訓練效率分析
 
-### 表 10.1：訓練效率摘要
+### 表 10-1：訓練效率摘要
 
 | 指標 | 數值 |
 | --- | --- |

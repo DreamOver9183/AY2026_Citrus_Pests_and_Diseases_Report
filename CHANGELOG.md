@@ -57,6 +57,15 @@
 
 ---
 
+## 2026-08-28 17:50 — Claude Code
+
+- **範圍**：內容
+- **摘要**：重寫 病蟲害辨識模型 章前兩篇報告：`20260714_all_models_training_metrics.md` 清除全篇數十處 Notion 匯出殘留的 `mailto:mAP@50` 壞連結、補規範引用區塊與摘要段落（含核心數據表）、新增結論與限制；`20260729_yolo26n_p2_training_report.md` 補規範引用區塊、全篇表/圖編號由句點改為連字號格式符合 H-6。所有表格數據逐項 diff 比對確認與舊版完全一致
+- **影響檔案**：`病蟲害辨識模型/20260714_all_models_training_metrics.md`、`病蟲害辨識模型/20260729_yolo26n_p2_training_report.md`
+- **commit**：`a3574b6`
+
+---
+
 ## 2026-08-28 16:20 — Antigravity
 
 - **範圍**：結構

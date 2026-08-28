@@ -1,24 +1,35 @@
 # 模型訓練數據報告
 
-**報告日期**：2026-07-14
-
-**報告類型**：模型訓練數據報告
-
-**評估對象**：
-- YOLO26 系列目標偵測模型（Large, Nano, Nano+P2, 量化微調版）
-- 基於 PyTorch 的 SSD-MobileNetV3 系列目標偵測模型（Large, Small）。
+> **報告日期**：2026-07-14
+> **評測對象**：YOLO26 系列（Large, Nano, Nano+P2, 量化微調版）、SSD-MobileNetV3 系列（Large, Small）共 6 個模型
+> **資料來源**：`results.csv`、`training_metrics.csv` 訓練日誌與原始權重評估
+> **撰寫人**：原始記錄未標註
 
 **資料集規格**：作物病蟲害偵測資料集。
 
----
+## 1. 摘要
 
-## 1. 數據總覽 (Metrics Overview)
+- YOLO26 系列整體大幅優於 SSD-MobileNetV3 系列：mAP@50 最高 0.8711（Large），最低仍有 0.8463（量化微調版），皆遠高於 SSD 系列的 0.45~0.47
+- YOLO26-nano（5.3 MB）以最小體積達到 mAP@50 = 0.8544，模型大小僅為 Large（50.7 MB）的 1/10 但精準度僅低 2 個百分點
+- SSD-MobileNetV3 系列 Accuracy 偏低（0.07~0.09）主因是無背景框（TN=0）嚴格匹配下召回率偏低，非模型完全失效
+- SSD 系列混淆矩陣中 `P_AP_LD`、`P_TP_LD` 全 0 已查證為資料集本身缺乏該類樣本，`P_SI` 大量漏檢則是低解析度輸入下微小目標特徵丟失所致
+
+| 模型名稱 | mAP@50 | mAP@50-95 | 權重大小 |
+| --- | --- | --- | --- |
+| YOLO26-large | 0.8711 | 0.7436 | ~50.7 MB |
+| YOLO26-nano | 0.8544 | 0.7205 | ~5.3 MB |
+| YOLO26-nano+P2 | 0.8511 | 0.7201 | ~5.3 MB |
+| YOLO26-nano-p2-w8a32 | 0.8463 | 0.7132 | ~5.3 MB |
+| SSD-MobileNetV3-large | 0.4717 | 0.3269 | ~9.3 MB |
+| SSD-MobileNetV3-small | 0.4541 | 0.2676 | ~6.8 MB |
+
+## 2. 數據總覽 (Metrics Overview)
 
 下表彙整了所有評估模型在驗證集上的最優效能指標。
-其中，[**mAP@50](mailto:mAP@50) (IoU=0.5)** 代表粗定位與分類的綜合平均精度；[**mAP@50](mailto:mAP@50):95** 代表精密邊界框定位能力；**準確率 (Accuracy)** 則採用邊界框級別的交併比匹配度公式計算（以 $TN = 0$ 為簡化標準）。
+其中，**mAP@50 (IoU=0.5)** 代表粗定位與分類的綜合平均精度；**mAP@50:95** 代表精密邊界框定位能力；**準確率 (Accuracy)** 則採用邊界框級別的交併比匹配度公式計算（以 $TN = 0$ 為簡化標準）。
 *註：SSD-MobileNetV3 模型的 Precision, Recall、F1-Score 與 Accuracy 係經由驗證集上進行完整推論匹配計算得出（以最優 F1-Score 對應的置信度閾值 0.20 為準）。*
 
-| 模型名稱 (Model) | 準確率 (Accuracy) | 精確率 (Precision) | 召回率 (Recall) | F1-Score | [mAP@50](mailto:mAP@50) (IoU=0.5) | [mAP@50-95](mailto:mAP@50-95) | 訓練輪數 (Epoch) | 權重大小 (Size) |
+| 模型名稱 (Model) | 準確率 (Accuracy) | 精確率 (Precision) | 召回率 (Recall) | F1-Score | mAP@50 (IoU=0.5) | mAP@50-95 | 訓練輪數 (Epoch) | 權重大小 (Size) |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- |
 | **YOLO26-large** | **0.7701** | 0.8983 | 0.8436 | 0.8701 | **0.8711** | 0.7436 | 109 | ~50.7 MB |
 | **YOLO26-nano** | 0.7326 | 0.8680 | 0.8244 | 0.8456 | 0.8544 | 0.7205 | 124 | ~5.3 MB |
@@ -29,7 +40,7 @@
 
 ---
 
-## 2. 數據計算與匹配邏輯說明
+## 3. 數據計算與匹配邏輯說明
 
 本報告之所有數據皆經由工作區之真實訓練日誌（`results.csv` 與 `training_metrics.csv`）提取或經由原始權重評估得出。
 
@@ -121,10 +132,10 @@ $$
 
 當 $\text{IoU} \ge 0.5$ 且預測類別正確時，該預測框被判定為候選正確預測。
 
-#### (6) 平均精度 ([mAP@50](mailto:mAP@50) 與 [mAP@50-95](mailto:mAP@50-95))
+#### (6) 平均精度 (mAP@50 與 mAP@50-95)
 
-- [**mAP@50**](mailto:mAP@50)：在 IoU 閾值固定為 $0.5$ 時，所有類別 AP 的平均值，用於評估粗定位與分類性能。
-- [**mAP@50-95**](mailto:mAP@50-95)：在 IoU 閾值從 $0.5$ 漸進到 $0.95$（步長為 $0.05$）下分別計算 mAP，最後再取平均值，用於評估精密定位性能。
+- **mAP@50**：在 IoU 閾值固定為 $0.5$ 時，所有類別 AP 的平均值，用於評估粗定位與分類性能。
+- **mAP@50-95**：在 IoU 閾值從 $0.5$ 漸進到 $0.95$（步長為 $0.05$）下分別計算 mAP，最後再取平均值，用於評估精密定位性能。
 
 ---
 
@@ -142,16 +153,16 @@ $$
 
 ---
 
-## 3. YOLO26 系列詳細數據
+## 4. YOLO26 系列詳細數據
 
 YOLO26 系列模型在不同訓練階段的關鍵數據如下表所示：
 
 ### 1. YOLO26-large 詳細訓練軌跡
 
 - **最優狀態**：Epoch 109 達到最優。
-- **指標數值**：[mAP@50](mailto:mAP@50) = 0.8711，[mAP@50](mailto:mAP@50):95 = 0.7436，F1-Score = 0.8701。
+- **指標數值**：mAP@50 = 0.8711，mAP@50:95 = 0.7436，F1-Score = 0.8701。
 
-| Epoch | Train Box Loss | Train Cls Loss | Precision | Recall | [mAP@50](mailto:mAP@50) | [mAP@50](mailto:mAP@50):95 | Val Box Loss | Val Cls Loss |
+| Epoch | Train Box Loss | Train Cls Loss | Precision | Recall | mAP@50 | mAP@50:95 | Val Box Loss | Val Cls Loss |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- |
 | 1 | 1.2219 | 2.4264 | 0.6936 | 0.7282 | 0.7549 | 0.6182 | 1.2189 | 1.1985 |
 | 10 | 1.2577 | 1.1777 | 0.8021 | 0.8046 | 0.8254 | 0.6624 | 1.2456 | 0.9247 |
@@ -183,9 +194,9 @@ YOLO26 系列模型在不同訓練階段的關鍵數據如下表所示：
 ### 2. YOLO26-nano 詳細訓練軌跡
 
 - **最優狀態**：Epoch 124 達到最優。
-- **指標數值**：[mAP@50](mailto:mAP@50) = 0.8544，[mAP@50](mailto:mAP@50):95 = 0.7205，F1-Score = 0.8456。
+- **指標數值**：mAP@50 = 0.8544，mAP@50:95 = 0.7205，F1-Score = 0.8456。
 
-| Epoch | Train Box Loss | Train Cls Loss | Precision | Recall | [mAP@50](mailto:mAP@50) | [mAP@50](mailto:mAP@50):95 | Val Box Loss | Val Cls Loss |
+| Epoch | Train Box Loss | Train Cls Loss | Precision | Recall | mAP@50 | mAP@50:95 | Val Box Loss | Val Cls Loss |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- |
 | 1 | 1.3987 | 3.6041 | 0.6088 | 0.6163 | 0.6367 | 0.5376 | 1.3513 | 1.7553 |
 | 10 | 1.3696 | 1.1928 | 0.7881 | 0.7657 | 0.8010 | 0.6464 | 1.4296 | 1.1229 |
@@ -213,9 +224,9 @@ YOLO26 系列模型在不同訓練階段的關鍵數據如下表所示：
 ### 3. YOLO26-nano+P2 詳細訓練軌跡
 
 - **最優狀態**：Epoch 98 達到最優。
-- **指標數值**：[mAP@50](mailto:mAP@50) = 0.8511，[mAP@50](mailto:mAP@50):95 = 0.7201，F1-Score = 0.8533。
+- **指標數值**：mAP@50 = 0.8511，mAP@50:95 = 0.7201，F1-Score = 0.8533。
 
-| Epoch | Train Box Loss | Train Cls Loss | Precision | Recall | [mAP@50](mailto:mAP@50) | [mAP@50](mailto:mAP@50):95 | Val Box Loss | Val Cls Loss |
+| Epoch | Train Box Loss | Train Cls Loss | Precision | Recall | mAP@50 | mAP@50:95 | Val Box Loss | Val Cls Loss |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- |
 | 1 | 2.5204 | 4.9543 | 0.3572 | 0.3959 | 0.3223 | 0.1936 | 1.7552 | 2.7031 |
 | 10 | 1.4027 | 1.3980 | 0.7433 | 0.7532 | 0.7815 | 0.6242 | 1.3874 | 1.2123 |
@@ -243,9 +254,9 @@ YOLO26 系列模型在不同訓練階段的關鍵數據如下表所示：
 ### 4. YOLO26-nano-p2-w8a32 詳細訓練軌跡
 
 - **最優狀態**：微調第 7 個 Epoch 達到最優。
-- **指標數值**：[mAP@50](mailto:mAP@50) = 0.8463，[mAP@50](mailto:mAP@50):95 = 0.7132，F1-Score = 0.8372。
+- **指標數值**：mAP@50 = 0.8463，mAP@50:95 = 0.7132，F1-Score = 0.8372。
 
-| Epoch | Train Box Loss | Train Cls Loss | Precision | Recall | [mAP@50](mailto:mAP@50) | [mAP@50](mailto:mAP@50):95 | Val Box Loss | Val Cls Loss |
+| Epoch | Train Box Loss | Train Cls Loss | Precision | Recall | mAP@50 | mAP@50:95 | Val Box Loss | Val Cls Loss |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- |
 | 1 | 0.9941 | 0.6366 | 0.8622 | 0.8103 | 0.8524 | 0.7159 | 1.1304 | 0.8884 |
 | **7** | 0.8883 | 0.4817 | 0.8662 | 0.8101 | 0.8463 | 0.7132 | 1.1446 | 0.8940 |
@@ -267,16 +278,16 @@ YOLO26 系列模型在不同訓練階段的關鍵數據如下表所示：
 
 ---
 
-## 4. SSD-MobileNetV3 系列詳細數據
+## 5. SSD-MobileNetV3 系列詳細數據
 
 SSD-MobileNetV3 系列模型在兩階段訓練（Phase 1 與 Phase 2）過程中的關鍵數據如下：
 
 ### 1. SSD-MobileNetV3-large 詳細訓練軌跡
 
 - **最優狀態**：Epoch 36 達到最優。
-- **指標數值**：[mAP@50](mailto:mAP@50) = 0.4717，[mAP@50](mailto:mAP@50):95 = 0.3269。
+- **指標數值**：mAP@50 = 0.4717，mAP@50:95 = 0.3269。
 
-| Epoch | Phase | Train Loss | Val Loss | [mAP@50](mailto:mAP@50) | [mAP@50](mailto:mAP@50):95 |
+| Epoch | Phase | Train Loss | Val Loss | mAP@50 | mAP@50:95 |
 | --- | --- | --- | --- | --- | --- |
 | 1 | 1 | 12.1682 | 13.1189 | 0.0017 | 0.0005 |
 | 5 | 1 | 5.5879 | 7.7570 | 0.2264 | 0.1656 |
@@ -318,9 +329,9 @@ SSD-MobileNetV3 系列模型在兩階段訓練（Phase 1 與 Phase 2）過程中
 ### 2. SSD-MobileNetV3-small 詳細訓練軌跡
 
 - **最優狀態**：Epoch 40 達到最優。
-- **指標數值**：[mAP@50](mailto:mAP@50) = 0.4541，[mAP@50](mailto:mAP@50):95 = 0.2676。
+- **指標數值**：mAP@50 = 0.4541，mAP@50:95 = 0.2676。
 
-| Epoch | Phase | Train Loss | Val Loss | [mAP@50](mailto:mAP@50) | [mAP@50](mailto:mAP@50):95 |
+| Epoch | Phase | Train Loss | Val Loss | mAP@50 | mAP@50:95 |
 | --- | --- | --- | --- | --- | --- |
 | 1 | 1 | 14.0265 | 14.9114 | 0.0030 | 0.0009 |
 | 5 | 1 | 5.8996 | 8.6495 | 0.3417 | 0.1821 |
@@ -373,13 +384,13 @@ SSD-MobileNetV3 系列模型在兩階段訓練（Phase 1 與 Phase 2）過程中
 
 ---
 
-## 5. 雙模型架構數據對比
+## 6. 雙模型架構數據對比
 
 ### 1. 定位與精準度指標對比
 
 YOLO26 系列的整體指標高於 SSD-MobileNetV3 系列。
-- [**mAP@50**](mailto:mAP@50) 方面，**YOLO26-nano** 的 [mAP@50](mailto:mAP@50) 為 `0.8544`，比 **SSD-MobileNetV3-large** 的 `0.4717` 高出 38.27%，且其模型體積（5.3 MB）比後者（9.3 MB）小 43%。
-- **精密定位 ([mAP@50](mailto:mAP@50):95)** 方面，YOLO26 最低為 `0.7132` (量化微調版)，而 SSD 最高僅為 `0.3269` (Large)。
+- **mAP@50** 方面，**YOLO26-nano** 的 mAP@50 為 `0.8544`，比 **SSD-MobileNetV3-large** 的 `0.4717` 高出 38.27%，且其模型體積（5.3 MB）比後者（9.3 MB）小 43%。
+- **精密定位 (mAP@50:95)** 方面，YOLO26 最低為 `0.7132` (量化微調版)，而 SSD 最高僅為 `0.3269` (Large)。
 - **邊界框準確率 (Accuracy)** 方面，YOLO26 模型介於 `0.7200` 至 `0.7701`，而 SSD-MobileNetV3 模型介於 `0.0731` 至 `0.0897`。該差距主要由於 SSD 的召回率（Recall）偏低，在無背景框（TN=0）的嚴格匹配計算下，公式分母中的漏檢數 (FN) 佔比力道較大，進而拉低了其 Accuracy 數值。
 
 ### 2. 參數量與模型大小對比
@@ -392,6 +403,12 @@ YOLO26 系列的整體指標高於 SSD-MobileNetV3 系列。
 ### 3. 兩階段訓練與單階段訓練收斂效率
 
 - **SSD-MobileNetV3** 在 Phase 1（1~5 Epochs）僅微調偵測頭時，Loss 從 12.16 降至 5.58。解凍骨幹（Epoch 6）後，mAP 穩步提升至最優。
-- **YOLO26** 從首個 Epoch 即開始進行全網更新，收斂速度較快。例如 YOLO26-large 在 Epoch 10 即可達到 [mAP@50](mailto:mAP@50) = 0.8254。
+- **YOLO26** 從首個 Epoch 即開始進行全網更新，收斂速度較快。例如 YOLO26-large 在 Epoch 10 即可達到 mAP@50 = 0.8254。
 
 ![ssd_small_confusion_matrix.png](Image/20260714_all_models_training_metrics/ssd_mnv3_small_confusion_matrix.png)
+
+## 7. 結論與限制
+
+YOLO26 系列在精準度與效率上全面優於 SSD-MobileNetV3 系列，其中 YOLO26-nano 在體積與精準度間取得最佳平衡。SSD 系列的低 Accuracy 主要來自嚴格匹配公式對召回率的放大效應，而非模型完全無法偵測。
+
+本報告未涵蓋：各模型在實機（TFLite 量化後）的推論延遲與記憶體表現，詳見〈[全模型 TFLite Mobile Benchmark 效能測試報告](../%E7%B3%BB%E7%B5%B1%E6%B8%AC%E8%A9%A6%E8%88%87%E8%A9%95%E4%BC%B0/all_models_tflite_benchmark.md)〉；測試集（僅驗證集）表現。
