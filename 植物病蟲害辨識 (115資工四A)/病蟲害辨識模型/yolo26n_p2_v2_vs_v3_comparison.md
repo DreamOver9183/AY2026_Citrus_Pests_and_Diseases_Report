@@ -1,7 +1,11 @@
 # YOLO26 Nano P2 模型效能評測與對比報告 (v2 vs v3)
 
-> **重要說明**：本報告完全基於工作區中 `YOLO26-nano-p2-v2` 與 `yolo26-nano-p2-v3` 之實驗數據日誌（`results2.txt`、`results.txt`）以及 `各項數據計算.md` 的目標偵測 Accuracy 計算公式與全套 16 張圖表進行客觀分析。無任何估計值或假設性數據，全書數字精確至小數點後五位。
-> 
+> **報告日期**：2026-07-22
+> **評測對象**：`YOLO26-nano-p2-v2` 與 `yolo26-nano-p2-v3`（相同訓練配置，150 Epochs）
+> **資料來源**：本機訓練實驗數據日誌 `results2.txt`、`results.txt`，原始存放路徑不明
+> **撰寫人**：原始記錄未標註
+
+本報告完全基於上述實驗數據日誌與全套 16 張圖表進行客觀分析，Accuracy 計算公式定義見〈[效能指標評估](../%E6%95%88%E8%83%BD%E6%8C%87%E6%A8%99%E8%A9%95%E4%BC%B0.md)〉。無任何估計值或假設性數據，全書數字精確至小數點後五位。
 
 ---
 
@@ -197,7 +201,7 @@ F1 Score 綜合反映 Precision 與 Recall 之調和平均值。
 
 ## 6. 目標偵測準確率（Accuracy / Jaccard Index）專題計算
 
-根據 `各項數據計算.md` 規範，在目標偵測任務中，由於無目標的背景框（Background Box）數量無限且不可統計，TN (True Negative) 被設定為 $0$。準確率Accuracy之推導公式如下：
+依〈[效能指標評估](../%E6%95%88%E8%83%BD%E6%8C%87%E6%A8%99%E8%A9%95%E4%BC%B0.md)〉規範，在目標偵測任務中，由於無目標的背景框（Background Box）數量無限且不可統計，TN (True Negative) 被設定為 $0$。準確率Accuracy之推導公式如下：
 
 $$
 \text{Accuracy} = \frac{\text{TP}}{\text{TP} + \text{FP} + \text{FN}} = \frac{1}{\frac{1}{\text{Precision}} + \frac{1}{\text{Recall}} - 1} = \frac{\text{Precision} \times \text{Recall}}{\text{Precision} + \text{Recall} - \text{Precision} \times \text{Recall}}
@@ -241,6 +245,4 @@ $$
 3. **運算資源與時間**：
     - **v2** 訓練耗時略少 **435 秒**（相當於每 Epoch 快 2.9 秒，省時 1.52%）。
 
----
-
-*報告生成時間: 2026-07-22 | 數據來源: d:\0722報告*
+本報告未涵蓋：v2/v3 與 v5/v8 系列的世代關聯（是否為同一衍生脈絡未見於現有文件）、測試集（僅驗證集）表現。
