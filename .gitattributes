@@ -20,3 +20,6 @@
 *.gif  binary
 *.webp binary
 *.pdf  binary
+
+# git hook 由 sh 執行，必須是 LF
+.agent/hooks/pre-commit text eol=lf

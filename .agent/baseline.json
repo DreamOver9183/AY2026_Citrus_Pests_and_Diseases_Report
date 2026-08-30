@@ -11,5 +11,6 @@
     "filename_with_paren":  0,
     "image_serial_suffix":  0,
     "image_placeholder_name":  0,
-    "image_uuid_name":  0
+    "image_uuid_name":  0,
+    "orphan_images":  0
 }

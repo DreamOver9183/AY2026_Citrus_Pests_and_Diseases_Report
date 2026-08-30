@@ -1,0 +1,36 @@
+#!/bin/sh
+# 收工關卡（AGENTS.md 紅線 R5）：兩支驗證腳本都通過才允許 commit。
+#
+# 安裝：powershell -ExecutionPolicy Bypass -File .agent/hooks/install-hooks.ps1
+# 這支 hook 納入版控，每位成員各自安裝一次即可。
+
+# 腳本輸出含中文。git 執行 hook 時 stdout 被重導，PowerShell 會退回主控台
+# 的 OEM 代碼頁而印出亂碼，因此明確指定 UTF-8 再呼叫。
+run() {
+    printf '\n[pre-commit] %s\n' "$1"
+    HOOK_SCRIPT="$1" powershell -NoProfile -ExecutionPolicy Bypass -Command '
+        [Console]::OutputEncoding = [System.Text.Encoding]::UTF8
+        $root = (& git rev-parse --show-toplevel)
+        & (Join-Path $root (".agent/scripts/" + $env:HOOK_SCRIPT)) -Root $root
+        exit $LASTEXITCODE
+    '
+    return $?
+}
+
+run verify-links.ps1 || {
+    echo ''
+    echo '[pre-commit] 阻擋 commit：verify-links 未通過。'
+    echo '  幾乎必然是改名沒有同步改寫指向它的相對連結。'
+    exit 1
+}
+
+run audit-structure.ps1 || {
+    echo ''
+    echo '[pre-commit] 阻擋 commit：audit-structure 偵測到指標上升。'
+    echo '  用 -Verbose 看逐項清單。不要用 -UpdateBaseline 吸收劣化。'
+    exit 1
+}
+
+echo ''
+echo '[pre-commit] 兩支關卡皆通過。'
+exit 0

@@ -30,6 +30,15 @@
 
 ---
 
+## 2026-08-30 22:40 — Claude Code
+
+- **範圍**：規則文件
+- **摘要**：補上三道原本缺席的護欄。新增 `orphan_images` 指標（指標數 13 → 14）：`verify-links` 只驗「連結指向的檔案在不在」，反方向的「圖有沒有被引用」原本無人把關，刪報告漏刪資產資料夾不會被發現；現況 48 張圖全部有引用，起始值為 0。新增 `delete-report` skill 補齊任務路由缺的刪除流程，並掛進 AGENTS.md。新增納入版控的 `pre-commit` hook 與 `install-hooks.ps1`，收工關卡不再只靠自覺（`--no-verify` 明列為違反 R5）。另在 `edit-report` 寫明「插入空的 `## 摘要` 讓指標歸零卻不留 TODO 屬於規避關卡」，並在 AGENTS.md 補「常用查詢」唯讀入口
+- **影響檔案**：`.agent/scripts/audit-structure.ps1`、`.agent/baseline.json`、`.agent/skills/delete-report/SKILL.md`（新增）、`.agent/hooks/pre-commit`（新增）、`.agent/hooks/install-hooks.ps1`（新增）、`.gitattributes`、`AGENTS.md`、`.agent/SPECIFICATION.md`、`.agent/skills/edit-report/SKILL.md`
+- **commit**：`(待回填)`
+
+---
+
 ## 2026-08-30 22:10 — Claude Code
 
 - **範圍**：結構

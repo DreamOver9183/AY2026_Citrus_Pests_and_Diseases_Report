@@ -75,6 +75,7 @@ $m = [ordered]@{
     image_serial_suffix       = 0   # N-4 圖檔流水號結尾
     image_placeholder_name    = 0   # 5.3 匯出工具亂碼檔名
     image_uuid_name           = 0   # 5.3 UUID 檔名
+    orphan_images             = 0   # 資產資料夾裡沒有任何 md 引用到的圖
 }
 $details = @{}
 foreach ($k in $m.Keys) { $details[$k] = @() }
@@ -118,11 +119,30 @@ foreach ($file in Get-ChildItem -LiteralPath $reportDir -Recurse -File -Filter *
     if ($base -match '[()（）]') { Add-Hit filename_with_paren $rel }
 }
 
+# --- 蒐集被 md 引用到的目標（供孤兒圖片判斷）-------------------------------
+# verify-links 只驗「連結指向的檔案在不在」；反方向的「檔案有沒有被引用」要靠這裡。
+# 刪報告時最容易漏掉同名的 Image/ 資產資料夾，孤兒圖會永遠留在 repo 裡。
+$referenced = @{}
+foreach ($file in Get-ChildItem -LiteralPath $reportDir -Recurse -File -Filter *.md) {
+    $masked = ConvertTo-FenceMasked ([System.IO.File]::ReadAllText($file.FullName))
+    foreach ($mt in $LinkRegex.Matches($masked)) {
+        $target = $mt.Groups['t'].Value
+        if ([string]::IsNullOrWhiteSpace($target) -or $SkipRegex.IsMatch($target)) { continue }
+        $pathPart = ($target -split '#')[0]
+        if ([string]::IsNullOrWhiteSpace($pathPart)) { continue }
+        try {
+            $abs = [System.IO.Path]::GetFullPath((Join-Path $file.DirectoryName ([System.Uri]::UnescapeDataString($pathPart))))
+            $referenced[$abs.ToLowerInvariant()] = $true
+        } catch { }
+    }
+}
+
 # --- 掃描圖檔 ---------------------------------------------------------------
 foreach ($img in Get-ChildItem -LiteralPath $reportDir -Recurse -File |
                  Where-Object { $_.Extension -in '.png', '.jpg', '.jpeg', '.gif', '.webp' }) {
     $rel  = Get-RelPath -Base $Root -Full $img.FullName
     $base = $img.BaseName
+    if (-not $referenced.ContainsKey($img.FullName.ToLowerInvariant())) { Add-Hit orphan_images $rel }
     if ($SerialSuffixRegex.IsMatch($base))  { Add-Hit image_serial_suffix    $rel }
     if ($base -match '^imported-image')   { Add-Hit image_placeholder_name $rel }
     if ($base -match '^images?[0-9a-f]{8}') { Add-Hit image_uuid_name      $rel }

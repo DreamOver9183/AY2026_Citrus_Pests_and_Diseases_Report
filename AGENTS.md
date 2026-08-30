@@ -46,11 +46,19 @@ powershell -ExecutionPolicy Bypass -File .agent/scripts/audit-structure.ps1
 | 腳本 | 檢查 | 通過條件 |
 | --- | --- | --- |
 | `verify-links.ps1` | 全庫相對連結與圖片是否指向存在的檔案 | 斷鏈 **必須為 0** |
-| `audit-structure.ps1` | 13 項結構／標題／檔名指標，與 `.agent/baseline.json` 比對 | 任何一項**都不得上升** |
+| `audit-structure.ps1` | 14 項結構／標題／檔名／資產指標，與 `.agent/baseline.json` 比對 | 任何一項**都不得上升** |
 
 `audit-structure.ps1` 採**棘輪機制**：既有問題不必一次修完，但不允許新增。修好一批後才執行 `-UpdateBaseline` 收緊基準線。用 `-Verbose` 可列出逐項清單。
 
 兩支腳本 exit code 非 0 就是不得 commit。**不要以「我檢查過了」代替實際執行。**
+
+這道關卡有 pre-commit hook 自動把關，不再只靠自覺。clone 後執行一次即可啟用：
+
+```powershell
+powershell -ExecutionPolicy Bypass -File .agent/hooks/install-hooks.ps1
+```
+
+hook 本體在 [`.agent/hooks/pre-commit`](.agent/hooks/pre-commit)（納入版控）。**`git commit --no-verify` 會跳過它，等同直接違反 R5。**
 
 ## 異動紀錄
 
@@ -63,8 +71,27 @@ powershell -ExecutionPolicy Bypass -File .agent/scripts/audit-structure.ps1
 | 改檔名／搬移檔案／整理命名 | [`.agent/skills/rename-files/SKILL.md`](.agent/skills/rename-files/SKILL.md) |
 | 新增一篇報告 | [`.agent/skills/add-report/SKILL.md`](.agent/skills/add-report/SKILL.md) |
 | 修改既有報告的結構或內容 | [`.agent/skills/edit-report/SKILL.md`](.agent/skills/edit-report/SKILL.md) |
+| 刪除一篇報告 | [`.agent/skills/delete-report/SKILL.md`](.agent/skills/delete-report/SKILL.md) |
 | commit 與推送 | [`.agent/skills/commit-and-push/SKILL.md`](.agent/skills/commit-and-push/SKILL.md) |
 
+## 常用查詢（唯讀，不需要 skill）
+
+這些只是查資料，沒有流程風險，不必載入 skill。
+
+```powershell
+# 某項指標現在有哪些違規
+powershell -ExecutionPolicy Bypass -File .agent/scripts/audit-structure.ps1 -Verbose
+
+# 某張圖／某篇報告被誰引用（中文要先 percent-encode）
+[System.Uri]::EscapeDataString("架構設計")
+Select-String -Path "植物病蟲害辨識 (115資工四A)\*.md" -Recurse -Pattern "yolo26n_p2_results" -Encoding UTF8
+
+# 某篇報告的異動歷史
+git log --oneline --follow -- "植物病蟲害辨識 (115資工四A)/病蟲害辨識模型/20260825_weekly_report.md"
+
+# 某次 commit 到底改了什麼
+git show --stat <hash>
+```
 規範本體在 [`.agent/SPECIFICATION.md`](.agent/SPECIFICATION.md)，**不要在別處另寫一份**：
 
 - 目錄層級與章的職責界線 → §1、§2

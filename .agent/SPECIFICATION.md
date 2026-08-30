@@ -2,7 +2,7 @@
 
 > **本檔只定義規範。**
 > 制定日：2026-08-27，依據當日全庫盤點（25 篇報告、314 個標題、48 張圖）。
-> 2026-08-27 完成全庫套用：檔名、章節職責重疊、標題與骨架規範三批工作皆已收尾，`baseline.json` 13 項結構指標全數為 0；§6 說明如何取得即時的落差清單以確認現況。
+> 2026-08-27 完成全庫套用：檔名、章節職責重疊、標題與骨架規範三批工作皆已收尾，`baseline.json` 的結構指標全數為 0；§6 說明如何取得即時的落差清單以確認現況。
 > 新增或改寫任何報告時，以本檔為準。
 
 **AI agent 請先讀 [`AGENTS.md`](../AGENTS.md)**，那裡有紅線、驗證關卡與任務路由；本檔是它引用的規範本體。規範是否被遵守由 [`scripts/`](scripts) 下的腳本自動檢查，不靠人工複查。
@@ -165,6 +165,7 @@ powershell -ExecutionPolicy Bypass -File .agent/scripts/audit-structure.ps1 -Ver
 | `filename_with_space` / `filename_with_paren` | N-1 檔名含空格或括號 |
 | `image_serial_suffix` | N-4 圖檔以流水號結尾 |
 | `image_placeholder_name` / `image_uuid_name` | §5.3 匯出工具產生的無語意檔名 |
+| `orphan_images` | §1 規則 2 資產資料夾裡沒有任何 md 引用到的圖（刪報告時漏刪的殘留） |
 
 ### 6.2 章的職責重疊（已完成）
 
