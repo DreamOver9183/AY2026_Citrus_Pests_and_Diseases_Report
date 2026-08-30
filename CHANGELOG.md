@@ -30,12 +30,21 @@
 
 ---
 
+## 2026-08-30 21:04 — Claude Code
+
+- **範圍**：其他
+- **摘要**：CHANGELOG 17 筆紀錄中有 16 筆的 commit hash 指向 `--amend` 前的孤兒 commit——它們不在任何分支上，只靠本機 reflog 存活，`git gc` 之後就永久對應不回去；以 commit subject 1:1 比對後全數回填為 main 上的實際 hash，並改掉 `commit-and-push` skill 中造成此問題的 `--amend` 回填流程（改為兩段式 commit）
+- **影響檔案**：`CHANGELOG.md`、`.agent/skills/commit-and-push/SKILL.md`
+- **commit**：`(待回填)`
+
+---
+
 ## 2026-08-28 18:16 — Antigravity
 
 - **範圍**：內容
 - **摘要**：以訓練程式碼庫 `docs/archive/v8_報告_模型訓練評估.md` 為底稿新增 `yolo26n_p2_v8_training_report.md`，補齊 v8 獨立訓練評估報告（包含超參數配置、損失收斂分析、混淆矩陣詳細指標計算與瓶頸診斷），並同步掛載至章索引與更新 `yolo26n_p2_v5_vs_v8_comparison.md` 之來源引用
 - **影響檔案**：`植物病蟲害辨識 (115資工四A)/病蟲害辨識模型/yolo26n_p2_v8_training_report.md`、`植物病蟲害辨識 (115資工四A)/病蟲害辨識模型.md`、`植物病蟲害辨識 (115資工四A)/病蟲害辨識模型/yolo26n_p2_v5_vs_v8_comparison.md`
-- **commit**：`a2beda5`
+- **commit**：`9e308d0`
 
 ---
 
@@ -44,7 +53,7 @@
 - **範圍**：內容
 - **摘要**：重寫 `yolo26n_p2_v5_vs_v8_comparison.md`（全形字元轉半形、修正標題順序與 lr0 錯字、補規範引用區塊與結論限制，所有表格數據逐項 diff 比對確認一致）與 `20260825_weekly_report.md`（採用訓練程式碼庫乾淨原文重新轉錄，復原報告資訊區塊、標題編號與 mermaid 圖，引用改標註程式碼庫 docs），並同步對齊 L1 章索引連結文字
 - **影響檔案**：`植物病蟲害辨識 (115資工四A)/病蟲害辨識模型/yolo26n_p2_v5_vs_v8_comparison.md`、`植物病蟲害辨識 (115資工四A)/病蟲害辨識模型/20260825_weekly_report.md`、`植物病蟲害辨識 (115資工四A)/病蟲害辨識模型.md`
-- **commit**：`c75fadd`
+- **commit**：`ffe57ab`
 
 ---
 
@@ -53,7 +62,7 @@
 - **範圍**：規則文件
 - **摘要**：README §1 資產資料夾規則表與 `.agent/skills/add-report/SKILL.md` 仍寫舊路徑 `<章名>/<篇名>/`，跟 Antigravity 已實際套用的 `<章名>/Image/<篇名>/` 現況不符；修正規則文字使其與現況一致
 - **影響檔案**：README.md、`.agent/skills/add-report/SKILL.md`
-- **commit**：`e8a66ec`
+- **commit**：`2529ff3`
 
 ---
 
@@ -62,7 +71,7 @@
 - **範圍**：內容
 - **摘要**：重寫 資料集分析 章兩篇報告使符合現行骨架規範：`yolo26_v2_dataset_stats.md` 補上規範四欄引用區塊（日期/對象/來源/撰寫人）、新增摘要段落、原第 5 節改標為「結論與限制」；`yolo26_v5_dataset_stats.md` 引用區塊欄位標籤對齊規範用詞，並補上 v2/v5 class ID 不對應與原始標註數疑似同源的觀察記錄。所有表格數據逐項 diff 比對確認與舊版完全一致，無資料誤植
 - **影響檔案**：`資料集分析/yolo26_v2_dataset_stats.md`、`資料集分析/yolo26_v5_dataset_stats.md`
-- **commit**：`e63cf9b`
+- **commit**：`16aca30`
 
 ---
 
@@ -71,7 +80,7 @@
 - **範圍**：內容
 - **摘要**：重寫 系統測試與評估 章 5 篇報告（`citrus_rag_ragas_evaluation.md` 已合規未動）使符合骨架規範：三篇 fp16 benchmark 補規範引用區塊、摘要改編號、部署建議段落移至新增的「結論與限制」；`all_models_tflite_benchmark.md` 補引用區塊與摘要（含核心數據表）；`20260729_mobile_rag_benchmark.md` 補引用區塊、新增摘要、`3-A`/`3-B` 改為 `5.1`/`5.2` 符合 H-5、補結論與限制，並同步修正 L1 索引連結文字使符合該檔實際標題。所有表格與原始 log 數據逐項 diff 比對確認與舊版完全一致
 - **影響檔案**：`系統測試與評估/yolo26l_fp16_benchmark.md`、`yolo26n_fp16_benchmark.md`、`yolo26n_p2_fp16_benchmark.md`、`all_models_tflite_benchmark.md`、`20260729_mobile_rag_benchmark.md`、`系統測試與評估.md`
-- **commit**：`ed35fd3`
+- **commit**：`434fcee`
 
 ---
 
@@ -80,7 +89,7 @@
 - **範圍**：內容
 - **摘要**：重寫 病蟲害辨識模型 章前兩篇報告：`20260714_all_models_training_metrics.md` 清除全篇數十處 Notion 匯出殘留的 `mailto:mAP@50` 壞連結、補規範引用區塊與摘要段落（含核心數據表）、新增結論與限制；`20260729_yolo26n_p2_training_report.md` 補規範引用區塊、全篇表/圖編號由句點改為連字號格式符合 H-6。所有表格數據逐項 diff 比對確認與舊版完全一致
 - **影響檔案**：`病蟲害辨識模型/20260714_all_models_training_metrics.md`、`病蟲害辨識模型/20260729_yolo26n_p2_training_report.md`
-- **commit**：`a3574b6`
+- **commit**：`427840e`
 
 ---
 
@@ -89,7 +98,7 @@
 - **範圍**：內容
 - **摘要**：重寫 `yolo26n_p2_v2_vs_v3_comparison.md`：補規範引用區塊（來源誠實記為「原始路徑不明」）、移除文末殘留的本機路徑、兩處失效的 `各項數據計算.md` 引用改連結站內〈效能指標評估〉、補結論與限制的「本報告未涵蓋」句；同時填補 `效能指標評估/指標定義與評測方法.md` §2「影像辨識模組效能指標」的空白（原本是「待補齊」佔位段），內容取自本 repo 既有的 `20260714_all_models_training_metrics.md` §3 公式定義，非新造數據。表格數據逐項 diff 比對確認與舊版一致
 - **影響檔案**：`病蟲害辨識模型/yolo26n_p2_v2_vs_v3_comparison.md`、`效能指標評估/指標定義與評測方法.md`
-- **commit**：`be11e8e`
+- **commit**：`a9e39e1`
 
 ---
 
@@ -98,7 +107,7 @@
 - **範圍**：結構
 - **摘要**：將報告引用圖片集中至章節 Image/ 資料夾：搬移 病蟲害辨識模型 與 資料集分析 下共 5 個資產目錄（48 張圖檔）至各章 Image/，並同步改寫 5 篇報告內共 45 處圖片引用路徑；未修改報告內文
 - **影響檔案**：`病蟲害辨識模型/Image/`（4 個資料夾共 43 張圖）、`資料集分析/Image/`（1 個資料夾共 5 張圖）、5 篇報告檔案、`README.md`
-- **commit**：`cd88545`
+- **commit**：`df3755d`
 
 ---
 
@@ -107,7 +116,7 @@
 - **範圍**：檔名
 - **摘要**：統一 病蟲害辨識模型 章節報告檔名：將 all_models_training_metrics.md 及其資產資料夾依報告日期加上前綴更名為 20260714_all_models_training_metrics，並同步改寫章索引與 20 處圖片引用連結；未修改報告內文
 - **影響檔案**：`植物病蟲害辨識 (115資工四A)/病蟲害辨識模型.md`、`植物病蟲害辨識 (115資工四A)/病蟲害辨識模型/20260714_all_models_training_metrics.md`、`20260714_all_models_training_metrics/`（18 張圖檔）、`README.md`
-- **commit**：`90ffeb6`
+- **commit**：`53cb943`
 
 ---
 
@@ -116,7 +125,7 @@
 - **範圍**：結構
 - **摘要**：依 README §6.2 處理三項章節職責重疊：(1) 將效能指標評估.md 內的「RAGAs 評估實驗記錄」搬到系統測試與評估／新增 citrus_rag_ragas_evaluation.md；(2) 訓練報告 §3「資料集概況」發現實為不同版本資料集（v5 非既有 v2），故新增 資料集分析/yolo26_v5_dataset_stats.md 收納並改為引用，同時搬移對應 5 張資料集圖檔、修掉 yolo26_v2_dataset_stats.md 與訓練報告本身的重複 H1；(3) 效能指標評估.md、參考文獻與參考資料.md 拆分為 L1 章索引 + L2 報告（參考文獻拆為學術文獻回顧、開源專案參考兩篇）
 - **影響檔案**：新增 3 個 L2 報告 + 移動 5 張圖檔；修改 效能指標評估.md、系統測試與評估.md、資料集分析.md、參考文獻與參考資料.md、20260729_yolo26n_p2_training_report.md、yolo26_v2_dataset_stats.md；audit：dup_h1_files 11→9、heading_level_jumps 6→5、bold_headings 21→5、emoji_headings 31→25、duplicate_headings 4→3、files_without_summary 16→13，基準線已收緊
-- **commit**：`dc86163`
+- **commit**：`f3f6935`
 
 ---
 
@@ -125,7 +134,7 @@
 - **範圍**：結構
 - **摘要**：修正 RAG向量資料庫 章節下所有檔案的標題與骨架規範：移除重複 H1、標題跳級、emoji／中文數字編號標題，並為缺摘要的檔案（RAG向量資料庫.md、架構設計.md、提示詞.md、SLM微調操作手冊.md、SLM生成結果指標.md、病蟲害知識訓練資料集.md）補上「摘要」與「結論與限制」段落
 - **影響檔案**：RAG向量資料庫.md 及其下 5 個 L2 報告，共 6 個檔案；audit：dup_h1_files 9→8、heading_level_jumps 5→2、emoji_headings 25→13、cn_numbered_headings 16→11、files_without_summary 13→7，基準線已收緊
-- **commit**：`0708c83`
+- **commit**：`19d8ea0`
 
 ---
 
@@ -134,7 +143,7 @@
 - **範圍**：結構
 - **摘要**：修正 病蟲害辨識模型 章節標題與骨架規範：移除重複 H1（3 篇）、中文數字編號改阿拉伯數字（11 處）、移除 all_models_training_metrics.md 中真正重複貼上的段落並消除同層重複標題、補上 病蟲害辨識模型.md 摘要段落
 - **影響檔案**：病蟲害辨識模型.md、all_models_training_metrics.md、yolo26n_p2_v2_vs_v3_comparison.md、yolo26n_p2_v5_vs_v8_comparison.md、20260825_weekly_report.md；audit：dup_h1_files 8→5、cn_numbered_headings 11→0、duplicate_headings 3→0、files_without_summary 7→6，基準線已收緊
-- **commit**：`7b51bf1`
+- **commit**：`07e2036`
 
 ---
 
@@ -143,7 +152,7 @@
 - **範圍**：結構
 - **摘要**：修正 系統測試與評估 章節標題與骨架規範：移除 5 篇報告的重複 H1、去除 20260729_mobile_rag_benchmark.md 全部 12 處 emoji 標題、為三篇 fp16 benchmark 報告補上摘要段落
 - **影響檔案**：20260729_mobile_rag_benchmark.md、all_models_tflite_benchmark.md、yolo26l_fp16_benchmark.md、yolo26n_fp16_benchmark.md、yolo26n_p2_fp16_benchmark.md；audit：dup_h1_files 5→0、emoji_headings 13→1、files_without_summary 6→3，基準線已收緊
-- **commit**：`5b4b292`
+- **commit**：`d754760`
 
 ---
 
@@ -152,7 +161,7 @@
 - **範圍**：結構
 - **摘要**：修正 行動端應用程式開發 章節（最後一章）標題與骨架規範，並補齊 UML.md、需求分析.md 摘要段落。至此 `.agent/baseline.json` 全部 13 項結構指標歸零，README §6 全庫落差盤點清空
 - **影響檔案**：行動端應用程式開發.md、UML.md、需求分析.md；audit：heading_level_jumps 2→0、bold_headings 5→0、emoji_headings 1→0、files_without_summary 3→0，13 項指標全數收緊至 0
-- **commit**：`b7f91d8`
+- **commit**：`fd568d2`
 
 ---
 
@@ -161,7 +170,7 @@
 - **範圍**：規則文件
 - **摘要**：更新 README.md §6，將已完成的章節職責重疊三項與新增的標題／骨架規範小節標記為「已完成」，移除「現有報告尚未套用本規範」的過時說明
 - **影響檔案**：README.md
-- **commit**：`0647419`
+- **commit**：`ab36c27`
 
 ---
 
@@ -170,4 +179,4 @@
 - **範圍**：規則文件
 - **摘要**：建立本異動 log 機制，規定之後每個 commit 都必須在此新增一筆固定格式的紀錄；同步更新 `AGENTS.md`、`commit-and-push` skill 執行流程，並在 `README.md` 補一節讓團隊成員也看得到這條規則
 - **影響檔案**：新增 `CHANGELOG.md`；修改 `AGENTS.md`、`.agent/skills/commit-and-push/SKILL.md`、`README.md`
-- **commit**：`0773ef9`
+- **commit**：`0e9c1f4`

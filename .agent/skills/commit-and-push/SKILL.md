@@ -59,17 +59,28 @@ git diff --cached --name-only | Select-String '\.pdf$'
 
 **每個 commit 都必須在 [`CHANGELOG.md`](../../../CHANGELOG.md) 最上方新增一筆紀錄**，欄位格式見該檔案本身。這是強制步驟，不是事後補記——commit message 寫完就接著寫這筆。
 
-流程（因為 log 要記錄 commit hash，但 commit 前還沒有 hash，所以分兩步）：
+流程（log 要記錄 commit hash，但 commit 前還沒有 hash，所以分成兩個 commit）：
 
-1. 連同本次變更一起，把 `CHANGELOG.md` 的新條目也 `git add`，**commit 欄位先留空或寫 `(待回填)`**
-2. `git commit` 完成後，取得 hash 並回填：
+1. 連同本次變更一起，把 `CHANGELOG.md` 的新條目也 `git add`，**commit 欄位先寫 `(待回填)`**
+2. `git commit` 送出本次變更
+3. 取得剛才那個 commit 的 hash：
 
 ```powershell
 git rev-parse --short HEAD
 ```
 
-3. 把 hash 填入剛剛新增的那筆條目，然後 `git commit --amend`——此時該 commit **尚未推送**，修改自己剛建立、還沒 push 的 commit 不算改寫歷史，不違反紅線 R2
-4. 確認 `git log -1` 內容正確後才進入下一步「推送」
+4. 把 hash 填入該筆條目，再用**第二個 commit** 送出回填：
+
+```powershell
+git add CHANGELOG.md
+git commit -m "回填 CHANGELOG commit hash"
+```
+
+5. 確認 `git log -2` 兩個 commit 都正確後才進入下一步「推送」
+
+**不得用 `git commit --amend` 回填。** `--amend` 會產生新的 commit hash，於是寫進 CHANGELOG 的永遠是 amend 前那一個——它不在任何分支上，只靠本機 reflog 存活，`git gc` 之後就永久失聯。本 repo 曾因此讓 17 筆紀錄中的 16 筆對照失效（2026-08-30 已比對 commit subject 全數回填修復）。
+
+CHANGELOG 累積超過 50 筆或 50KB 時，把較舊的條目整段搬到 `.agent/changelog_archive/<起日>_<迄日>_changelog.md`，並在主檔規則區下方留一行封存索引連結。這是手動作業，不需要腳本。
 
 ## 推送
 
