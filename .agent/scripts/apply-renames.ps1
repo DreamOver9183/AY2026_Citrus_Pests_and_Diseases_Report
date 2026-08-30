@@ -62,6 +62,16 @@ function Get-RelFrom {
 # --- 讀取並驗證對照表 -------------------------------------------------------
 if (-not (Test-Path -LiteralPath $MapFile)) { Write-Host "找不到對照表：$MapFile" -ForegroundColor Red; exit 1 }
 
+# PS 5.1 的 Import-Csv -Encoding UTF8 需要 BOM 才會以 UTF-8 解讀。多數 agent 建檔
+# 預設不帶 BOM，會讀出亂碼路徑、讓所有比對靜默失敗（看起來像「對照表沒有需要處理的項目」）。
+$mapBytes = [System.IO.File]::ReadAllBytes((Resolve-Path -LiteralPath $MapFile).Path)
+if ($mapBytes.Length -lt 3 -or $mapBytes[0] -ne 0xEF -or $mapBytes[1] -ne 0xBB -or $mapBytes[2] -ne 0xBF) {
+    Write-Host ""
+    Write-Host "對照表不是 UTF-8 with BOM：$MapFile" -ForegroundColor Red
+    Write-Host "Import-Csv 會讀出亂碼路徑，所有比對都會靜默失敗。請以 UTF-8 with BOM 重存後再執行。" -ForegroundColor Yellow
+    exit 1
+}
+
 $rows = Import-Csv -LiteralPath $MapFile -Encoding UTF8
 if (-not $rows) { Write-Host '對照表是空的。' -ForegroundColor Red; exit 1 }
 foreach ($c in 'old', 'new') {
@@ -71,15 +81,15 @@ foreach ($c in 'old', 'new') {
 }
 
 $errors = @()
-$map = @{}   # oldAbs -> newAbs（檔案與資料夾皆可）
-$dirMap = @{} # 其中屬於「資料夾」的項目，連結改寫時需做前綴比對
+$map = [ordered]@{}   # oldAbs -> newAbs（檔案與資料夾皆可）。用 ordered 讓處理順序與 CSV 一致
+$dirMap = [ordered]@{} # 其中屬於「資料夾」的項目，連結改寫時需做前綴比對
 foreach ($r in $rows) {
     if ([string]::IsNullOrWhiteSpace($r.old) -or [string]::IsNullOrWhiteSpace($r.new)) { continue }
     $oldAbs = Get-Abs (Join-Path $Root $r.old)
     $newAbs = Get-Abs (Join-Path $Root $r.new)
 
     if (-not (Test-Path -LiteralPath $oldAbs))          { $errors += "來源不存在：$($r.old)" ; continue }
-    if ($map.ContainsKey($oldAbs))                      { $errors += "來源重複：$($r.old)" ; continue }
+    if ($map.Contains($oldAbs))                      { $errors += "來源重複：$($r.old)" ; continue }
     if ($map.Values -contains $newAbs)                  { $errors += "目標重複：$($r.new)" ; continue }
     if ($oldAbs -eq $newAbs)                            { continue }
     if ((Test-Path -LiteralPath $newAbs))               { $errors += "目標已存在：$($r.new)" ; continue }
@@ -88,7 +98,7 @@ foreach ($r in $rows) {
     }
     $newBase = Split-Path -Leaf $newAbs
     if ($newBase -match '[\s()（）]') { $errors += "目標檔名違反 N-1（含空格或括號）：$($r.new)" ; continue }
-    if ([System.IO.Path]::GetFileNameWithoutExtension($newBase) -match '[\s_-]\d+$') {
+    if ($SerialSuffixRegex.IsMatch([System.IO.Path]::GetFileNameWithoutExtension($newBase))) {
         $errors += "目標檔名違反 N-4（流水號結尾）：$($r.new)"
     }
     $map[$oldAbs] = $newAbs
@@ -137,7 +147,7 @@ foreach ($file in Get-ChildItem -LiteralPath $Root -Recurse -File -Filter *.md) 
 
         # 先比對完整路徑；沒中再看是否落在某個被改名的資料夾底下
         $newAbsTarget = $null
-        if ($map.ContainsKey($abs)) {
+        if ($map.Contains($abs)) {
             $newAbsTarget = $map[$abs]
         } else {
             foreach ($d in $dirMap.Keys) {
@@ -169,6 +179,8 @@ foreach ($file in Get-ChildItem -LiteralPath $Root -Recurse -File -Filter *.md) 
             foreach ($e in ($edits | Sort-Object Index -Descending)) {
                 $text = $text.Remove($e.Index, $e.Length).Insert($e.Index, $e.Value)
             }
+            # 改寫範圍只有 .md（上方 Filter 已限定），故一律寫成不含 BOM 的 UTF-8。
+            # 若日後把 .ps1 納入改寫範圍，這裡必須改為帶 BOM，否則 PS 5.1 會以 ANSI 解讀中文。
             [System.IO.File]::WriteAllText($file.FullName, $text, (New-Object System.Text.UTF8Encoding $false))
         }
     }

@@ -84,7 +84,7 @@ powershell -ExecutionPolicy Bypass -File .agent/scripts/audit-structure.ps1
 | .NET API | PS 5.1 走 .NET Framework，**沒有** `[System.IO.Path]::GetRelativePath` |
 | percent-decode | 一律用 `[System.Uri]::UnescapeDataString()`。本機 Git Bash 的 `printf '%b'` **不支援 `\xHH`**，用 bash 解碼會靜默失敗、把全部連結誤判為斷鏈 |
 | 中文路徑 | repo 已設 `core.quotepath false`。若 `git status` 顯示為 `\350\263...` 八進位跳脫，重設此項 |
-| 換行 | `core.autocrlf=true`，工作區 CRLF、庫內 LF。`git add` 時的 LF/CRLF warning 是正常的 |
+| 換行 | 由 [`.gitattributes`](.gitattributes) 釘住：`.md` 工作區與庫內都是 LF，`.ps1` 工作區 CRLF、庫內 LF。本機雖有 `core.autocrlf=true`，但那是**系統層級**設定（`git config --system`），換台機器不一定有——不要依賴它 |
 | Python | **不可用**（`python3` 只是 Microsoft Store 的 stub）。腳本一律用 PowerShell |
 
 ## 連結格式

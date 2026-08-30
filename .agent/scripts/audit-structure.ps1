@@ -14,8 +14,8 @@
 .PARAMETER UpdateBaseline
   以本次掃描結果覆寫 baseline.json。只有在數字下降時才應執行。
 .EXAMPLE
-  pwsh -File .agent/scripts/audit-structure.ps1
-  pwsh -File .agent/scripts/audit-structure.ps1 -UpdateBaseline
+  powershell -ExecutionPolicy Bypass -File .agent/scripts/audit-structure.ps1
+  powershell -ExecutionPolicy Bypass -File .agent/scripts/audit-structure.ps1 -UpdateBaseline
 #>
 [CmdletBinding()]
 param(
@@ -123,7 +123,7 @@ foreach ($img in Get-ChildItem -LiteralPath $reportDir -Recurse -File |
                  Where-Object { $_.Extension -in '.png', '.jpg', '.jpeg', '.gif', '.webp' }) {
     $rel  = Get-RelPath -Base $Root -Full $img.FullName
     $base = $img.BaseName
-    if ($base -match '\s\d+$')            { Add-Hit image_serial_suffix    $rel }
+    if ($SerialSuffixRegex.IsMatch($base))  { Add-Hit image_serial_suffix    $rel }
     if ($base -match '^imported-image')   { Add-Hit image_placeholder_name $rel }
     if ($base -match '^images?[0-9a-f]{8}') { Add-Hit image_uuid_name      $rel }
 }

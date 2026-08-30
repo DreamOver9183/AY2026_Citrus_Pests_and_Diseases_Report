@@ -91,7 +91,7 @@ description: 新增一篇報告到報告庫時使用。涵蓋放哪一章的判�
 <對象>_<圖表類型>[_<條件>].png
 ```
 
-圖表類型只能用 §5.3 字典裡的詞（`results` / `pr_curve` / `f1_curve` / `p_curve` / `r_curve` / `confusion_matrix` / `confusion_matrix_norm` / `labels` / `loss_comparison` / `map_comparison`）。
+圖表類型只能用 §5.3 字典裡的詞。**不要在這裡另抄一份清單**——字典會增修，兩份清單一定會漂移，以 §5.3 為唯一來源。
 
 **不得**用流水號區分不同對象。
 

@@ -1,0 +1,22 @@
+# 明確釘住行尾，不依賴每台機器的 core.autocrlf。
+# 本機的 core.autocrlf=true 是系統層級設定（git config --system），換台機器不一定有；
+# 靠它會讓 .md 在重新 checkout 後變成 CRLF，跟現有工作區的 LF 產生整片假 diff。
+
+* text=auto
+
+# 報告與文件：庫內與工作區都用 LF（與現況一致）
+*.md        text eol=lf
+*.json      text eol=lf
+*.gitignore    text eol=lf
+.gitattributes text eol=lf
+
+# PowerShell 5.1 腳本：工作區必須是 CRLF
+*.ps1       text eol=crlf
+
+# 二進位資產不做任何轉換
+*.png  binary
+*.jpg  binary
+*.jpeg binary
+*.gif  binary
+*.webp binary
+*.pdf  binary

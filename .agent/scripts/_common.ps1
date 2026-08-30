@@ -105,4 +105,9 @@ function ConvertTo-FenceMasked {
 #   - 標題屬性（"..." / '...'）只作為結尾的可選部分吞掉，不進 t 群組，
 #     否則 Test-Path 會拿到含引號的非法路徑而拋出例外
 $script:LinkRegex = [regex]'(?<img>!)?\[[^\]]*\]\(\s*(?<t>[^()\s]*(?:\([^()]*\)[^()\s]*)*)(?:\s+[^()]*)?\s*\)'
+# N-4 流水號結尾的單一判準。audit-structure 與 apply-renames 必須共用同一條，
+# 否則會出現「audit 說沒問題、apply-renames 卻擋下」的矛盾。
+# 限 1-2 位數：results_1 / 報告-12 命中，model_2024（年份）與 v5（無分隔符）不命中。
+$script:SerialSuffixRegex = [regex]'[\s_-]\d{1,2}$'
+
 $script:SkipRegex = [regex]'^(https?:|file:|mailto:|about:|#)'
