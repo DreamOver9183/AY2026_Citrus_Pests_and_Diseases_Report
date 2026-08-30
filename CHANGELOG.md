@@ -35,7 +35,7 @@
 - **範圍**：規則文件
 - **摘要**：對齊規範與實作。N-4 流水號判準原本兩支腳本各用一套（audit `\s\d+$`、apply-renames `[\s_-]\d+$`），統一為 `_common.ps1` 的 `$SerialSuffixRegex`（`[\s_-]\d{1,2}$`，年份如 `model_2024` 不再被誤擋）；新增 `.gitattributes` 釘住行尾，取代依賴系統層級 `core.autocrlf`；`apply-renames.ps1` 改用 `[ordered]@{}` 讓處理順序與 CSV 一致，並在讀取前偵測 CSV 是否為 UTF-8 with BOM（原本無 BOM 會讀出亂碼路徑而靜默失敗）；`audit-structure.ps1` 的 `.EXAMPLE` 由不存在的 `pwsh` 改為 `powershell`；`add-report` skill 刪掉與 §5.3 重複且已過期的圖表字典列表
 - **影響檔案**：`.gitattributes`、`AGENTS.md`、`.agent/scripts/_common.ps1`、`.agent/scripts/audit-structure.ps1`、`.agent/scripts/apply-renames.ps1`、`.agent/skills/add-report/SKILL.md`
-- **commit**：`(待回填)`
+- **commit**：`59ef4fb`
 
 ---
 
