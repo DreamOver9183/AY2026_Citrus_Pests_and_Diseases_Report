@@ -30,6 +30,15 @@
 
 ---
 
+## 2026-08-30 23:10 — Claude Code
+
+- **範圍**：規則文件
+- **摘要**：CHANGELOG 封存規則原本只有一句話、且「較舊的條目」沒有定義，兩個人執行會得到兩種結果；改寫為明確規則表（觸發 > 50 筆或 > 50KB，主檔一律只留最近 15 筆，封存檔名 `<最舊>_<最新>_changelog.md`），並建立 `.agent/changelog_archive/` 與格式說明。pre-commit hook 加上超過門檻時的提醒（只提醒、不自動搬也不擋 commit——封存會改寫檔案開頭，在 commit 進行中做會讓出錯時難以歸因）。另補 `.gitignore`：`rename-files` skill 會在根目錄產生 `renames.csv` 對照表，原本沒有任何規則擋它進版控
+- **影響檔案**：`.agent/skills/commit-and-push/SKILL.md`、`.agent/changelog_archive/README.md`（新增）、`.agent/hooks/pre-commit`、`.gitignore`、`README.md`
+- **commit**：`(待回填)`
+
+---
+
 ## 2026-08-30 22:40 — Claude Code
 
 - **範圍**：規則文件

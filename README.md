@@ -36,6 +36,8 @@
 
 本 repo 由團隊成員與 AI agent 共同維護。**任何人或 agent 的每一次 commit，都必須在 [`CHANGELOG.md`](CHANGELOG.md) 用固定格式新增一筆紀錄**（日期時間、異動人/Agent、範圍、摘要、影響檔案、對應 commit），寫在檔案最上方，不覆寫舊條目。格式細節與範本見 [`CHANGELOG.md`](CHANGELOG.md) 本身；AI agent 的執行流程見 [`AGENTS.md`](AGENTS.md) 的「異動紀錄」一節與 [`.agent/skills/commit-and-push/SKILL.md`](.agent/skills/commit-and-push/SKILL.md)。
 
+紀錄累積超過 50 筆或 50KB 時，主檔只保留最近 15 筆，較舊的整段搬到 [`.agent/changelog_archive/`](.agent/changelog_archive/README.md)——歷史全部留著，只是不再佔用主檔。
+
 ## 給 AI agent 與維護者
 
 報告撰寫規範（目錄層級、章的職責界線、報告骨架、標題 H-1～H-6、檔名 N-1～N-5、圖檔字典、名詞統一表）已移到 [`.agent/SPECIFICATION.md`](.agent/SPECIFICATION.md)，不再放在本檔。動手前請先讀 [`AGENTS.md`](AGENTS.md)：那裡有紅線、收工關卡與任務路由。

@@ -80,7 +80,25 @@ git commit -m "回填 CHANGELOG commit hash"
 
 **不得用 `git commit --amend` 回填。** `--amend` 會產生新的 commit hash，於是寫進 CHANGELOG 的永遠是 amend 前那一個——它不在任何分支上，只靠本機 reflog 存活，`git gc` 之後就永久失聯。本 repo 曾因此讓 17 筆紀錄中的 16 筆對照失效（2026-08-30 已比對 commit subject 全數回填修復）。
 
-CHANGELOG 累積超過 50 筆或 50KB 時，把較舊的條目整段搬到 `.agent/changelog_archive/<起日>_<迄日>_changelog.md`，並在主檔規則區下方留一行封存索引連結。這是手動作業，不需要腳本。
+### 封存門檻
+
+CHANGELOG 只會愈長，過長會吃掉 agent 的上下文、干擾全文檢索，也讓多人同時寫入檔案開頭時容易衝突。
+
+| 項目 | 規則 |
+| --- | --- |
+| 觸發 | 條目數 **> 50 筆** 或檔案 **> 50KB**，取先到者 |
+| 主檔保留 | **最近 15 筆**，其餘全部搬走。不要自行斟酌「哪些還有參考價值」 |
+| 封存位置 | `.agent/changelog_archive/<最舊條目日期>_<最新條目日期>_changelog.md`，日期為 `YYYYMMDD` |
+| 主檔索引 | 在規則區的 `---` 分隔線上方，補一行指向該封存檔的連結 |
+| 執行方式 | 手動。pre-commit hook 只在超過門檻時印一行提醒，不會自動搬、也不會擋 commit |
+
+搬移時整段搬（含條目之間的 `---` 分隔線），不改寫任何欄位內容。封存檔的格式見 [`.agent/changelog_archive/README.md`](../../changelog_archive/README.md)。
+
+檢查現況：
+
+```powershell
+"{0} 筆 / {1:N0} bytes" -f (Select-String -Path CHANGELOG.md -Pattern '^## 20').Count, (Get-Item CHANGELOG.md).Length
+```
 
 ## 推送
 

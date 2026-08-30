@@ -3,6 +3,10 @@
 # 例外：團隊內部文件
 !植物病蟲害辨識 (115資工四A)/參考文獻與參考資料/一站式平臺服務應用規劃.pdf
 
+# 改名作業的暫時對照表。rename-files skill 會在根目錄產生，用完即棄，不進版控
+renames.csv
+*_renames.csv
+
 # OS 產生的檔案
 Thumbs.db
 desktop.ini

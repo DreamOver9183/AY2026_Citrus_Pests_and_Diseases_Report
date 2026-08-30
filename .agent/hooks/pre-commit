@@ -32,5 +32,21 @@ run audit-structure.ps1 || {
 }
 
 echo ''
+
 echo '[pre-commit] 兩支關卡皆通過。'
+
+# CHANGELOG 膨脹提醒。只提醒，不擋 commit、也不自動搬——封存會改寫檔案開頭，
+# 在 commit 進行中做這件事會讓出錯時分不清是誰造成的。
+changelog="$repo_root/CHANGELOG.md"
+if [ -f "$changelog" ]; then
+    entries=$(grep -c '^## 20' "$changelog" 2>/dev/null || echo 0)
+    bytes=$(wc -c < "$changelog" 2>/dev/null | tr -d ' ' || echo 0)
+    if [ "$entries" -gt 50 ] || [ "$bytes" -gt 51200 ]; then
+        echo ''
+        echo "[pre-commit] 提醒：CHANGELOG 已有 $entries 筆、$bytes bytes，超過封存門檻。"
+        echo '  請保留最近 15 筆，其餘搬到 .agent/changelog_archive/。'
+        echo '  流程見 .agent/skills/commit-and-push/SKILL.md「封存門檻」。本次 commit 不受影響。'
+    fi
+fi
+
 exit 0
