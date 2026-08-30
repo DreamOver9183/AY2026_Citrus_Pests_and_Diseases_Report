@@ -1,16 +1,13 @@
-# 行動端應用程式開發
+# Flutter 實作與模組整合
 
-## 概述
+> 報告日期：<!-- TODO: 待補 -->
+> 評測對象：Flutter 專案結構、assets 配置、輕量化 RAG 模組、效能指標追蹤模組
+> 資料來源：<!-- TODO: 待補 -->
+> 撰寫人：<!-- TODO: 待補 -->
 
-App 需求、UML、Flutter 實作與整合；模型與 RAG 的內部設計不放在本章。
+## 摘要
 
-本專題之使用者操作介面將部屬於行動裝置上。
-
-並且使用 Flutter 作為軟體開發框架，開發 Android 和 IOS 平台的應用程式。 
-
-[需求分析](%E8%A1%8C%E5%8B%95%E7%AB%AF%E6%87%89%E7%94%A8%E7%A8%8B%E5%BC%8F%E9%96%8B%E7%99%BC/%E9%9C%80%E6%B1%82%E5%88%86%E6%9E%90.md)
-
-[UML](%E8%A1%8C%E5%8B%95%E7%AB%AF%E6%87%89%E7%94%A8%E7%A8%8B%E5%BC%8F%E9%96%8B%E7%99%BC/UML.md)
+<!-- TODO: 待補 -->
 
 ## Flutter
 
@@ -190,3 +187,6 @@ returnawait yoloEngine.detect(cameraImage);
 
 - **開發/測試時 (`flutter run`)**：自動在終端機印出耗時、收集數據，並可在畫面上按下 `「匯出 CSV」` 按鈕產出 Excel 報表。
 - **發布正式版時 (`flutter build apk --release`)**：`kReleaseMode` 斷路器自動生效，AOT 編譯器將計時與 UI 程式碼死碼消除 (Dead Code Elimination)，**這段程式碼直接 0 效能損耗，連一個位元組的記憶體都不佔用**！
+## 結論與限制
+
+本報告未涵蓋：<!-- TODO: 待補 -->

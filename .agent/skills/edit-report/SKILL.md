@@ -58,7 +58,7 @@ Notion 匯出留下的頁標題 H1 與內文真標題並存。**保留內文的�
 
 ## 跨章搬移
 
-若依 [`README.md`](../../../README.md) §2 判斷某篇放錯章（例如 `RAG向量資料庫/效能測試 - 手機.md` 是實機數據，應屬〈系統測試與評估〉），這屬於跨目錄搬移，見 [`rename-files`](../rename-files/SKILL.md) 最下方——必須人工處理並先取得確認。
+若依 [`SPECIFICATION.md`](../../SPECIFICATION.md) §2 判斷某篇放錯章（例如 `RAG向量資料庫/效能測試 - 手機.md` 是實機數據，應屬〈系統測試與評估〉），這屬於跨目錄搬移，見 [`rename-files`](../rename-files/SKILL.md) 最下方——必須人工處理並先取得確認。
 
 ## 驗證
 

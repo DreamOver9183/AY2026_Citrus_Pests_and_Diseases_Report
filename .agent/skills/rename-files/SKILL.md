@@ -22,7 +22,7 @@ description: 改報告或圖檔的檔名、整理命名時使用。涵蓋語意�
 
 ### 1. 盤點
 
-列出這次要處理的檔案，以及各自違反哪條規範（規範見 [`README.md`](../../../README.md) §5）。
+列出這次要處理的檔案，以及各自違反哪條規範（規範見 [`SPECIFICATION.md`](../../SPECIFICATION.md) §5）。
 
 ```powershell
 powershell -ExecutionPolicy Bypass -File .agent/scripts/audit-structure.ps1 -Verbose
@@ -60,7 +60,7 @@ old,new
 植物病蟲害辨識 (115資工四A)/病蟲害辨識模型/模型訓練數據報告/results 1.png,植物病蟲害辨識 (115資工四A)/病蟲害辨識模型/模型訓練數據報告/yolo26n_results.png
 ```
 
-新檔名必須符合 [`README.md`](../../../README.md) §5.2（報告）或 §5.3（圖檔），模型代號取自 §5.4 名詞統一表。
+新檔名必須符合 [`SPECIFICATION.md`](../../SPECIFICATION.md) §5.2（報告）或 §5.3（圖檔），模型代號取自 §5.4 名詞統一表。
 
 存檔用 **UTF-8 with BOM**，否則 `Import-Csv` 會讀成亂碼。
 
@@ -112,7 +112,7 @@ powershell -ExecutionPolicy Bypass -File .agent/scripts/audit-structure.ps1 -Upd
 
 腳本**刻意不支援**。搬到別的資料夾會同時改變該檔自身所有外送連結的相對深度，風險高於一般改名。
 
-若確有需要（例如依 [`README.md`](../../../README.md) §2 職責界線把 `效能測試 - 手機.md` 從〈RAG向量資料庫〉移到〈系統測試與評估〉），必須：
+若確有需要（例如依 [`SPECIFICATION.md`](../../SPECIFICATION.md) §2 職責界線把 `效能測試 - 手機.md` 從〈RAG向量資料庫〉移到〈系統測試與評估〉），必須：
 
 1. 明確告知使用者這會動到該篇自身的連結與兩章的索引頁
 2. 取得確認後人工處理

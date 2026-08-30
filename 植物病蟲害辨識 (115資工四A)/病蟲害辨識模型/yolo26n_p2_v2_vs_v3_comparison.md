@@ -5,7 +5,7 @@
 > **資料來源**：本機訓練實驗數據日誌 `results2.txt`、`results.txt`，原始存放路徑不明
 > **撰寫人**：原始記錄未標註
 
-本報告完全基於上述實驗數據日誌與全套 16 張圖表進行客觀分析，Accuracy 計算公式定義見〈[效能指標評估](../%E6%95%88%E8%83%BD%E6%8C%87%E6%A8%99%E8%A9%95%E4%BC%B0.md)〉。無任何估計值或假設性數據，全書數字精確至小數點後五位。
+本報告完全基於上述實驗數據日誌與全套 16 張圖表進行客觀分析，Accuracy 計算公式定義見〈[效能指標評估](../README.md#效能指標評估)〉。無任何估計值或假設性數據，全書數字精確至小數點後五位。
 
 ---
 
@@ -201,7 +201,7 @@ F1 Score 綜合反映 Precision 與 Recall 之調和平均值。
 
 ## 6. 目標偵測準確率（Accuracy / Jaccard Index）專題計算
 
-依〈[效能指標評估](../%E6%95%88%E8%83%BD%E6%8C%87%E6%A8%99%E8%A9%95%E4%BC%B0.md)〉規範，在目標偵測任務中，由於無目標的背景框（Background Box）數量無限且不可統計，TN (True Negative) 被設定為 $0$。準確率Accuracy之推導公式如下：
+依〈[效能指標評估](../README.md#效能指標評估)〉規範，在目標偵測任務中，由於無目標的背景框（Background Box）數量無限且不可統計，TN (True Negative) 被設定為 $0$。準確率Accuracy之推導公式如下：
 
 $$
 \text{Accuracy} = \frac{\text{TP}}{\text{TP} + \text{FP} + \text{FN}} = \frac{1}{\frac{1}{\text{Precision}} + \frac{1}{\text{Recall}} - 1} = \frac{\text{Precision} \times \text{Recall}}{\text{Precision} + \text{Recall} - \text{Precision} \times \text{Recall}}

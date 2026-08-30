@@ -54,7 +54,7 @@
 - **Context Precision（檢索精確度）**：`from ragas.metrics import LLMContextPrecisionWithReference`；評估檢索出的 Top-2 文本中，真正有用的段落是否排在最前面（Top-1 命中加權）。
 - **Context Recall（檢索召回率）**：`from ragas.metrics import LLMContextRecall`；評估專家標準答案中的事實要點，有多大比例被檢索文本完整涵蓋。
 
-指標定義詳見〈[效能指標評估](../%E6%95%88%E8%83%BD%E6%8C%87%E6%A8%99%E8%A9%95%E4%BC%B0.md)〉。
+指標定義詳見〈[效能指標評估](../README.md#效能指標評估)〉。
 
 ## 3. 數據與分析
 

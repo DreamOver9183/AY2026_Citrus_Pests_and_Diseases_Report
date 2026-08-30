@@ -5,7 +5,7 @@
 ## 1. 摘要
 
 - 評估分三個面向：領域知識精準度（選擇題 Benchmark）、幻覺率與拒絕率（對抗性測試）、LLM-as-a-Judge 開放式評分
-- 最終決定採用 RAGAS 框架作為正式評估方法，詳見〈[效能指標評估](../%E6%95%88%E8%83%BD%E6%8C%87%E6%A8%99%E8%A9%95%E4%BC%B0.md)〉與〈[柑橘病蟲害 RAGAs 評估實驗報告](../%E7%B3%BB%E7%B5%B1%E6%B8%AC%E8%A9%A6%E8%88%87%E8%A9%95%E4%BC%B0/citrus_rag_ragas_evaluation.md)〉
+- 最終決定採用 RAGAS 框架作為正式評估方法，詳見〈[效能指標評估](../README.md#效能指標評估)〉與〈[柑橘病蟲害 RAGAs 評估實驗報告](../%E7%B3%BB%E7%B5%B1%E6%B8%AC%E8%A9%A6%E8%88%87%E8%A9%95%E4%BC%B0/citrus_rag_ragas_evaluation.md)〉
 
 ## 2. 領域知識精準度（Domain Knowledge Accuracy）
 

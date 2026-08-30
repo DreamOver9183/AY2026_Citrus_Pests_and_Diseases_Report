@@ -7,7 +7,7 @@ description: 新增一篇報告到報告庫時使用。涵蓋放哪一章的判�
 
 ## 1. 先決定放哪一章
 
-依 [`README.md`](../../../README.md) §2 的職責界線判斷。口訣：
+依 [`SPECIFICATION.md`](../../SPECIFICATION.md) §2 的職責界線判斷。口訣：
 
 > 「怎麼算」進〈效能指標評估〉，「算出來多少」進〈系統測試與評估〉，「怎麼做出來的」進各建置章。
 
@@ -15,7 +15,7 @@ description: 新增一篇報告到報告庫時使用。涵蓋放哪一章的判�
 
 ## 2. 決定檔名
 
-依 [`README.md`](../../../README.md) §5.2 樣式表，模型代號取自 §5.4 名詞統一表。
+依 [`SPECIFICATION.md`](../../SPECIFICATION.md) §5.2 樣式表，模型代號取自 §5.4 名詞統一表。
 
 | 這篇是 | 檔名長這樣 |
 | --- | --- |
@@ -35,11 +35,11 @@ description: 新增一篇報告到報告庫時使用。涵蓋放哪一章的判�
 植物病蟲害辨識 (115資工四A)/<章名>/Image/<篇名>/      ← 圖表資料夾（有圖才建）
 ```
 
-不得建到第四層。編碼一律 **UTF-8 不含 BOM**。
+不得建到第四層。編碼一律 **UTF-8 不含 BOM**。章導覽 `README.md` 與資產資料夾同層，不要另建 `<章名>.md`。
 
 ## 4. 骨架
 
-依 [`README.md`](../../../README.md) §3。實驗類報告用這個模板：
+依 [`SPECIFICATION.md`](../../SPECIFICATION.md) §3。實驗類報告用這個模板：
 
 ```markdown
 # <報告全名>
@@ -74,7 +74,7 @@ description: 新增一篇報告到報告庫時使用。涵蓋放哪一章的判�
 
 ## 5. 標題規則
 
-寫的時候就守住，事後改很麻煩（見 [`README.md`](../../../README.md) §4）：
+寫的時候就守住，事後改很麻煩（見 [`SPECIFICATION.md`](../../SPECIFICATION.md) §4）：
 
 - 全檔**只有一個 H1**
 - 不跳級、最深 H4
@@ -85,7 +85,7 @@ description: 新增一篇報告到報告庫時使用。涵蓋放哪一章的判�
 
 ## 6. 圖片
 
-放進該章 `Image/` 底下與報告同名的資料夾，檔名依 [`README.md`](../../../README.md) §5.3：
+放進該章 `Image/` 底下與報告同名的資料夾，檔名依 [`SPECIFICATION.md`](../../SPECIFICATION.md) §5.3：
 
 ```
 <對象>_<圖表類型>[_<條件>].png
@@ -103,9 +103,10 @@ description: 新增一篇報告到報告庫時使用。涵蓋放哪一章的判�
 
 ## 7. 掛上索引
 
-在該章的 L1 索引頁 `植物病蟲害辨識 (115資工四A)/<章名>.md` 加一行連結。
+章導覽只有一份：`植物病蟲害辨識 (115資工四A)/README.md`。在該章對應的 H2 區塊底下加一行連結，
+維持與同區塊其他子篇一致的寫法（一行一條、相對路徑、中文 percent-encode）。
 
-**章索引頁只放導覽，不要順手把正文寫進去。**
+**章導覽只放導覽，不要順手把正文寫進去。** 那 191 行的〈行動端應用程式開發〉正是這樣長出來的。
 
 ## 8. 驗證
 
@@ -116,4 +117,4 @@ powershell -ExecutionPolicy Bypass -File .agent/scripts/audit-structure.ps1
 
 新增報告會讓 `files_without_summary` 等指標上升 → audit 直接 fail。這是**設計如此**：新報告本來就該一次寫對。fail 的話回去補，不要改基準線。
 
-最後依 [`README.md`](../../../README.md) §7 檢查清單逐項確認，再依 [`commit-and-push`](../commit-and-push/SKILL.md) 提交。
+最後依 [`SPECIFICATION.md`](../../SPECIFICATION.md) §7 檢查清單逐項確認，再依 [`commit-and-push`](../commit-and-push/SKILL.md) 提交。

@@ -65,7 +65,7 @@ powershell -ExecutionPolicy Bypass -File .agent/scripts/audit-structure.ps1
 | 修改既有報告的結構或內容 | [`.agent/skills/edit-report/SKILL.md`](.agent/skills/edit-report/SKILL.md) |
 | commit 與推送 | [`.agent/skills/commit-and-push/SKILL.md`](.agent/skills/commit-and-push/SKILL.md) |
 
-規範本體在 [`README.md`](README.md) 的「報告撰寫規範」一節，**不要在別處另寫一份**：
+規範本體在 [`.agent/SPECIFICATION.md`](.agent/SPECIFICATION.md)，**不要在別處另寫一份**：
 
 - 目錄層級與章的職責界線 → §1、§2
 - 單篇報告骨架 → §3
