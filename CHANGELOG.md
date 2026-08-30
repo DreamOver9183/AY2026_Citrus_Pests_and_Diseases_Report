@@ -35,7 +35,7 @@
 - **範圍**：規則文件
 - **摘要**：收工關卡的三支腳本原本 100% 無法執行——PS 5.1 的 `[CmdletBinding()]` 會讓 `$PSScriptRoot` 在 `param()` 預設值運算式內為空字串，`Split-Path` 繫結失敗使腳本在開始執行前就 exit 1，等於紅線 R5 從未被真正執行過；改於腳本本體解析 `$Root`。另修好 `verify-links.ps1` 遇到帶標題屬性的連結會拋未捕捉例外而中斷整輪掃描、巢狀四反引號圍欄遮罩狀態顛倒、行內程式碼未遮罩三個缺陷，並把 `_common.ps1` 行尾由 LF 統一為 CRLF
 - **影響檔案**：`.agent/scripts/_common.ps1`、`.agent/scripts/verify-links.ps1`、`.agent/scripts/audit-structure.ps1`、`.agent/scripts/apply-renames.ps1`
-- **commit**：`(待回填)`
+- **commit**：`c7a6903`
 
 ---
 
