@@ -32,10 +32,16 @@
 param(
     [Parameter(Mandatory = $true)][string]$MapFile,
     [switch]$WhatIf,
-    [string]$Root = (Split-Path -Parent (Split-Path -Parent $PSScriptRoot))
+    [string]$Root
 )
 
 $ErrorActionPreference = 'Stop'
+
+# PS 5.1 的 [CmdletBinding()] 會讓 $PSScriptRoot 在 param() 預設值運算式內為空字串，
+# 導致 Split-Path 繫結失敗、腳本還沒開始跑就 exit 1。本體內的 $PSScriptRoot 正常，
+# 所以改在這裡解析。
+# 不要 fallback 到 $PWD：工作目錄不對時會靜默掃錯範圍並回報 PASS，比直接失敗更危險。
+if (-not $Root) { $Root = Split-Path -Parent (Split-Path -Parent $PSScriptRoot) }
 . (Join-Path $PSScriptRoot '_common.ps1')
 
 function Get-Abs { param([string]$P) return [System.IO.Path]::GetFullPath($P) }

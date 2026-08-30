@@ -5,7 +5,7 @@
   任何改名、搬移、改寫連結的作業完成後都必須執行本腳本。
   斷鏈數不為 0 時以 exit code 1 結束，代表該次變更不得 commit。
 
-  程式碼區塊（```）內的範例連結會被略過，不列入檢查。
+  程式碼區塊與行內程式碼內的範例連結會被略過，不列入檢查。
 
   注意：percent-decode 一律使用 [System.Uri]::UnescapeDataString()。
   本機 Git Bash 的 printf '%b' 不支援 \xHH，用 bash 解碼會靜默失敗、
@@ -15,15 +15,27 @@
 #>
 [CmdletBinding()]
 param(
-    [string]$Root = (Split-Path -Parent (Split-Path -Parent $PSScriptRoot))
+    [string]$Root
 )
 
 $ErrorActionPreference = 'Stop'
+
+# PS 5.1 的 [CmdletBinding()] 會讓 $PSScriptRoot 在 param() 預設值運算式內為空字串，
+# 導致 Split-Path 繫結失敗、腳本還沒開始跑就 exit 1。本體內的 $PSScriptRoot 正常，
+# 所以改在這裡解析。
+# 不要 fallback 到 $PWD：工作目錄不對時會靜默掃錯範圍並回報 PASS，比直接失敗更危險。
+if (-not $Root) { $Root = Split-Path -Parent (Split-Path -Parent $PSScriptRoot) }
+
 . (Join-Path $PSScriptRoot '_common.ps1')
 
 $total = 0; $images = 0; $broken = @()
 
-foreach ($file in Get-ChildItem -LiteralPath $Root -Recurse -File -Filter *.md) {
+# 排除 .git/ 下可能殘留的 md（例如 merge conflict 遺留物）
+$gitPath = [System.IO.Path]::DirectorySeparatorChar + '.git' + [System.IO.Path]::DirectorySeparatorChar
+$mdFiles = Get-ChildItem -LiteralPath $Root -Recurse -File -Filter *.md |
+           Where-Object { -not $_.FullName.Contains($gitPath) }
+
+foreach ($file in $mdFiles) {
     $masked = ConvertTo-FenceMasked ([System.IO.File]::ReadAllText($file.FullName))
 
     foreach ($m in $LinkRegex.Matches($masked)) {
@@ -34,13 +46,22 @@ foreach ($file in Get-ChildItem -LiteralPath $Root -Recurse -File -Filter *.md) 
         $path = ($target -split '#')[0]
         if ([string]::IsNullOrWhiteSpace($path)) { continue }
 
-        $decoded  = [System.Uri]::UnescapeDataString($path)
-        $resolved = Join-Path $file.DirectoryName $decoded
+        $decoded = [System.Uri]::UnescapeDataString($path)
 
         $total++
         if ($m.Groups['img'].Success) { $images++ }
 
-        if (-not (Test-Path -LiteralPath $resolved)) {
+        # 含非法路徑字元的目標會讓 Join-Path / Test-Path 拋例外。
+        # 視為斷鏈回報即可，不要讓單一壞連結中斷整輪掃描。
+        $exists = $false
+        try {
+            $resolved = Join-Path $file.DirectoryName $decoded
+            $exists = Test-Path -LiteralPath $resolved
+        } catch {
+            $exists = $false
+        }
+
+        if (-not $exists) {
             $broken += [PSCustomObject]@{
                 Source = Get-RelPath -Base $Root -Full $file.FullName
                 Target = $decoded
