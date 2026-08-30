@@ -35,7 +35,7 @@
 - **範圍**：其他
 - **摘要**：CHANGELOG 17 筆紀錄中有 16 筆的 commit hash 指向 `--amend` 前的孤兒 commit——它們不在任何分支上，只靠本機 reflog 存活，`git gc` 之後就永久對應不回去；以 commit subject 1:1 比對後全數回填為 main 上的實際 hash，並改掉 `commit-and-push` skill 中造成此問題的 `--amend` 回填流程（改為兩段式 commit）
 - **影響檔案**：`CHANGELOG.md`、`.agent/skills/commit-and-push/SKILL.md`
-- **commit**：`(待回填)`
+- **commit**：`9072490`
 
 ---
 
