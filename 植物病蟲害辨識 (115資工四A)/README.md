@@ -9,7 +9,7 @@
 | [行動端應用程式開發](#行動端應用程式開發) | Flutter 專案結構、需求分析、UML |
 | [病蟲害辨識模型](#病蟲害辨識模型) | 模型訓練數據報告、YOLO26 各版本比較、v8/v5 比較、開發週報 |
 | [RAG向量資料庫](#rag向量資料庫) | 架構設計、提示詞、手機效能測試、SLM 微調與訓練資料集 |
-| [系統測試與評估](#系統測試與評估) | 各模型 TFLite FP16 benchmark 報告 |
+| [系統測試與評估](#系統測試與評估) | 各模型 TFLite benchmark 報告、匯出參數與行動端延遲掃描 |
 | [效能指標評估](#效能指標評估) | 影像辨識與 RAG/SLM 模組的效能指標定義 |
 | [資料集分析](#資料集分析) | 資料集統計報告 |
 | [參考文獻與參考資料](#參考文獻與參考資料) | 論文文獻、開源專案參考 |
@@ -44,6 +44,8 @@ App 需求、UML、Flutter 實作與整合；模型與 RAG 的內部設計不放
 
 [柑橘病蟲害辨識階段性進度週報（2026-08-25）](%E7%97%85%E8%9F%B2%E5%AE%B3%E8%BE%A8%E8%AD%98%E6%A8%A1%E5%9E%8B/20260825_weekly_report.md)
 
+[柑橘病蟲害辨識階段性進度週報（2026-09-07）](%E7%97%85%E8%9F%B2%E5%AE%B3%E8%BE%A8%E8%AD%98%E6%A8%A1%E5%9E%8B/20260907_weekly_report.md)
+
 ## RAG向量資料庫
 
 為 Android 裝置打造本地優先的向量資料庫與 RAG 系統，支援樹葉病蟲害辨識的語意搜尋、知識庫建立與離線使用。
@@ -75,6 +77,8 @@ App 需求、UML、Flutter 實作與整合；模型與 RAG 的內部設計不放
 [YOLO26-nano+P2 FP16 TFLite 行動端實機基準測試報告](%E7%B3%BB%E7%B5%B1%E6%B8%AC%E8%A9%A6%E8%88%87%E8%A9%95%E4%BC%B0/yolo26n_p2_fp16_benchmark.md)
 
 [全模型 TFLite Mobile Benchmark 效能測試報告](%E7%B3%BB%E7%B5%B1%E6%B8%AC%E8%A9%A6%E8%88%87%E8%A9%95%E4%BC%B0/all_models_tflite_benchmark.md)
+
+[YOLO26-nano-P2 匯出參數與行動端延遲全面掃描報告](%E7%B3%BB%E7%B5%B1%E6%B8%AC%E8%A9%A6%E8%88%87%E8%A9%95%E4%BC%B0/yolo26n_p2_export_params_benchmark.md)
 
 [行動端離線 RAG 與 LLM 效能測試報告 (含 4-Threads 與 6-Threads 完整數據)](%E7%B3%BB%E7%B5%B1%E6%B8%AC%E8%A9%A6%E8%88%87%E8%A9%95%E4%BC%B0/20260729_mobile_rag_benchmark.md)
 

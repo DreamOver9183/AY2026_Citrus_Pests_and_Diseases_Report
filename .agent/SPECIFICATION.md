@@ -136,6 +136,7 @@
 | --- | --- | --- |
 | `yolo26n_p2` | YOLO26-nano-P2 | `YOLO26_Nano_P2`、`YOLO26-nano-p2`、`yolo26-nano-p2`、`YOLO26n P2`、`YOLO26n-P2`、`YOLO26 Nano P2` |
 | `yolo26n` | YOLO26-nano | `YOLO26-nano`、`yolo26-nano`、`YOLO26n`、`YOLO26 Nano` |
+| `yolo26s_p2` | YOLO26-small-P2 | 2026-09-07 新增（v12s 模型容量探索），先前未出現過 |
 | `yolo26l` | YOLO26-large | `YOLO26-large` |
 | `ssd_mnv3_large` | SSD-MobileNetV3-large | `ssd_mobilenetv3_large`、`SSD-MobileNetV3-large` |
 | `ssd_mnv3_small` | SSD-MobileNetV3-small | `ssd_mobilenetv3_small`、`SSD-MobileNetV3-small` |
