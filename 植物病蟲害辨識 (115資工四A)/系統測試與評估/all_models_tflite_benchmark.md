@@ -31,7 +31,7 @@
 
 - **主題**: 多模型 TFLite 推論效能比較評測
 - **測試模型清單**:
-    - `yolo26n_p2_w8a32.tflite`
+    - `best_int8.tflite`
     - `ssd_mobilenetv3_large_fp16.tflite`
     - `ssd_mobilenetv3_large_fp32.tflite`
     - `ssd_mobilenetv3_small_fp16.tflite`
@@ -68,6 +68,7 @@
 >   該批次實際載入的是 `best_int8.tflite`，十個欄位無一相符（原記平均 16.53 ms / 60.50 FPS，
 >   實為 145.53 ms / 6.87 FPS）。log 只留下檔名與「輸入模型檔案大小 3.06 MB」，
 >   **不足以判定它對應哪一個訓練版本**，故此處僅照 log 記為 `best_int8.tflite`，不另標型號。
+>   同一個錯誤檔名另出現在 §3 測試模型清單與 §6 該批次 log 的區塊標題，一併更正。
 > - **第 2 列**：`ssd_mobilenetv3_large_fp16.tflite` 十個欄位中有八個與自己的 log 不符
 >   （其節點替代率 88.59% 是 fp32 那一列的值）。
 > - 其餘六列與各自的 log 相符，未更動。
@@ -88,7 +89,7 @@
 
 *(在此收錄每個模型透過 `adb logcat -d -s tflite` 產生的原始 Log 資訊，確保數據具備可追溯性。)*
 
-- **模型：yolo26n_p2_w8a32.tflite**
+- **模型：best_int8.tflite**
 
     ```
     07-14 13:14:52.097 22838 22838 I tflite  : Log parameter values verbosely: [0]
