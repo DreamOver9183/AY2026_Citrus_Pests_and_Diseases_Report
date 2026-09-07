@@ -35,7 +35,7 @@
 - **範圍**：內容
 - **摘要**：補完前一次更正漏掉的兩處。錯誤檔名 `yolo26n_p2_w8a32.tflite` 除了 §5 表格外，另出現在 §3 測試模型清單與 §6 該批次原始 log 的區塊標題，兩處都與已更正的 §5 及 log 內容（`Graph: [/data/local/tmp/best_int8.tflite]`）自相矛盾，一併改為 `best_int8.tflite`。更正註記同步補上這句說明。推送後在 GitHub 上逐段核對渲染時發現
 - **影響檔案**：`植物病蟲害辨識 (115資工四A)/系統測試與評估/all_models_tflite_benchmark.md`
-- **commit**：`(待回填)`
+- **commit**：`1b947d8`
 
 ---
 
