@@ -30,6 +30,15 @@
 
 ---
 
+## 2026-09-08 10:20 — Claude Code
+
+- **範圍**：內容
+- **摘要**：在 2026-09-07 週報新增 §5 歷史訓練成果總覽（v9 至 v12s），列出 test 與 valid 兩個 split 的 mAP50、mAP50-95、Precision、Recall 與 Detection Jaccard。數值全部回到各版本的存檔評估產物重新核對，未沿用二手彙整檔：v12s 的 test Jaccard（0.72737）與 v11 的 valid Jaccard（0.66056）為本次依存檔混淆矩陣新算；v11 的 test 混淆矩陣未存檔故三欄標示未存檔（其存檔的那份 GT 共 868 框，比對資料集後確認是 valid 而非 test）。表後補三節說明：Precision/Recall 取自 val()（conf 0.001）而 Jaccard 取自混淆矩陣（conf 0.25），兩者不同工作點不可互推；全表只有 v11.5 對 v12s 可直接相減；v9 的 mAP50 最高但不代表最好（v5r 有 13.4% 跨 split 近重複、只有 8 類且缺最弱的 Thrips_Damage、評估集本身換過）
+- **影響檔案**：`植物病蟲害辨識 (115資工四A)/病蟲害辨識模型/20260907_weekly_report.md`
+- **commit**：`(待回填)`
+
+---
+
 ## 2026-09-07 21:40 — Claude Code
 
 - **範圍**：內容
