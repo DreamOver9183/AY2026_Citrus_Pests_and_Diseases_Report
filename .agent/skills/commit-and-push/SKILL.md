@@ -106,7 +106,7 @@ CHANGELOG 只會愈長，過長會吃掉 agent 的上下文、干擾全文檢索
 git push origin main
 ```
 
-遠端：`https://github.com/DreamOver9183/AY2026_Citrus_Pests_and_Diseases_Report`
+遠端：`https://github.com/OneLeaf-dx/report`（2026-09-10 由 `DreamOver9183/AY2026_Citrus_Pests_and_Diseases_Report` 轉入組織並改名，舊網址自動轉址）
 
 **推送前必須取得使用者確認。** 這是團隊共用的公開 repo，推上去等於發佈。
 

@@ -30,6 +30,15 @@
 
 ---
 
+## 2026-09-10 18:37 — Claude Code
+
+- **範圍**：規則文件
+- **摘要**：本 repo 已由個人帳號 `DreamOver9183/AY2026_Citrus_Pests_and_Diseases_Report` 轉移到團隊組織並改名為 `OneLeaf-dx/report`，把 commit-and-push skill 裡「推送」一節記載的遠端網址改成新位置。轉移是 GitHub 官方功能，完整保留 commit 歷史，舊網址自動 301 轉址，因此本檔以外沒有任何連結需要改；外部協作者 `Wen1045`（write）的權限在轉移後保留。全庫只有這一處硬編碼舊網址（`git grep DreamOver9183` 僅此一筆）。組員本機需各自執行一次 `git remote set-url origin https://github.com/OneLeaf-dx/report.git`
+- **影響檔案**：`.agent/skills/commit-and-push/SKILL.md`
+- **commit**：`(待回填)`
+
+---
+
 ## 2026-09-08 16:30 — Claude Code
 
 - **範圍**：內容
