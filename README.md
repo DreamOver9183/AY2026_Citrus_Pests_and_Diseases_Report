@@ -1,10 +1,20 @@
-# 植物病蟲害辨識 (115 資工四A)
+# 一葉知病 OneLeaf — 研究報告
 
-柑橘病蟲害辨識專題的完整研究報告。系統採**端側離線優先**設計，三大模組如下：
+柑橘病蟲害辨識專題「**一葉知病**」（115 資工四A）的完整研究報告。
+系統採**端側離線優先**設計，三大模組如下：
 
 - **影像辨識**：以 YOLO26 系列（含 Nano / Nano-P2 / Large）訓練柑橘葉部病蟲害偵測模型，量化為 TFLite FP16 後部署至手機。
 - **RAG 向量資料庫**：SQLite + FTS5 + sqlite-vec 建構本地向量檢索，搭配 LLaMA-Factory 微調的 Qwen2.5-0.5B GGUF 小語言模型，離線產生防治建議。
 - **行動端應用程式**：以 Flutter 開發 Android / iOS App，整合上述兩個模組。
+
+| 這個專題的其他部分 | |
+| --- | --- |
+| **影像辨識模型的程式碼** | [`OneLeaf-dx/detection`](https://github.com/OneLeaf-dx/detection) —— YOLO 訓練、評估與手機端延遲量測 |
+| **組織首頁** | [`OneLeaf-dx`](https://github.com/OneLeaf-dx) |
+
+> 本庫原本掛在個人帳號下，2026-09-10 轉入組織並改名為 `report`。
+> 舊網址會自動轉址，但請把本機 remote 換成新的：
+> `git remote set-url origin https://github.com/OneLeaf-dx/report.git`
 
 ## 從哪裡開始讀
 
